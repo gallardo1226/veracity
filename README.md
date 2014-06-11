@@ -1,0 +1,4 @@
+veracity
+========
+
+Veracity Magazine Website
