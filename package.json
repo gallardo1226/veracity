@@ -1,0 +1,9 @@
+{
+  "name": "veracity",
+  "description": "veracity magazine website",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": ">=4.0"
+  }
+}
