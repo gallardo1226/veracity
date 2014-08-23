@@ -1,7 +1,17 @@
 doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+html(lang="en")
+	head
+		//link css and javascript files in head.jade
+		include partials/page/head
+	body
+		//header.jade is logo, nav bar
+		include ./partials/page/header
+		//every page starts with .container,
+		//no need to put on any other page
+		.container
+			block content
+		//footer.jade is copyright info, more links
+		include ./partials/page/footer
+		//bootstrap/jquery already in jsdefaults.jade
+		//add any other packages we need
+		include ./partials/page/jsdefaults
