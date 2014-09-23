@@ -2,33 +2,44 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-.navbar-wrapper ul {
+
+.menu ul {
 	margin: 0;
-	padding: .8em 0em .8em;
+	padding: .3em 0em .3em;
 	list-style-type: none;
-	text-align: center;
-	background-color: black;
+	background-color: #EBEBEB
+;
 }
-.navbar-wrapper ul li {
+.menu ul li {
 	display: inline;
 }
-.navbar-wrapper ul li a {
-	text-decoration: none;
-	padding: 10em 3em;
-	color: white;
+.menu ul li a {
+	font-family: serif; 
+	font-size: 12px;
+	padding: 0em 2em 0em 2em;
 }
-footer ul {
-		margin: 0;
-	padding: .8em 0em .8em;
+.menu .bottom
+{
+	text-align: center;
+}
+
+#logo p {
+	text-align: center;
+	padding: 1em;
+	font-size: 50px;
+	margin: 0;
+}
+
+.mainNav ul {
+	margin: 0;
+	padding: 0em 0em .8em;
 	list-style-type: none;
 	text-align: center;
-	background-color: black;
 }
-footer ul li {
+.mainNav ul li {
 	display: inline;
 }
-footer ul li a {
+.mainNav ul li a {
 	text-decoration: none;
-	padding: 10em 3em;
-	color: white;
+	padding: 5em 3em;
 }
