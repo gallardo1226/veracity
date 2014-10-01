@@ -1,5 +1,28 @@
 extends layout
 append content
-	div
-		h1= title
-		p Welcome to #{title}
+	.container
+		#carousel
+			.carousel.slide(data-ride="carousel")
+				.carousel-inner
+					.item.active
+						img(src="http://placehold.it/1200x400/b4d9a7/ffffff&text=Company Information" alt="First Slide")
+						.carousel-caption
+							h3 First Slide 
+							p slkdjf lkajsdf lkjbajfdoijeroj glah 
+					.item
+						img(src="http://placehold.it/1200x400/4f77cb/ffffff&text=Social" alt="Second Slide")
+						.carousel-caption
+							h3 Second Slide
+							p slkdjf lkajsdf lkjbajfdoijeroj glah 
+					.item
+						img(src="http://placehold.it/1200x400/d11e4f/ffffff&text=Portfolio" alt="Third Slide")
+						.carousel-caption
+							h3 Third Slide
+							p slkdjf lkajsdf lkjbajfdoijeroj glah 
+				ul.nav.nav-pills.nav-justified
+					li.active(data-target="#carousel", data-slide-to="0")
+						a(href="#") First Slide
+					li(data-target="#carousel", data-slide-to="1")
+						a(href="#") Second Slide
+					li(data-target="#carousel", data-slide-to="2")
+						a(href="#") Third Slide

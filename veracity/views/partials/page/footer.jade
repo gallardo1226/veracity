@@ -1,10 +1,15 @@
-footer
-	.menu
-		.bottom
-			ul
-				li: a About Us
-				li: a Contact Us
-	#social
-		#facebook
-		#twitter
-		#instagram
+#footer
+	nav.navbar.navbar-inverse.navbar-fixed-bottom(role="navigation")
+		.container-fluid
+			.navbar-header
+				button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#bs-example-navbar-collapse-1")
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+			.collapse.navbar-collapse#bs-example-navbar-collapse-1
+				ul.nav.navbar-nav
+					li.active
+						a(href="#") About Us
+					li
+						a(href="#") Contact Us
