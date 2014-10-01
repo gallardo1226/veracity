@@ -5,9 +5,6 @@ body {
 a {
   color: #00b7ff;
 }
-#logo h1 {
-	text-align: center;
-}
 #carousel body {
     padding-top: 20px;
 }
@@ -28,4 +25,7 @@ a {
 }
 .nav-pills > li[data-slide-to="2"].active a {
     background-color: #d11e4f;
+}
+#logo h1 {
+	text-align: center;
 }
