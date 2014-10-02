@@ -1,4 +1,3 @@
-<script type="text/javascript">
     jQuery(function ($) {
         $('#carousel').carousel({
             interval: 2000
@@ -23,4 +22,3 @@
             clickEvent = false;
         });
     });
-</script>
