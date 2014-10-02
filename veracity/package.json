@@ -15,7 +15,8 @@
     "jade": "~1.3.0",
     "stylus": "0.42.3",
     "mongodb": "*",
-    "monk": "*"
+    "monk": "*",
+    "mongoose": "*"
   },
   "main": "app.js",
   "devDependencies": {},
