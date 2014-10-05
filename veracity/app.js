@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var monk = require('monk');
-
+var password = require('password-hash');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/veracity');
 var db = mongoose.connection;

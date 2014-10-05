@@ -16,7 +16,8 @@
     "stylus": "0.42.3",
     "mongodb": "*",
     "monk": "*",
-    "mongoose": "*"
+    "mongoose": "~3.8.17",
+    "password-hash": "*"
   },
   "main": "app.js",
   "devDependencies": {},
