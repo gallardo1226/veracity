@@ -1,0 +1,14 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00b7ff;
+}
+header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+header .navbar .container-fluid { height: 28px; }
