@@ -7,23 +7,23 @@ router.get('/', function(req, res) {
 });
 
 router.get('/about', function(req, res) {
-	res.render('about', { title: 'About Us' })
+	res.render('partials/about', { title: 'About Us' })
 });
 
 router.get('/contact', function(req, res) {
-	res.render('contact', { title: 'Contact Us' })
+	res.render('partials/contact', { title: 'Contact Us' })
 });
 
 router.get('/campuslife', function(req, res) {
-	res.render('campus_life', { title: 'Campus Life' })
+	res.render('partials/campus_life', { title: 'Campus Life' })
 });
 
 router.get('/journey', function(req, res) {
-	res.render('journey', { title: 'Journey' })
+	res.render('partials/journey', { title: 'Journey' })
 });
 
 router.get('/lifeandculture', function(req, res) {
-	res.render('life_and_culture', { title: 'Life and Culture' })
+	res.render('partials/life_and_culture', { title: 'Life and Culture' })
 });
 
 module.exports = router;
