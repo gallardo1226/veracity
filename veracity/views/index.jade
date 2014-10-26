@@ -1,34 +1,34 @@
 extends layout
 block content
-	#myCarousel
-		.carousel.slide(data-ride="carousel")
-			ol.carousel-indicators
-				li.active(data-target="#myCarousel", data-slide-to="0")
-				li(data-target="#myCarousel", data-slide-to="1")
-				li(data-target="#myCarousel", data-slide-to="2")
-			.carousel-inner
-				.item.active
-					img(src="/images/1200x400.jpg", alt="First Slide")
-					.container
-						.carousel-caption
-							h1 Example headline #1
-							p First slide
-				.item
-					img(src="/images/1200x400.jpg", alt="Second Slide")
-					.container
-						.carousel-caption
-							h1 Example headline #2
-							p Second slide
-				.item
-					img(src="/images/1200x400.jpg", alt="Third Slide")
-					.container
-						.carousel-caption
-							h1 Example headline #3
-							p Third slide
-			a.left.carousel-control(href="#myCarousel", role="button", data-slide="prev")
-				span.glyphicon.glyphicon-chevron-left
-			a.right.carousel-control(href="#myCarousel", role="button", data-slide="next")
-				span.glyphicon.glyphicon-chevron-right
+
+	#myCarousel.carousel.slide(data-ride="carousel")
+		ol.carousel-indicators
+			li.active(data-target="#myCarousel", data-slide-to="0")
+			li(data-target="#myCarousel", data-slide-to="1")
+			li(data-target="#myCarousel", data-slide-to="2")
+		.carousel-inner
+			.item.active
+				img(src="/images/1200x400.jpg", alt="First Slide")
+				.container
+					.carousel-caption
+						h1 Example headline #1
+						p First slide
+			.item
+				img(src="/images/1200x400.jpg", alt="Second Slide")
+				.container
+					.carousel-caption
+						h1 Example headline #2
+						p Second slide
+			.item
+				img(src="/images/1200x400.jpg", alt="Third Slide")
+				.container
+					.carousel-caption
+						h1 Example headline #3
+						p Third slide
+		a.left.carousel-control(href="#myCarousel", role="button", data-slide="prev")
+			span.glyphicon.glyphicon-chevron-left
+		a.right.carousel-control(href="#myCarousel", role="button", data-slide="next")
+			span.glyphicon.glyphicon-chevron-right
 	hr
 	.row
 		h3 Featured Stories
