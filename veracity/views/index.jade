@@ -1,28 +1,90 @@
 extends layout
-append content
-	.container
-		#carousel
-			.carousel.slide(data-ride="carousel")
-				.carousel-inner
-					.item.active
-						img(src="http://placehold.it/1200x400/b4d9a7/ffffff&text=Company Information" alt="First Slide")
+block content
+	#myCarousel
+		.carousel.slide(data-ride="carousel")
+			ol.carousel-indicators
+				li.active(data-target="#myCarousel", data-slide-to="0")
+				li(data-target="#myCarousel", data-slide-to="1")
+				li(data-target="#myCarousel", data-slide-to="2")
+			.carousel-inner
+				.item.active
+					img(src="/images/1200x400.jpg", alt="First Slide")
+					.container
 						.carousel-caption
-							h3 First Slide 
-							p slkdjf lkajsdf lkjbajfdoijeroj glah 
-					.item
-						img(src="http://placehold.it/1200x400/4f77cb/ffffff&text=Social" alt="Second Slide")
+							h1 Example headline #1
+							p First slide
+				.item
+					img(src="/images/1200x400.jpg", alt="Second Slide")
+					.container
 						.carousel-caption
-							h3 Second Slide
-							p slkdjf lkajsdf lkjbajfdoijeroj glah 
-					.item
-						img(src="http://placehold.it/1200x400/d11e4f/ffffff&text=Portfolio" alt="Third Slide")
+							h1 Example headline #2
+							p Second slide
+				.item
+					img(src="/images/1200x400.jpg", alt="Third Slide")
+					.container
 						.carousel-caption
-							h3 Third Slide
-							p slkdjf lkajsdf lkjbajfdoijeroj glah 
-				ul.nav.nav-pills.nav-justified
-					li.active(data-target="#carousel", data-slide-to="0")
-						a(href="#") First Slide
-					li(data-target="#carousel", data-slide-to="1")
-						a(href="#") Second Slide
-					li(data-target="#carousel", data-slide-to="2")
-						a(href="#") Third Slide
+							h1 Example headline #3
+							p Third slide
+			a.left.carousel-control(href="#myCarousel", role="button", data-slide="prev")
+				span.glyphicon.glyphicon-chevron-left
+			a.right.carousel-control(href="#myCarousel", role="button", data-slide="next")
+				span.glyphicon.glyphicon-chevron-right
+	hr
+	.row
+		h3 Featured Stories
+	#stories
+		.row
+			.col-md-6.col-md-4
+				.thumbnail
+					img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Journey
+						h4 story number 1 title goes here
+						p blah blah blah 
+						p
+							a.btn.btn-default(href="#", role="button") read more
+			.col-md-6.col-md-4
+				.thumbnail
+					img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Journey
+						h4 story number 2 title goes here
+						p blah blah blah 
+						p
+							a(href="#") read more
+			.col-md-6.col-md-4
+				.thumbnail
+					img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Campus Life
+						h4 story number 3 title goes here
+						p blah blah blah 
+		.row
+			.col-md-6.col-md-4
+				.thumbnail
+					img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Journey
+						h4 story number 1 title goes here
+						p blah blah blah 
+						p
+							a.btn.btn-default(href="#", role="button") read more
+			.col-md-6.col-md-4
+				.thumbnail
+					img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Journey
+						h4 story number 2 title goes here
+						p blah blah blah 
+						p
+							a(href="#") read more
+			.col-md-6.col-md-4
+				.thumbnail
+					img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Campus Life
+						h4 story number 3 title goes here
+						p blah blah blah 
+	hr
+	.row
+		h3 something else here

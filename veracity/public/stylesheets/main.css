@@ -1,5 +1,6 @@
 body {
-  padding: 50px;
+  padding-top: 50px;
+  padding-bottom: 70px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 a {
@@ -11,4 +12,26 @@ header {
 	left: 0;
 	width: 100%;
 }
-header .navbar .container-fluid { height: 28px; }
+#logo h1 {
+	text-align: center;
+	padding-bottom: 20px;
+}
+#stories .thumbnail {
+	border: hidden;
+}
+.row h3 {
+	text-align: center;
+	padding-bottom: 20px; 
+}
+#myCarousel {
+	padding-top: 20px;
+}
+.navbar-nav > li > a {
+	padding-top: 5px !important; padding-bottom: 5px !important;
+}
+.navbar {
+	min-height: 30px !important
+}
+#mainNav .navbar-default {
+	background-color: transparent !important;
+}
