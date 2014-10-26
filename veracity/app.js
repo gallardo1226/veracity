@@ -6,13 +6,15 @@ var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var monk = require('monk');
 var password = require('password-hash');
-var mongoose = require('mongoose');
+var moment = require('moment');
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    relationship = require('mongoose-relationship');
 mongoose.connect('mongodb://localhost:27017/veracity');
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
-    var Schema = mongoose.Schema;
 
     var userSchema = mongoose.Schema({
         name: {
@@ -20,13 +22,17 @@ db.once('open', function callback () {
             last: String
         },
         email: String,
+        password: String,
         admin: Boolean,
+        articles: [{type:Schema.ObjectId, ref: "Article"}],
         create_time: { type: Date, default: Date.now },
         update_time: { type: Date, default: Date.now }
     });
 
+    var User = mongoose.model('User', userSchema);
+
     var articleSchema = mongoose.Schema({
-        author_id: { type: Object, ref: 'userSchema' },
+        author: { type:Schema.ObjectId, ref: 'User',  childPath:"articles" },
         section: String,
         title: String,
         body: String,
@@ -35,7 +41,7 @@ db.once('open', function callback () {
         update_time: { type: Date, default: Date.now }
     });
 
-    var User = mongoose.model('User', userSchema);
+    articleSchema.plugin(relationship, { relationshipPathName:"author" });
 
     var Article = mongoose.model('Article', articleSchema);
 
@@ -51,17 +57,6 @@ db.once('open', function callback () {
         var split = name.split(' ');
         this.name.first = split[0];
         this.name.last = split[1];
-    });
-
-    var test = new User({
-        name: {first: 'Noah', last: 'Conley'},
-        email: 'noahkconley@gmail.com',
-        admin: true
-    });
-
-    test.save(function(err, test) {
-        if (err) return console.error(err);
-        console.log(test.name.full);
     });
 });
 

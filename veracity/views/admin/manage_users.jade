@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+	.row
+		h1.col-sm-4.col-sm-offset-1= title
+		#message.col-sm-10.col-sm-offset-1
+		include ./_add_user
+		.col-sm-10.col-sm-offset-1#users
+			table.table.table-hover
+				thead
+					tr
+						th Name
+						th Email
+						th Date Added
+						th Administrator
+						th
+						th
+						th
+				tbody
+					each user, i in userlist
+						tr
+							td #{user.name.full}
+							td #{user.email}
+							td #{user.create_time.toDateString()}
+							if user.admin
+								td Yes
+								td
+									button.btn.btn-default.btn-sm.demote(value='#{user._id}') Demote
+							else
+								td No
+								td
+									button.btn.btn-default.btn-sm.promote(value='#{user._id}') Promote
+							td
+								button.btn.btn-danger.btn-sm.remove(value='#{user._id}') Remove 

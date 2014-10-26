@@ -17,7 +17,9 @@
     "mongodb": "*",
     "monk": "*",
     "mongoose": "~3.8.17",
-    "password-hash": "*"
+    "mongoose-relationship": "*",
+    "password-hash": "*",
+    "moment": "*",
   },
   "main": "app.js",
   "devDependencies": {},
