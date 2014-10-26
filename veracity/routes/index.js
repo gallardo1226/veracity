@@ -19,7 +19,7 @@ router.get('/campuslife', function(req, res) {
 });
 
 router.get('/journey', function(req, res) {
-	res.render('partials/journey', { title: 'Journey' })
+	res.render('./partials/journey', { title: 'Journey' })
 });
 
 router.get('/lifeandculture', function(req, res) {
