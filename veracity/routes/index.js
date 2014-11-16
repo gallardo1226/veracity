@@ -14,8 +14,8 @@ router.get('/contact', function(req, res) {
 	res.render('partials/contact', { title: 'Contact Us' })
 });
 
-router.get('/campuslife', function(req, res) {
-	res.render('partials/campus_life', { title: 'Campus Life' })
+router.get('/campus', function(req, res) {
+	res.render('partials/campus', { title: 'Campus' })
 });
 
 router.get('/journey', function(req, res) {
