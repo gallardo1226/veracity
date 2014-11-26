@@ -44,7 +44,7 @@ Thumbs.db
 
 # Node Specific #
 #################
-node_modules
+node_modules/
 
 pids
 logs

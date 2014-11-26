@@ -18,7 +18,7 @@
     "monk": "*",
     "mongoose": "~3.8.17",
     "mongoose-relationship": "*",
-   "bcrypt-nodejs": "*",
+    "bcrypt-nodejs": "*",
     "moment": "*",
     "password-generator": "*",
     "connect-mongo": "*",
