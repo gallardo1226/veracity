@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+	.row.text-center
+		h1.col-sm-4.col-sm-offset-4=title
+	.row
+		.col-sm-4.col-sm-offset-4.well
+			form.form-horizontal(role="form", action="/user/login", method="post", name="login")
+				.form-group
+					label.col-sm-4.control-label(for="email") Email:
+					.col-sm-8
+						input.form-control#email(type="email", name="useremail")
+				.form-group
+					label.col-sm-4.control-label(for="password") Password:
+					.col-sm-8
+						input.form-control#password(type="password", name="userpassword")
+				.form-group
+					.col-sm-8.col-sm-offset-4
+						.checkbox
+							input(type="checkbox", name="userremember")
+							|Remember Me
+				.form-group
+					.col-sm-8.col-sm-offset-4
+						button.btn.btn-default(type="submit") Sign In

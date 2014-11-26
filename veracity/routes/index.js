@@ -3,8 +3,27 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Home' });
+    // console.log("global load");
+    res.render('index', { title: 'About Us' });
+    // var previous      = req.session.value || 0;
+    // req.session.value = previous + 1;
+    // res.end('<h1>Previous value: ' + previous + '</h1>');
+    // res.send(req.session);
 });
+
+router.get("/request",function(req,res){
+    console.log("request received");
+    console.log(req.session);
+    var m=req.session.isLogged || 0;
+    req.session.isLogged = m+1;
+    console.log(req.session.isLogged);
+});
+
+router.get("/getsession",function(req,res){
+    console.log("getsession received");
+    console.log(req.session);
+    console.log(req.session.isLogged);
+})
 
 router.get('/about', function(req, res) {
 	res.render('public/about', { title: 'About Us' });

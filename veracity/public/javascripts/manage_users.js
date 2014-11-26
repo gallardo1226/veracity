@@ -6,10 +6,38 @@ $(document).ready(function() {
 			$('#btnSubmit').attr('disabled', false);
 	});
 
+	$('#btnSubmit').click(function(event) {
+		if (!/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/.test($('#inputEmail').val())) {
+			event.preventDefault();
+			$('#message').append('<div class="alert alert-warning" role="alert">Email address is invalid').hide().slideDown().delay('3000').slideUp(function() {
+					$('.alert').remove();
+				});
+		}
+	});
+
+	$('#users').on('click', '.reset', function() {
+		id = $(this).val();
+		$.ajax({
+			type: 'POST',
+			url: '/admin/resetpassword',
+			data: {id:id},
+			success: function(data) {
+				$('#message').append('<div class="alert alert-success" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
+					$('.alert').remove();
+				});
+			},
+			error: function(data) {
+				$('#message').append('<div class="alert alert-danger" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
+					$('.alert').remove();
+				});
+			}
+		});
+	});
+
 	$('#users').on('click', '.remove', function() {
+		$(this).after('<div class="temp"><div class="btn-group"><button class="btn btn-sm btn-success confirm"><span class="glyphicon glyphicon-ok"</span></button><button class="btn btn-sm btn-danger cancel"><span class="glyphicon glyphicon-remove"</span></button></div></div>');
 		$(this).slideUp(function() {
-			$(this).after('<span class="temp">Are you sure? <div class="btn-group"><button class="btn btn-sm btn-warning confirm">Yes</button><button class="btn btn-sm btn-primary cancel">No</button></div></span>');
-			$('.temp').hide().slideDown();
+			$('.temp').slideDown();
 		});
 	});
 

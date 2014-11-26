@@ -1,17 +1,23 @@
 var express = require('express');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var monk = require('monk');
-var password = require('password-hash');
-var moment = require('moment');
+var secret = require('password-generator');
+
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     relationship = require('mongoose-relationship');
 mongoose.connect('mongodb://localhost:27017/veracity');
 var db = mongoose.connection;
+db.on('open', function () {
+    app.listen(3002);
+    console.log("connection open");
+});
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
@@ -60,14 +66,26 @@ db.once('open', function callback () {
     });
 });
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var admin = require('./routes/admin');
-
 var app = express();
 
+app.use(cookieParser);
+// app.use(session({
+//     store: new MongoStore({
+//         db: 'veracity',
+//         collection: 'sessions',
+//     }),
+//     resave: false,
+//     saveUninitialized: true,
+//     secret: secret(20, false),
+//     maxAge: new Date(Date.now() + 3600000)
+// }));
+
+var route = require('./routes/index');
+var user = require('./routes/user');
+var admin = require('./routes/admin');
+
 var server = app.listen(3000, function() {
-    console.log('Listening on port %d', server.address().port)
+    console.log('Listening on port %d', server.address().port);
 })
 
 // view engine setup
@@ -85,8 +103,8 @@ app.use(function(req,res,next){
     next();
 });
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/', route);
+app.use('/user', user);
 app.use('/admin', admin);
 
 /// catch 404 and forward to error handler
@@ -119,6 +137,4 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
-
 module.exports = app;
