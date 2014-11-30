@@ -14,62 +14,64 @@ router.get('/contact', function(req, res) {
 	res.render('public/contact', { title: 'Contact Us' });
 });
 
-router.get('/campus', function(req, res) {
-    var db = req.db;
-    Article = db.model('Article');
-    articlelist = Article.find({section: 'Campus'}).skip(1);
-    featured = Article.findOne({section: 'Campus'});
-    sidebar = Article.findOne({section: 'Gray Area'});
-	res.render('public/section', { 
-        section_title: 'Campus',
-        sub_section_title: 'Gray Area',
-        'articlelist': articlelist,
-        'featured': featured,
-        'sidebar': sidebar
-    });
-});
+// router.get('/campus', function(req, res) {
+//     var db = req.db;
+//     Article = db.model('Article');
+//     articlelist = Article.find({section: 'Campus'}).skip(1);
+//     featured = Article.findOne({section: 'Campus'});
+//     sidebar = Article.findOne({section: 'Gray Area'});
+// 	res.render('public/section', { 
+//         section_title: 'Campus',
+//         sub_section_title: 'Gray Area',
+//         'articlelist': articlelist,
+//         'featured': featured,
+//         'sidebar': sidebar
+//     });
+// });
 
-router.get('/journey', function(req, res) {
-    var db = req.db;
-    Article = db.model('Article');
-    articlelist = Article.find({section: 'Journey'}).skip(1);
-    featured = Article.findOne({section: 'Journey'});
-    sidebar = Article.findOne({section: 'Bloom'});
-    res.render('public/section', { 
-        section_title: 'Journey',
-        sub_section_title: 'Bloom',
-        'articlelist': articlelist,
-        'featured': featured,
-        'sidebar': sidebar
-    });
-});
+// router.get('/journey', function(req, res) {
+//     var db = req.db;
+//     Article = db.model('Article');
+//     articlelist = Article.find({section: 'Journey'}).skip(1);
+//     featured = Article.findOne({section: 'Journey'});
+//     sidebar = Article.findOne({section: 'Bloom'});
+//     res.render('public/section', { 
+//         section_title: 'Journey',
+//         sub_section_title: 'Bloom',
+//         'articlelist': articlelist,
+//         'featured': featured,
+//         'sidebar': sidebar
+//     });
+// });
 
-router.get('/lifeandculture', function(req, res) {
+// router.get('/lifeandculture', function(req, res) {
 	
-    var db = req.db;
-    Article = db.model('Article');
-    articlelist = Article.find({section: 'Life &amp; Culture'}).skip(1);
-    featured = Article.findOne({section: 'Life &amp; Culture'});
-    sidebar = Article.findOne({section: 'Vera in the City'});
-    res.render('public/section', { 
-        section_title: 'Life &amp; Culture',
-        sub_section_title: 'Vera in the City',
-        'articlelist': articlelist,
-        'featured': featured,
-        'sidebar': sidebar
-    });
-});
+//     var db = req.db;
+//     Article = db.model('Article');
+//     articlelist = Article.find({section: 'Life &amp; Culture'}).skip(1);
+//     featured = Article.findOne({section: 'Life &amp; Culture'});
+//     sidebar = Article.findOne({section: 'Vera in the City'});
+//     res.render('public/section', { 
+//         section_title: 'Life &amp; Culture',
+//         sub_section_title: 'Vera in the City',
+//         'articlelist': articlelist,
+//         'featured': featured,
+//         'sidebar': sidebar
+//     });
+// });
 
-router.get('/article', function(req, res) {
-    var db = req.db;
-    Article = db.model('Article');
-    Article.find({_id: req.param('id')}, function(err, article) {
-        if (err)
-            res.send(500, 'Article could not be found');
-        res.render('public/article', {
-            'article': article
-        });
-    });
-});
+// router.get('/article', function(req, res) {
+//     var db = req.db;
+//     Article = db.model('Article');
+//     Article.find({_id: req.param('id')}, function(err, article) {
+//         if (err)
+//             res.send(500, 'Article could not be found');
+//         else {
+//             res.render('public/article', {
+//                 'article': article
+//             });
+//         }
+//     });
+// });
 
 module.exports = router;

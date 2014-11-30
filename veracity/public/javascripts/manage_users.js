@@ -79,7 +79,7 @@ $(document).ready(function() {
 			url: '/admin/updatestatus',
 			data: {id:id, status:false},
 			success: function(data) {
-				t.text('Promote').addClass('promote').removeClass('demote');
+				t.text('Promote').addClass('promote btn-success').removeClass('demote btn-info');
 				t.parent().prev().text('No');
 			},
 			error: function(data) {
@@ -99,7 +99,7 @@ $(document).ready(function() {
 			data: {id:id, status:true},
 			success: function(data) {
 				console.log('success');
-				t.text('Demote').addClass('demote').removeClass('promote');
+				t.text('Demote').addClass('demote btn-info').removeClass('promote btn-success');
 				t.parent().prev().text('Yes');
 			},
 			error: function(data) {

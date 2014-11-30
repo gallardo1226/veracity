@@ -4,8 +4,8 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+// var session = require('express-session');
+// var MongoStore = require('connect-mongo')(session);
 var mongo = require('mongodb');
 var monk = require('monk');
 var secret = require('password-generator');
@@ -16,7 +16,7 @@ var mongoose = require('mongoose'),
 mongoose.connect('mongodb://localhost:27017/veracity');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback () {
+db.once('open', function() {
     console.log("connection open");
 
     var userSchema = mongoose.Schema({
@@ -24,7 +24,7 @@ db.once('open', function callback () {
             first: String,
             last: String
         },
-        img: { data: Buffer, contentType: String },
+        // img: { data: Buffer, contentType: String },
         email: String,
         password: String,
         admin: Boolean,
@@ -37,7 +37,7 @@ db.once('open', function callback () {
 
     var articleSchema = mongoose.Schema({
         author: { type:Schema.ObjectId, ref: 'User',  childPath:"articles" },
-        img: { data: Buffer, contentType: String }
+        // img: { data: Buffer, contentType: String },
         section: String,
         title: String,
         body: String,
@@ -100,6 +100,7 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req,res,next){
     req.db = db;
+    next();
 });
 
 app.use('/', route);
