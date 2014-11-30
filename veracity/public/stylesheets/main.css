@@ -1,10 +1,18 @@
 @font-face {
 	font-family: 'Bebas Neue';
 	src: url('/fonts/bebas-neue/BebasNeue.otf');
+}
+@font-face {
 	font-family: 'Verlag Book';
 	src: url('/fonts/verlag/Verlag-Book.otf');
-	/*font-family: 'Minion Pro';
-	src: url('/fonts/minion-pro/MinionPro-Regular.otf');*/
+}	
+@font-face {
+	font-family: 'Verlag Book Italic';
+	src: url('/fonts/verlag/Verlag-BookItalic.otf');
+}
+@font-face {
+	font-family: 'Minion Pro';
+	src: url('/fonts/minion-pro/MinionPro-Regular.otf');
 }
 body {
   padding-top: 50px;
@@ -28,21 +36,25 @@ header {
 #logo {
 	text-align: center;
 	padding-top: 20px;
+	padding-bottom: 15px;
 	margin: 0 auto;
 }
 #stories .thumbnail {
+	padding-top: 10px;
 	border: hidden;
+	background-color: transparent !important;
 }
-/*.nav .navbar-nav {
-	min-height: 30px !important
-}*/
 #topNav ul li {
 	font-size: 16px;
 }
-/*#topNav li .fa .fa-facebook {
-	color: white;
-}*/
-#mainNav .navbar-default {
+#topNav .navbar-nav > li > a {
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+}
+#topNav .navbar {
+	min-height: 32px !important;
+}
+.navbar-default {
 	background-color: transparent !important;
 }
 #mainNav .navbar-default .navbar-nav {
