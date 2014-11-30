@@ -1,13 +1,14 @@
 var express = require('express');
-// var session = require('express-session');
-// var MongoStore = require('connect-mongo')(session);
 var path = require('path');
+// var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var mongo = require('mongodb');
 var monk = require('monk');
-// var secret = require('password-generator');
+var secret = require('password-generator');
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
@@ -23,6 +24,7 @@ db.once('open', function callback () {
             first: String,
             last: String
         },
+        img: { data: Buffer, contentType: String },
         email: String,
         password: String,
         admin: Boolean,
@@ -35,6 +37,7 @@ db.once('open', function callback () {
 
     var articleSchema = mongoose.Schema({
         author: { type:Schema.ObjectId, ref: 'User',  childPath:"articles" },
+        img: { data: Buffer, contentType: String }
         section: String,
         title: String,
         body: String,
@@ -62,9 +65,26 @@ db.once('open', function callback () {
     });
 });
 
+var route = require('./routes/index');
+var user = require('./routes/user');
+var admin = require('./routes/admin');
+
 var app = express();
 
-app.use(cookieParser);
+var server = app.listen(3000, function() {
+    console.log('Listening on port %d', server.address().port)
+})
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// uncomment after placing your favicon in /public
+// app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(cookieParser());
 // app.use(session({
 //     store: new MongoStore({
 //         db: 'veracity',
@@ -73,31 +93,13 @@ app.use(cookieParser);
 //     resave: false,
 //     saveUninitialized: true,
 //     secret: secret(20, false),
-//     maxAge: new Date(Date.now() + 3600000)
+//     cookie: { secure: true }
 // }));
 
-var route = require('./routes/index');
-var user = require('./routes/user');
-var admin = require('./routes/admin');
-
-var server = app.listen(3000, function() {
-    console.log('Listening on port %d', server.address().port);
-})
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req,res,next){
     req.db = db;
-    next();
 });
 
 app.use('/', route);
@@ -134,4 +136,7 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
 module.exports = app;
+

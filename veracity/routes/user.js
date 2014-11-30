@@ -4,24 +4,56 @@ var bcrypt = require('bcrypt-nodejs');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
+    if (req.session) {
+        db = req.db;
+        User = db.model('User');
+        User.find({_id: req.session.user_id}, function(err, user) {
+            if (!err) {
+                res.location("dashboard");
+                res.redirect("dashboard" + req.session.user_id);
+            } 
+        });
+    }
     res.location("login");
     res.redirect("login");
 });
 
 router.get('/login', function(req, res) {
-    req.session.lastPage = '/login';
-	res.render('user/login', { title: 'Veracity Staff Login'});
+    if req.session {
+        db = req.db;
+        User = db.model('User');
+        User.find({_id: req.session.user_id}, function(err, user) {
+            if (!err) {
+                res.location("dashboard");
+                res.redirect("dashboard" + req.session.user_id);
+            } 
+        });
+    }
+    res.render('user/login', { title: 'Veracity Staff Login'});
 });
 
 router.post('/login', function(req, res) {
-    // Set our internal DB variable
     db = req.db;
     User = db.model('User');
     User.find({email: req.body.useremail}, function(err, user) {
-    	bcrypt.compare(req.body.userpassword, user.password, function(err, res) {
-    		
-		});
+        if (err)
+            res.send('Login failed: could not find user');
+        else{
+            bcrypt.compare(req.body.userpassword, user.password, function(err, res) {
+                if (err)
+                    res.send('Login failed: incorrect password');
+                res.location("dashboard");
+                res.redirect("dashboard");
+            });
+        }
     });
+});
+
+router.get('/dashboard', function(req, res) {
+    db = req.db;
+    User = db.model('User');
+    User.find({_id: req.session.user_id}, function(err, user) {
+        if (err)
 });
 
 module.exports = router;

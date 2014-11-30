@@ -1,0 +1,39 @@
+extends ../index.jade
+block content
+	h1=section_title
+	#stories
+		.row
+			.col-xs-12.col-md-8
+				.row
+					.col-md-12.featured
+						.thumbnail
+							a(href="article/#{featured._id}") 
+								img(src="#{featured.image}")
+							.caption
+								h6 by #{featured.author.name.full}
+								h4 #{featured.title}
+								p #{featured.preview}
+								p
+									a(href="article/#{featured._id}") read more
+				.row
+					each article, i in articlelist
+						.col-md-6
+							.thumbnail
+								a(href="article/#{article._id}") 
+									img(src="#{article.image}")
+								.caption
+									h6 by #{article.author.name.full}
+									h4 #{article.title}
+									p #{article.preview}
+									p
+										a(href="article/#{article._id}") read more
+			.col-xs-12.col-md-4
+				h3=sub_section_title
+				.thumbnail
+					a(href="article/#{sidebar._id}") 
+						img(src="#{sidebar.image}")
+					.caption
+						h4  #{sidebar.author.name.full}
+						p #{sidebar.preview}
+						p
+							a(href="article/#{sidebar._id}") read more

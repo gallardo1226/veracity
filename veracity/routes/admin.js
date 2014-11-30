@@ -4,9 +4,6 @@ var app = require('../app');
 var moment = require('moment');
 var bcrypt = require('bcrypt-nodejs');
 var generatePassword = require('password-generator');
-var path = require('path')
-  , templatesDir = path.join(__dirname, 'templates')
-  , emailTemplates = require('email-templates');
 
 router.get('/', function(req, res) {
   res.render('admin/index', { title: 'Admin Home' });
@@ -72,7 +69,7 @@ router.post('/resetpassword', function(req, res) {
         bcrypt.hash(password, salt, function(err, hash) {
             if (err)
                 res.send(404,{error: "bcrypt: error hashing password."});
-            User.update({_id: req.param('id')}, {password: hash}, function(err) {
+            User.update({_id: req.param('id')}, {password: hash, update_time: Date.now}, function(err) {
                 if (err) {
                     console.log(err);
                     res.send(500, "There was a problem updating resetting the user's password.");
@@ -87,7 +84,7 @@ router.post('/resetpassword', function(req, res) {
 router.post('/updatestatus', function(req, res) {
     db = req.db;
     User = db.model('User');
-    User.update({_id: req.param('id')}, {admin: req.param('status')}, function(err) {
+    User.update({_id: req.param('id')}, {admin: req.param('status'), update_time: Date.now}, function(err) {
         if (err) {
             console.log(err);
             res.send(500, "There was a problem updating the user in the database.");
