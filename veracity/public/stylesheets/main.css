@@ -47,6 +47,10 @@ header {
 #topNav ul li {
 	font-size: 16px;
 }
+#topNav ul li:last-child {
+	padding-top: 2px;
+	color: gray;
+}
 #topNav .navbar-nav > li > a {
 	padding-top: 5px !important;
 	padding-bottom: 5px !important;
