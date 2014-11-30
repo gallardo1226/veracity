@@ -1,0 +1,7 @@
+#journey h1 {
+	margin-bottom: 30px;
+}
+#journey .section-header {
+	background-image: url("/images/section-header.png");
+	background-repeat: repeat-x; 
+}

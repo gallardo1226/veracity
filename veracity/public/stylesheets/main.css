@@ -28,6 +28,7 @@ header {
 #logo {
 	text-align: center;
 	padding-top: 20px;
+	margin: 0 auto;
 }
 #stories .thumbnail {
 	border: hidden;
@@ -38,9 +39,9 @@ header {
 #topNav ul li {
 	font-size: 16px;
 }
-#topNav li:last-child {
-	float: right;
-}
+/*#topNav li .fa .fa-facebook {
+	color: white;
+}*/
 #mainNav .navbar-default {
 	background-color: transparent !important;
 }
