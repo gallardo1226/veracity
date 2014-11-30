@@ -1,7 +1,12 @@
-#journey h1 {
+h1 {
 	margin-bottom: 30px;
 }
-#journey .section-header {
+.section-header h1 {
 	background-image: url("/images/section-header.png");
-	background-repeat: repeat-x; 
+	background-repeat: repeat-x;
+	line-height: 10px;
+}
+.section-header span {
+	background: #FFF;
+	padding-right: 10px;
 }
