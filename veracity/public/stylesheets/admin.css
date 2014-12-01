@@ -7,5 +7,6 @@
 }
 
 #users tr button {
-	visibility: hidden;
+	visibility: visible;
+	opacity: 0.0;
 }

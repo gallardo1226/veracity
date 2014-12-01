@@ -1,14 +1,14 @@
 var express = require('express');
+var fs = require('fs');
 var path = require('path');
-// var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// var session = require('express-session');
-// var MongoStore = require('connect-mongo')(session);
 var mongo = require('mongodb');
 var monk = require('monk');
-var secret = require('password-generator');
+// var session = require('express-session');
+// var MongoStore = require('connect-mongo')(session);
+// var favicon = require('static-favicon');
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
@@ -20,11 +20,8 @@ db.once('open', function() {
     console.log("connection open");
 
     var userSchema = mongoose.Schema({
-        name: {
-            first: String,
-            last: String
-        },
-        // img: { data: Buffer, contentType: String },
+        name: { first: String, last: String },
+        img: { data: Buffer, contentType: String },
         email: String,
         password: String,
         admin: Boolean,
@@ -36,8 +33,8 @@ db.once('open', function() {
     var User = mongoose.model('User', userSchema);
 
     var articleSchema = mongoose.Schema({
-        author: { type:Schema.ObjectId, ref: 'User',  childPath:"articles" },
-        // img: { data: Buffer, contentType: String },
+        author: { type: Schema.ObjectId, ref: 'User',  childPath: "articles" },
+        img: { data: Buffer, contentType: String },
         section: String,
         title: String,
         body: String,
@@ -63,6 +60,14 @@ db.once('open', function() {
         this.name.first = split[0];
         this.name.last = split[1];
     });
+
+    // var imgPath = './public/images/noah.png';
+    // User.update({email:'noahkconley@gmail.com'}, {img: {data: fs.readFileSync(imgPath), contentType: 'image/png'}}, function(err){
+    //     if (err)
+    //         console.log(err);
+    //     else
+    //         console.log('success');
+    // });
 });
 
 var route = require('./routes/index');
@@ -92,7 +97,7 @@ app.use(cookieParser());
 //     }),
 //     resave: false,
 //     saveUninitialized: true,
-//     secret: secret(20, false),
+//     secret: 'does rocks float on lava',
 //     cookie: { secure: true }
 // }));
 

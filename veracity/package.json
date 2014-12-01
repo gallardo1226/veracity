@@ -23,7 +23,8 @@
     "password-generator": "*",
     "connect-mongo": "*",
     "express-session": "*",
-    "email-templates": "*"
+    "email-templates": "*",
+    "GridFS": "*"
   },
   "main": "app.js",
   "devDependencies": {},

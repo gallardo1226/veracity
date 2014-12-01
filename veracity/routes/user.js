@@ -59,8 +59,8 @@ router.get('/dashboard', function(req, res) {
         //     if (err)
         //         res.send(500, 'Error: user not found');
         //     else
-                res.render('user/dashboard');//, {'user': user});
-//         });
+        //         res.render('user/dashboard', {'user': user});
+        // });
 });
 
 module.exports = router;

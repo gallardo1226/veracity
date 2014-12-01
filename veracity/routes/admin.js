@@ -40,11 +40,20 @@ router.post('/adduser', function(req, res) {
     });
 });
 
+router.get('/userimage', function(req, res) {
+    db = req.db;
+    User = db.model('User');
+    User.findById(req.param('id'), 'img', function(err, user) {
+        if (err) return next(err);
+        res.contentType(user.img.contentType);
+        res.send(user.img.data);
+    });
+});
+
 router.post('/removeuser', function(req, res) {
     db = req.db;
     User = db.model('User');
-    console.log(req.param('id'));
-    User.remove({_id: req.param('id')}, function(err) {
+    User.findByIdAndRemove(req.param('id'), function(err) {
         if (err) {
             console.log(err);
             res.send(500, "There was a problem removing the user from the database.");
@@ -64,7 +73,7 @@ router.post('/resetpassword', function(req, res) {
             console.log(err.message);
             res.send(500,"bcrypt: error hashing password.");
         } else {
-            User.update({_id: req.param('id')}, {password: hash, update_time: now}, function(err) {
+            User.findByIdAndUpdate(req.param('id'), {password: hash, update_time: now}, function(err) {
                 if (err) {
                     console.log(err.message);
                     res.send("There was a problem resetting the user's password.");
