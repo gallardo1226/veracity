@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var moment = require('moment');
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt');
 var generatePassword = require('password-generator');
 
 router.get('/', function(req, res) {
@@ -43,7 +43,8 @@ router.post('/adduser', function(req, res) {
 router.post('/removeuser', function(req, res) {
     db = req.db;
     User = db.model('User');
-    var user = User.remove({_id: req.param('id')}, function(err) {
+    console.log(req.param('id'));
+    User.remove({_id: req.param('id')}, function(err) {
         if (err) {
             console.log(err);
             res.send(500, "There was a problem removing the user from the database.");
@@ -59,13 +60,10 @@ router.post('/resetpassword', function(req, res) {
     now = new Date().toISOString();
     var password = generatePassword(8, false);
     bcrypt.hash(password, 10, function(err, hash) {
-        console.log(password);
-        console.log(now);
         if (err) {
             console.log(err.message);
             res.send(500,"bcrypt: error hashing password.");
         } else {
-            console.log(req.param('id'));
             User.update({_id: req.param('id')}, {password: hash, update_time: now}, function(err) {
                 if (err) {
                     console.log(err.message);

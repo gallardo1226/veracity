@@ -1,0 +1,11 @@
+#formAddUser .form-control {
+	margin: 5px;
+}
+
+#formAddUser #inputEmail {
+	width: 300px;
+}
+
+#users tr button {
+	visibility: hidden;
+}

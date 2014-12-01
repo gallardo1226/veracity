@@ -6,6 +6,14 @@ $(document).ready(function() {
 			$('#btnSubmit').attr('disabled', false);
 	});
 
+	$('#users').on('mouseenter', 'tr', function() {
+		$(this).find('button').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+	});
+
+	$('#users').on('mouseleave', 'tr', function() {
+		$(this).find('button').css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0.0}, 'fast');
+	});
+
 	$('#btnSubmit').click(function(event) {
 		if (!/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/.test($('#inputEmail').val())) {
 			event.preventDefault();
@@ -50,7 +58,7 @@ $(document).ready(function() {
 
 	$('#users').on('click', '.confirm', function() {
 		t = $(this);
-		var id = $(this).closest('span').prev().val();
+		var id = $(this).parent().parent().prev().val();
 		$.ajax({
 			type: 'POST',
 			url: '/admin/removeuser',
