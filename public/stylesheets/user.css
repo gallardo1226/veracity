@@ -1,0 +1,9 @@
+#body {
+    height: 200px;
+    overflow: scroll;
+}
+
+#myname {
+    padding-top : 7px;
+    margin : 0;
+}

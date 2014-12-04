@@ -1,0 +1,50 @@
+extends ../layout
+
+block content
+	.row
+		h1.col-sm-4.col-sm-offset-1= title
+		#message.col-sm-10.col-sm-offset-1
+		include ./_add_user
+		.col-sm-10.col-sm-offset-1#users
+			table.table.table-hover
+				thead
+					tr
+						th(colspan=2) Name
+						th Email
+						th Role
+						th.text-center Admin
+						th(colspan=4)
+				tbody
+					each user, i in userlist
+						tr
+							td
+								img.img-circle(src="/admin/image/#{user._id}", width="28px")
+							td #{user.name.full}
+							td #{user.email}
+							td.role
+								a.btn-link(title='Edit role') #{user.role}
+								.input-group.hidden
+									input.input-sm.form-control(value="#{user.role}")
+									span.input-group-btn
+										button.btn.btn-sm.btn-success.confirm(value="#{user._id}", title="Confirm")
+											span.glyphicon.glyphicon-ok
+										button.btn.btn-sm.btn-danger.cancel(title="Cancel")
+											span.glyphicon.glyphicon-remove
+
+							if user.admin
+								td.text-center
+									span.glyphicon.glyphicon-ok
+								td
+									button.btn.btn-primary.btn-sm.demote(value='#{user._id}', title='Demote')
+										span.glyphicon.glyphicon-arrow-down
+							else
+								td.text-center
+								td
+									button.btn.btn-info.btn-sm.promote(value='#{user._id}', title='Promote')
+										span.glyphicon.glyphicon-arrow-up
+							td
+								button.btn.btn-warning.btn-sm.reset(value='#{user._id}', title='Reset password')
+									span.glyphicon.glyphicon-lock
+							td
+								button.btn.btn-danger.btn-sm.remove(value='#{user._id}', title='Delete user')
+									span.glyphicon.glyphicon-trash
