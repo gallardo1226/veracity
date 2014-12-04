@@ -7,11 +7,44 @@ $(document).ready(function() {
 	});
 
 	$('#users').on('mouseenter', 'tr', function() {
-		$(this).find('button').animate({opacity: 1.0}, 'fast');
+		$(this).find('.promote,.demote,.reset,.remove').animate({opacity: 1.0}, 'fast');
 	});
 
 	$('#users').on('mouseleave', 'tr', function() {
-		$(this).find('button').animate({opacity: 0.0}, 'fast');
+		$(this).find('.promote,.demote,.reset,.remove').animate({opacity: 0.0}, 'fast');
+	});
+
+	$('.role a').click(function() {
+		$(this).addClass('hidden').next().removeClass('hidden').val($(this).text());
+	});
+
+	$('.role .cancel').click(function() {
+		$(this).closest('.input-group').addClass('hidden').prev().removeClass('hidden');
+	});
+
+	$('.role .confirm').click(function() {
+		t = $(this);
+		id = t.val();
+		role = t.parent().prev().val();
+		$.ajax({
+			type: 'POST',
+			url: '/admin/updaterole',
+			data: {
+				id : id,
+				role : role,
+			},
+			success: function(data) {
+				$('#message').append('<div class="alert alert-success" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
+					$('.alert').remove();
+				});
+				t.closest('.input-group').addClass('hidden').prev().removeClass('hidden').text(role);
+			},
+			error: function(data) {
+				$('#message').append('<div class="alert alert-danger" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
+					$('.alert').remove();
+				});
+			},
+		});
 	});
 
 	$('#btnSubmit').click(function(event) {
@@ -50,14 +83,16 @@ $(document).ready(function() {
 		});
 	});
 
-	$('#users').on('click', '.cancel', function() {
+	$('#users').on('click', '.temp .cancel', function() {
 		$('.temp').slideUp(function() {
 			$(this).closest('td').find('.remove').slideDown();
 			$(this).remove();
 		});
 	});
 
-	$('#users').on('click', '.confirm', function() {
+	$('.role')
+
+	$('#users').on('click', '.temp .confirm', function() {
 		t = $(this);
 		var id = $(this).parent().parent().prev().val();
 		$.ajax({
@@ -80,42 +115,42 @@ $(document).ready(function() {
 		});
 	});
 
-	// $('#users').on('click', '.demote', function() {
-	// 	t = $(this);
-	// 	var id = $(this).val();
-	// 	$.ajax({
-	// 		type: 'POST',
-	// 		url: '/admin/updatestatus',
-	// 		data: {id:id, status:false},
-	// 		success: function(data) {
-	// 			t.text('Promote').addClass('promote btn-success').removeClass('demote btn-info');
-	// 			t.parent().prev().text('No');
-	// 		},
-	// 		error: function(data) {
-	// 			$('#message').append('<div class="alert alert-danger" role="alert">There was a problem updating this user').hide().slideDown().delay('3000').slideUp(function() {
-	// 				$('.alert').remove();
-	// 			});
-	// 		}
-	// 	});
-	// });
+	$('#users').on('click', '.demote', function() {
+		t = $(this);
+		var id = $(this).val();
+		$.ajax({
+			type: 'POST',
+			url: '/admin/updatestatus',
+			data: {id:id, status:false},
+			success: function(data) {
+				t.attr('title', 'Promote').addClass('promote btn-info').removeClass('demote btn-primary').find('span').removeClass('glyphicon-arrow-down').addClass('glyphicon-arrow-up');
+				t.parent().prev().find('span').remove();
+			},
+			error: function(data) {
+				$('#message').append('<div class="alert alert-danger" role="alert">There was a problem updating this user').hide().slideDown().delay('3000').slideUp(function() {
+					$('.alert').remove();
+				});
+			}
+		});
+	});
 
-	// $('#users').on('click', '.promote', function() {
-	// 	t = $(this);
-	// 	var id = $(this).val();
-	// 	$.ajax({
-	// 		type: 'POST',
-	// 		url: '/admin/updatestatus',
-	// 		data: {id:id, status:true},
-	// 		success: function(data) {
-	// 			console.log('success');
-	// 			t.text('Demote').addClass('demote btn-info').removeClass('promote btn-success');
-	// 			t.parent().prev().text('Yes');
-	// 		},
-	// 		error: function(data) {
-	// 			$('#message').append('<div class="alert alert-danger" role="alert">'+data).hide().slideDown().delay('3000').slideUp(function() {
-	// 				$('.alert').remove();
-	// 			});
-	// 		}
-	// 	});
-	// });
+	$('#users').on('click', '.promote', function() {
+		t = $(this);
+		var id = $(this).val();
+		$.ajax({
+			type: 'POST',
+			url: '/admin/updatestatus',
+			data: {id:id, status:true},
+			success: function(data) {
+				console.log('success');
+				t.attr('title', 'Demote').addClass('demote btn-primary').removeClass('promote btn-info').find('span').removeClass('glyphicon-arrow-up').addClass('glyphicon-arrow-down');
+				t.parent().prev().append('<span class="glyphicon glyphicon-ok">');
+			},
+			error: function(data) {
+				$('#message').append('<div class="alert alert-danger" role="alert">'+data).hide().slideDown().delay('3000').slideUp(function() {
+					$('.alert').remove();
+				});
+			}
+		});
+	});
 });

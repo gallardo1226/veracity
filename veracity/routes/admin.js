@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 var moment = require('moment');
 var bcrypt = require('bcrypt');
 var generatePassword = require('password-generator');
@@ -8,7 +9,6 @@ router.get('/', function(req, res) {
   res.render('admin/index', { title: 'Admin Home' });
 });
 
-/* POST to Add User Service */
 router.post('/adduser', function(req, res) {
     db = req.db;
     User = db.model('User');
@@ -16,6 +16,7 @@ router.post('/adduser', function(req, res) {
     var userFirst = req.body.userfirst;
     var userLast = req.body.userlast;
     var userEmail = req.body.useremail;
+    var userRole = req.body.userrole;
     var password = generatePassword(8, false);
     bcrypt.hash(password, 10, function(err, hash) {
         if (err)
@@ -25,6 +26,7 @@ router.post('/adduser', function(req, res) {
                 name: {first: userFirst, last: userLast},
                 email: userEmail,
                 admin: false,
+                role: userRole,
                 password: hash
             });
 
@@ -40,13 +42,15 @@ router.post('/adduser', function(req, res) {
     });
 });
 
-router.get('/userimage', function(req, res) {
+router.get('/image/:id', function(req, res) {
     db = req.db;
     User = db.model('User');
     User.findById(req.param('id'), 'img', function(err, user) {
         if (err) return next(err);
-        res.contentType(user.img.contentType);
-        res.send(user.img.data);
+        if (user.img.contentType) {
+            res.send(user.img.data);
+        } else
+            res.send(fs.readFileSync('./public/images/blank-profile.png'));
     });
 });
 
@@ -89,7 +93,21 @@ router.post('/updatestatus', function(req, res) {
     db = req.db;
     User = db.model('User');
     now = new Date().toISOString();
-    User.update({_id: req.param('id')}, {admin: req.param('status'), update_time: now}, function(err) {
+    User.findByIdAndUpdate(req.param('id'), {admin: req.param('status'), update_time: now}, function(err) {
+        if (err) {
+            console.log(err);
+            res.send(500, "There was a problem updating the user in the database.");
+        } else {
+            res.send('Updated successfully');
+        }
+    });
+});
+
+router.post('/updaterole', function(req, res) {
+    db = req.db;
+    User = db.model('User');
+    now = new Date().toISOString();
+    User.findByIdAndUpdate(req.param('id'), {role: req.param('role'), update_time: now}, function(err) {
         if (err) {
             console.log(err);
             res.send(500, "There was a problem updating the user in the database.");
@@ -102,17 +120,17 @@ router.post('/updatestatus', function(req, res) {
 router.get('/manageusers', function(req, res) {
     db = req.db;
     User = db.model('User');
-    User.find({}, function(err, users) {
+    User.find({}, '-img', {sort: {'name.last':1}}, function(err, users) {
         var userMap = {};
 
         users.forEach(function(user) {
             userMap[user._id] = user;
         });
 
-        res.render('admin/manage_users', { 
+        res.render('user/admin/manage_users', {
             title: 'Manage Users',
             "userlist": userMap,
-            moment: moment 
+            moment: moment,
       });
     });
 });

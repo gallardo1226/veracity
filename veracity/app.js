@@ -20,11 +20,13 @@ db.once('open', function() {
     console.log("connection open");
 
     var userSchema = mongoose.Schema({
-        name: { first: String, last: String },
+        name: { last: String, first: String },
         img: { data: Buffer, contentType: String },
+        role: String,
         email: String,
         password: String,
         admin: Boolean,
+        bio: String,
         articles: [{type:Schema.ObjectId, ref: "Article"}],
         create_time: { type: Date, default: Date.now },
         update_time: { type: Date, default: Date.now }
@@ -33,8 +35,7 @@ db.once('open', function() {
     var User = mongoose.model('User', userSchema);
 
     var articleSchema = mongoose.Schema({
-        author: { type: Schema.ObjectId, ref: 'User',  childPath: "articles" },
-        img: { data: Buffer, contentType: String },
+        authors: [{ type: Schema.ObjectId, ref: 'User',  childPath: "articles" }],
         section: String,
         title: String,
         body: String,
@@ -43,7 +44,7 @@ db.once('open', function() {
         update_time: { type: Date, default: Date.now }
     });
 
-    articleSchema.plugin(relationship, { relationshipPathName:"author" });
+    articleSchema.plugin(relationship, { relationshipPathName:"authors" });
 
     var Article = mongoose.model('Article', articleSchema);
 
@@ -62,7 +63,7 @@ db.once('open', function() {
     });
 
     // var imgPath = './public/images/noah.png';
-    // User.update({email:'noahkconley@gmail.com'}, {img: {data: fs.readFileSync(imgPath), contentType: 'image/png'}}, function(err){
+    // User.update({}, {role: 'Student'}, {multi:true}, function(err){
     //     if (err)
     //         console.log(err);
     //     else
@@ -126,7 +127,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
-        res.render('error', {
+        res.render('public/error', {
             message: err.message,
             error: err
         });
@@ -137,7 +138,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.render('public/error', {
         message: err.message,
         error: {}
     });

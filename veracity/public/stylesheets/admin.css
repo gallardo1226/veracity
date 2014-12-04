@@ -6,7 +6,18 @@
 	width: 300px;
 }
 
-#users tr button {
+#formAddUser #inputRole {
+	width: 170px;
+}
+
+.role .input-group {
+	width: 150px;
+}
+
+#users .demote,
+#users .promote,
+#users .reset,
+#users .remove {
 	visibility: visible;
 	opacity: 0.0;
 }
