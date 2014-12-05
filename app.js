@@ -13,6 +13,13 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     relationship = require('mongoose-relationship');
 
+var app = express();
+
+console.log(process.env);
+var server = app.listen(3000, function() {
+    console.log('Listening on port %d', server.address().port);
+});
+
 // if (app.get('env') === 'development')
 //     uri = 'mongodb://localhost:27017/veracity';
 // else
@@ -80,12 +87,6 @@ var route = require('./routes/index');
 var user = require('./routes/user');
 var admin = require('./routes/admin');
 
-var app = express();
-
-var server = app.listen(3000, function() {
-    console.log('Listening on port %d', server.address().port)
-})
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -148,7 +149,6 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;
 
