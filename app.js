@@ -24,6 +24,7 @@ db.once('open', function() {
         img: { data: Buffer, contentType: String },
         role: String,
         email: String,
+        twitter: String,
         password: String,
         admin: Boolean,
         bio: String,
