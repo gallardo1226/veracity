@@ -2,9 +2,11 @@ extends ../layout
 
 block content
 	.row
-		h1.col-sm-4.col-sm-offset-1= title
+		h1.col-sm-4.col-sm-offset-1=title
 		#message.col-sm-10.col-sm-offset-1
+	.row
 		include ./_add_user
+	.row
 		.col-sm-10.col-sm-offset-1#users
 			table.table.table-hover
 				thead
@@ -18,7 +20,7 @@ block content
 					each user, i in userlist
 						tr
 							td
-								img.img-circle(src="/admin/image/#{user._id}", width="28px")
+								img.img-circle(src="/user/image/#{user._id}", width="28px")
 							td #{user.name.full}
 							td #{user.email}
 							td.role

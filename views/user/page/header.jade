@@ -1,8 +1,15 @@
 header
 	#logo
-		//- img(src="images/logo.png" alt="veracity magazine")
 	#nav
-		ul
-			li: a Dashboard
-			li: a Upload Article
-			li: a Admin
+		if (loggedIn)
+			ul
+				li: a Dashboard
+				li: a Upload article
+				li: a My articles
+				if (admin)
+					li: a Manage users
+					li: a Review articles
+				li: a Log out
+		else
+			ul
+				li: a Log in

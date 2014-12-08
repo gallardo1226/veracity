@@ -20,7 +20,7 @@ router.post('/adduser', function(req, res) {
     var password = generatePassword(8, false);
     bcrypt.hash(password, 10, function(err, hash) {
         if (err)
-            res.send(404,{error: "bcrypt: error hashing password."});
+            res.send(500,{error: "bcrypt: error hashing password."});
         else {
             var newUser = new User({
                 name: {first: userFirst, last: userLast},
@@ -39,18 +39,6 @@ router.post('/adduser', function(req, res) {
                 }
             });
         }
-    });
-});
-
-router.get('/image/:id', function(req, res) {
-    db = req.db;
-    User = db.model('User');
-    User.findById(req.param('id'), 'img', function(err, user) {
-        if (err) return next(err);
-        if (user.img.contentType) {
-            res.send(user.img.data);
-        } else
-            res.send(fs.readFileSync('./public/images/blank-profile.png'));
     });
 });
 
@@ -82,6 +70,8 @@ router.post('/resetpassword', function(req, res) {
                     console.log(err.message);
                     res.send("There was a problem resetting the user's password.");
                 } else {
+                    console.log(password);
+                    console.log(hash);
                     res.send('Password reset successfully');
                 }
             });
