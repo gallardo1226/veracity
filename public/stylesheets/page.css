@@ -1,5 +1,18 @@
 h1 {
+	margin-top: 30px;
 	margin-bottom: 30px;
+}
+/*#campus h1 {
+	color: #625279;
+}
+#lifeAndCulture h1 {
+	color: #5fc2b0;
+}
+#journey h1 {
+	color: #fac411;
+}*/
+#article h1 {
+	text-align: center;
 }
 .section-header h1 {
 	background-image: url("/images/section-header.png");
@@ -9,4 +22,17 @@ h1 {
 .section-header span {
 	background: #FFF;
 	padding-right: 10px;
+}
+.storyTitle {
+	margin: 0 auto;
+}
+.subhead {
+	font-family: 'Verlag Book Italic';
+}
+.byline {
+	font-family: 'Bebas Neue'; 
+	margin: 0 auto;
+}
+.story {
+	font-family: 'Minion Pro';
 }

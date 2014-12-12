@@ -1,0 +1,83 @@
+@font-face {
+	font-family: 'Bebas Neue';
+	src: url('/fonts/bebas-neue/BebasNeue.otf');
+}
+@font-face {
+	font-family: 'Verlag Book';
+	src: url('/fonts/verlag/Verlag-Book.otf');
+}	
+@font-face {
+	font-family: 'Verlag Book Italic';
+	src: url('/fonts/verlag/Verlag-BookItalic.otf');
+}
+@font-face {
+	font-family: 'Minion Pro';
+	src: url('/fonts/minion-pro/MinionPro-Regular.otf');
+}
+body {
+  padding-top: 50px;
+  font-size: 14px;
+  font-family: 'Verlag Book';
+}
+a {
+  color: gray;
+  /*color: #00b7ff;*/
+}
+header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+.row h3 {
+	text-align: center;
+	padding-bottom: 20px;
+}
+#logo {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 15px;
+	margin: 0 auto;
+}
+#stories .thumbnail {
+	padding-top: 10px;
+	border: hidden;
+	background-color: transparent !important;
+}
+#topNav ul li {
+	font-size: 16px;
+}
+#topNav ul li:last-child {
+	padding-top: 2px;
+	color: gray;
+}
+#topNav .navbar-nav > li > a {
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+}
+#topNav .navbar {
+	min-height: 32px !important;
+}
+.navbar-default {
+	background-color: transparent !important;
+}
+#mainNav .navbar-default .navbar-nav {
+	display: inline-block;
+	float: none;
+	vertical-align: top; 
+}
+#mainNav .navbar-default .navbar-collapse {
+	text-align: center;
+}
+#mainNav .navbar-default li {
+	font-size: 20px;
+	padding-right: 30px;
+	padding-left: 30px;  
+}
+#footer ul {
+	text-align: center;
+}
+#footer ul li {
+	display: inline-block;
+	padding-right: 5px;
+}

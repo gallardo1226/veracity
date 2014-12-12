@@ -1,9 +1,46 @@
 header
-	#logo
-		//- img(src="images/logo.png" alt="veracity magazine")
-	#nav
-		ul
-			li: a Home
-			li: a Journey
-			li: a Life &amp; Culture
-			li: a Campus Life
+	#topNav
+		nav.navbar.navbar-default.navbar-static-top(role="navigation")
+			.container-fluid
+				.navbar-header
+					button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#bs-example-navbar-collapse-1")
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+				.collapse.navbar-collapse#bs-example-navbar-collapse-1
+					ul.nav.navbar-nav
+						li 
+							a(href="/about") About 
+						li 
+							a(href="/") Magazine
+						li
+							a(href="/contact") Contact 
+						li
+							a.i.fa.fa-facebook(href='https://www.facebook.com/VeracityNU')
+					//form.navbar-form.navbar-right(role="search")
+						.form-group
+							input.form-control(type="text", placeholder="Search")
+							button.btn.btn-default(type="submit") Submit
+#logo
+	a(href="/")
+		img.img-responsive.center-block.hidden-xs(src="/images/logo.png" alt="full logo")
+		img.img-responsive.center-block.visible-xs(src="/images/final-logo.png" alt="small logo")
+#mainNav
+	nav.navbar.navbar-default(role="navigation")
+		.container-fluid
+			.navbar-header
+				button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#bs-example-navbar-collapse-2")
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+			.collapse.navbar-collapse#bs-example-navbar-collapse-2
+				ul.nav.navbar-nav
+					li
+						a(href="/journey") Journey
+					li
+						a(href="/lifeandculture") Life &amp; Culture
+					li
+						a(href="/campus") Campus
+
