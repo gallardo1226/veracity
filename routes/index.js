@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('index', { title: 'Veracity Home' });
+    res.render('public/index', { title: 'Veracity Home' });
 });
 
 router.get('/about', function(req, res) {
@@ -14,7 +14,7 @@ router.get('/contact', function(req, res) {
 	res.render('public/contact', { title: 'Contact Us' });
 });
 
-// router.get('/campus', function(req, res) {
+router.get('/campus', function(req, res) {
 //     var db = req.db;
 //     Article = db.model('Article');
 //     articlelist = Article.find({section: 'Campus'}).skip(1);
@@ -27,9 +27,10 @@ router.get('/contact', function(req, res) {
 //         'featured': featured,
 //         'sidebar': sidebar
 //     });
-// });
+	res.render('public/campus', { title: 'Campus' });
+});
 
-// router.get('/journey', function(req, res) {
+router.get('/journey', function(req, res) {
 //     var db = req.db;
 //     Article = db.model('Article');
 //     articlelist = Article.find({section: 'Journey'}).skip(1);
@@ -43,8 +44,10 @@ router.get('/contact', function(req, res) {
 //         'sidebar': sidebar
 //     });
 // });
+	res.render('public/journey', { title: 'Journey' });
+});
 
-// router.get('/lifeandculture', function(req, res) {
+router.get('/lifeandculture', function(req, res) {
 	
 //     var db = req.db;
 //     Article = db.model('Article');
@@ -58,9 +61,10 @@ router.get('/contact', function(req, res) {
 //         'featured': featured,
 //         'sidebar': sidebar
 //     });
-// });
+	res.render('public/life_and_culture', { title: 'Life &amp; Culture' });
+});
 
-// router.get('/article', function(req, res) {
+router.get('/article', function(req, res) {
 //     var db = req.db;
 //     Article = db.model('Article');
 //     Article.find({_id: req.param('id')}, function(err, article) {
@@ -72,6 +76,7 @@ router.get('/contact', function(req, res) {
 //             });
 //         }
 //     });
-// });
+	res.render('public/article', { title: 'Test Article' });
+});
 
 module.exports = router;

@@ -1,4 +1,98 @@
-extends ./layout
+extends layout
 block content
-	h1= title
-	p Welcome to #{title}
+	#myCarousel.carousel.slide(data-ride="carousel")
+		ol.carousel-indicators
+			li.active(data-target="#myCarousel", data-slide-to="0")
+			li(data-target="#myCarousel", data-slide-to="1")
+			li(data-target="#myCarousel", data-slide-to="2")
+		.carousel-inner
+			.item.active
+				img(src="/images/1200x400.jpg", alt="First Slide")
+				.carousel-caption
+					h1 Example headline #1
+					p First slide
+			.item
+				img(src="/images/1200x400.jpg", alt="Second Slide")
+				.carousel-caption
+					h1 Example headline #2
+					p Second slide
+			.item
+				img(src="/images/1200x400.jpg", alt="Third Slide")
+				.carousel-caption
+					h1 Example headline #3
+					p Whatever you want
+		a.left.carousel-control(href="#myCarousel", role="button", data-slide="prev")
+			span.glyphicon.glyphicon-chevron-left
+		a.right.carousel-control(href="#myCarousel", role="button", data-slide="next")
+			span.glyphicon.glyphicon-chevron-right
+	hr
+	.row
+		h3 Featured Stories
+	#stories
+		.row
+			.col-md-6.col-md-4
+				.thumbnail
+					a(href="#") 
+						img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Journey
+						h4.storyTitle TITLE title
+						p.subhead SUBHEAD subhead subhead
+						p.byline BYLINE byline
+						p
+							a(href="#") read more
+			.col-md-6.col-md-4
+				.thumbnail
+					a(href="#") 
+						img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Journey
+						h4.storyTitle TITLE title
+						p.subhead SUBHEAD subhead subhead
+						p.byline BYLINE byline
+						p
+							a(href="#") read more
+			.col-md-6.col-md-4
+				.thumbnail
+					a(href="#") 
+						img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Journey
+						h4.storyTitle TITLE title
+						p.subhead SUBHEAD subhead subhead
+						p.byline BYLINE byline
+						p
+							a(href="#") read more
+			.col-md-6.col-md-4
+				.thumbnail
+					a(href="#") 
+						img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Journey
+						h4.storyTitle TITLE title
+						p.subhead SUBHEAD subhead subhead
+						p.byline BYLINE byline
+						p
+							a(href="#") read more
+			.col-md-6.col-md-4
+				.thumbnail
+					a(href="#") 
+						img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Journey
+						h4.storyTitle TITLE title
+						p.subhead SUBHEAD subhead subhead
+						p.byline BYLINE byline
+						p
+							a(href="#") read more
+			.col-md-6.col-md-4
+				.thumbnail
+					a(href="#") 
+						img(src="/images/300x200.jpg", alt="...")
+					.caption
+						h6 Issue One / Journey
+						h4.storyTitle TITLE title
+						p.subhead SUBHEAD subhead subhead
+						p.byline BYLINE byline
+						p
+							a(href="#") read more

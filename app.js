@@ -26,7 +26,7 @@ mongoose.connect(uri);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-    console.log("connection open");
+    console.log("connection open on port " + db.port);
 
     var userSchema = mongoose.Schema({
         name: { last: String, first: String },

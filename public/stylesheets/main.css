@@ -74,10 +74,11 @@ header {
 	padding-right: 30px;
 	padding-left: 30px;  
 }
-#footer ul {
-	text-align: center;
+#footer {
+	position: relative;
 }
-#footer ul li {
-	display: inline-block;
-	padding-right: 5px;
+#copyright {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 }
