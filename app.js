@@ -3,6 +3,11 @@ var favicon = require('serve-favicon');
 var fs = require('fs');
 var path = require('path');
 var logger = require('morgan');
+var nodemailer = require('nodemailer');
+var passport = require('passport');
+var bcrypt = require('bcrypt');
+var LocalStrategy = require('passport-local').Strategy;
+var async = require('async');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var multer = require('multer');
@@ -61,12 +66,44 @@ db.once('open', function() {
       return this.name.first + ' ' + this.name.last;
     });
 
+    userSchema.pre('save', function(next) {
+        var user = this;
+
+        if (!user.isModified('password')) return next();
+
+        bcrypt.hash(user.password, 10, null, function(err, hash) {
+            if (err) return next(err);
+            user.password = hash;
+            next();
+        });
+    });
+
+    userSchema.methods.comparePassword = function(candidatePassword, cb) {
+        bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+            if (err) return cb(err);
+                cb(null, isMatch);
+        });
+    };
+
     userSchema.virtual('name.full').set(function (name) {
         var split = name.split(' ');
         this.name.first = split[0];
         this.name.last = split[1];
     });
 });
+
+passport.use(new LocalStrategy(function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+        if (err) return done(err);
+            if (!user) return done(null, false, { message: 'Incorrect username.' });
+            user.comparePassword(password, function(err, isMatch) {
+                if (isMatch)
+                    return done(null, user);
+                else
+                    return done(null, false, { message: 'Incorrect password.' });
+        });
+    });
+}));
 
 var app = express();
 
@@ -98,6 +135,19 @@ if (process.env.ENV === 'production') {
   app.set('trust proxy', 1);
   app.set(session.cookie.secure, true);
 }
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
 
 app.use(function(req,res,next){
     req.db = db;

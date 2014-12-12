@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var moment = require('moment');
-var bcrypt = require('bcrypt');
 var generatePassword = require('password-generator');
 
 router.get('/', function(req, res) {
@@ -60,22 +59,15 @@ router.post('/resetpassword', function(req, res) {
     User = db.model('User');
     now = new Date().toISOString();
     var password = generatePassword(8, false);
-    bcrypt.hash(password, 10, function(err, hash) {
-        if (err) {
-            console.log(err.message);
-            res.send(500,"bcrypt: error hashing password.");
-        } else {
-            User.findByIdAndUpdate(req.param('id'), {password: hash, update_time: now}, function(err) {
-                if (err) {
-                    console.log(err.message);
-                    res.send("There was a problem resetting the user's password.");
-                } else {
-                    console.log(password);
-                    console.log(hash);
-                    res.send('Password reset successfully');
-                }
-            });
-        }
+    User.findById(req.param('id'), function(err, user) {
+        if (err) return next(err);
+        user.password = password;
+        user.update_time = now;
+        console.log(user);
+        user.save(function(err, user) {
+            if (err) return next(err);
+            res.send('Password reset successfully');
+        });
     });
 });
 
