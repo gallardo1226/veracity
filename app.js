@@ -3,14 +3,13 @@ var favicon = require('serve-favicon');
 var fs = require('fs');
 var path = require('path');
 var logger = require('morgan');
-var nodemailer = require('nodemailer');
-var passport = require('passport');
 var bcrypt = require('bcrypt');
+var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var async = require('async');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var multer = require('multer');
+var flash = require('express-flash');
 var mongo = require('mongodb');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -39,24 +38,23 @@ db.once('open', function() {
         bio: String,
         articles: [{type:Schema.ObjectId, ref: "Article"}],
         create_time: { type: Date, default: Date.now },
-        update_time: { type: Date, default: Date.now }
+        update_time: { type: Date, default: Date.now },
+        archive_time: { type: Date, default: null }
     });
-
-    var User = mongoose.model('User', userSchema);
 
     var articleSchema = mongoose.Schema({
         authors: [{ type: Schema.ObjectId, ref: 'User',  childPath: "articles" }],
         section: String,
+        status: String,
         title: String,
         body: String,
         tags: [String],
         create_time: { type: Date, default: Date.now },
-        update_time: { type: Date, default: Date.now }
+        update_time: { type: Date, default: Date.now },
+        archive_time: { type: Date, default: null }
     });
 
     articleSchema.plugin(relationship, { relationshipPathName:"authors" });
-
-    var Article = mongoose.model('Article', articleSchema);
 
     userSchema.methods.getArticles = function() {
         return mongoose.model('Article').find({author_id: this.id});
@@ -68,10 +66,8 @@ db.once('open', function() {
 
     userSchema.pre('save', function(next) {
         var user = this;
-
         if (!user.isModified('password')) return next();
-
-        bcrypt.hash(user.password, 10, null, function(err, hash) {
+        bcrypt.hash(user.password, 10, function(err, hash) {
             if (err) return next(err);
             user.password = hash;
             next();
@@ -90,20 +86,33 @@ db.once('open', function() {
         this.name.first = split[0];
         this.name.last = split[1];
     });
-});
 
-passport.use(new LocalStrategy(function(username, password, done) {
-    User.findOne({ username: username }, function(err, user) {
-        if (err) return done(err);
-            if (!user) return done(null, false, { message: 'Incorrect username.' });
-            user.comparePassword(password, function(err, isMatch) {
-                if (isMatch)
-                    return done(null, user);
-                else
-                    return done(null, false, { message: 'Incorrect password.' });
+    var User = mongoose.model('User', userSchema);
+    var Article = mongoose.model('Article', articleSchema);
+
+    passport.use(new LocalStrategy(function(email, password, done) {
+        User.findOne({ email: email }, function(err, user) {
+            if (err) return done(err);
+                if (!user) return done(null, false, { message: 'Incorrect username.' });
+                user.comparePassword(password, function(err, isMatch) {
+                    if (isMatch)
+                        return done(null, user);
+                    else
+                        return done(null, false, { message: 'Incorrect password.' });
+            });
         });
+    }));
+
+    passport.serializeUser(function(user, done) {
+      done(null, user.id);
     });
-}));
+
+    passport.deserializeUser(function(id, done) {
+      User.findById(id, function(err, user) {
+        done(err, user);
+      });
+    });
+});
 
 var app = express();
 
@@ -112,7 +121,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
-app.use(multer({ inMemory: true}));
+app.use(flash());
+app.use(multer({ inMemory: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
@@ -139,18 +149,9 @@ if (process.env.ENV === 'production') {
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
-
 app.use(function(req,res,next){
     req.db = db;
+    req.passport = passport;
     next();
 });
 
@@ -182,7 +183,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (process.env.ENV === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('public/error', {
@@ -203,4 +204,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-

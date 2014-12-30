@@ -108,7 +108,7 @@ $(document).ready(function() {
 				});
 			},
 			error: function(data) {
-				$('#message').append('<div class="alert alert-danger" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
+				$('#message').append('<div class="alert alert-danger" role="alert">' + data.statusText).hide().slideDown().delay('3000').slideUp(function() {
 					$('.alert').remove();
 				});
 			}

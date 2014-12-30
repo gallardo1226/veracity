@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	.row.text-center
+		h1.col-sm-4.col-sm-offset-4=title
+		.col-sm-4.col-sm-offset-4
+	.row
+		.col-sm-4.col-sm-offset-4.well
+			form.form-horizontal(enctype="multipart/form-data", role="form", method="post", name="reset")
+				.form-group
+					label.col-sm-2.col-sm-offset-1.control-label(for='email') Email
+					.col-sm-8
+						input.form-control(type='text', name='email', autofocus)
+				.form-group
+					.col-sm-4.col-sm-offset-3
+						button.btn.btn-primary(type='submit') Reset Password

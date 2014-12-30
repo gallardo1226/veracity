@@ -4,12 +4,22 @@ html(lang="en")
 		//link css and javascript files in head.jade
 		include page/head
 	body
-		//header.jade is logo, nav bar
-		include page/header
-		//every page starts with .container,
-		//no need to put on any other page
-		.container
-			block content
+		#wrap
+			//header.jade is logo, nav bar
+			include page/header
+			//every page starts with .container,
+			//no need to put on any other page
+			if messages.error
+				.alert.alert-danger
+					div= messages.error
+			if messages.info
+				.alert.alert-info
+					div= messages.info
+			if messages.success
+				.alert.alert-success
+					div= messages.success
+			.container#main
+					block content
 		//footer.jade is copyright info, more links
 		include page/footer
 		//bootstrap/jquery already in jsdefaults.jade

@@ -44,12 +44,14 @@ $(document).ready(function() {
 				url: '/user/changepassword',
 				data: $('#passwordForm').serialize(),
 				success: function(data) {
+					console.log(data);
 					$('#passModal .close').trigger('click');
 					$('#message').append('<div class="alert alert-success" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
 						$('.alert').remove();
 					});
 				},
 				error: function(data) {
+					console.log(data);
 					$('#errormessage').text(data).slideDown().delay('5000').slideUp(function() {
 						$('#errormessage').text('');
 					});

@@ -19,7 +19,7 @@ block content
 				select.form-control(name="author")
 					option(selected, disabled)
 					each user, i in userlist
-						option(value="#{user._id}") #{user.name.full}
+						option(value=user._id)=user.name.full
 			.col-sm-2
 				button.remove.btn.btn-danger(type="button", title="Remove author")
 					span.glyphicon.glyphicon-minus

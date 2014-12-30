@@ -2,12 +2,14 @@ extends ./layout
 
 block content
 	.row
-		h1.col-sm-8.col-sm-offset-1=title + ' : ' + user.name.full
+		h1.col-sm-7.col-sm-offset-1=title + ' : ' + user.name.full
 		#message
-		.col-sm-2
+		.col-sm-3
 			ul.list-inline.pull-right
+				li: a#uploadArticle.btn.btn-primary.btn-lg(href='uploadarticle', title='Upload Article')
+						span.glyphicon.glyphicon-upload
 				li: button#changePass.btn.btn-warning.btn-lg(value='#{user._id}', title='Change password', data-toggle="modal", data-target="#passModal")
-									span.glyphicon.glyphicon-lock
+					span.glyphicon.glyphicon-lock
 				li: button#editInfo.btn.btn-info.btn-lg(value='#{user._id}', title='Edit info', data-toggle="modal", data-target="#infoModal")
 					span.glyphicon.glyphicon-pencil
 	include _update_info
