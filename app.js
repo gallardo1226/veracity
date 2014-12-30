@@ -17,9 +17,9 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     relationship = require('mongoose-relationship');
 
-// if (process.env.ENV === 'development')
-//     uri = 'mongodb://localhost:27017/veracity';
-// else
+if (process.env.ENV === 'development')
+    uri = 'mongodb://localhost:27017/veracity';
+else
     uri = 'mongodb://heroku_app32220259:6livjuh743c00eertbsg1tpi03@ds061360.mongolab.com:61360/heroku_app32220259';
 mongoose.connect(uri);
 var db = mongoose.connection;
@@ -131,19 +131,19 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
-    store: new MongoStore({
-        db: 'veracity'
-    }),
-    resave: false,
-    saveUninitialized: false,
-    secret: 'does rocks float on lava',
-    cookie: { maxAge : 86400000 }
-}));
+// app.use(session({
+//     store: new MongoStore({
+//         db: 'veracity'
+//     }),
+//     resave: false,
+//     saveUninitialized: false,
+//     secret: 'does rocks float on lava',
+//     cookie: { maxAge : 86400000 }
+// }));
 
 // if (process.env.ENV === 'production') {
-  app.set('trust proxy', 1);
-  app.set(session.cookie.secure, true);
+//   app.set('trust proxy', 1);
+//   app.set(session.cookie.secure, true);
 // }
 
 app.use(passport.initialize());
