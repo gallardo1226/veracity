@@ -131,20 +131,7 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(session({
-//     store: new MongoStore({
-//         db: 'veracity'
-//     }),
-//     resave: false,
-//     saveUninitialized: false,
-//     secret: 'does rocks float on lava',
-//     cookie: { maxAge : 86400000 }
-// }));
-
-// if (process.env.ENV === 'production') {
-//   app.set('trust proxy', 1);
-//   app.set(session.cookie.secure, true);
-// }
+app.use(session({ secret: 'does rocks float on lava' }));
 
 app.use(passport.initialize());
 app.use(passport.session());
