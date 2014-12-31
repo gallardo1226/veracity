@@ -3,27 +3,25 @@ header
 		nav.navbar.navbar-default.navbar-static-top(role="navigation")
 			.container-fluid
 				.navbar-header
-					button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#bs-example-navbar-collapse-1")
-						span.sr-only Toggle navigation
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-				.collapse.navbar-collapse#bs-example-navbar-collapse-1
-					a.brand.pull-left(href="/staff")
-						img.navlogo(alt="Brand",src="/images/logo-noback.png")
 					if (loggedIn)
-						ul.nav.navbar-nav.pull-right
-							li: a(href='/staff') Dashboard
-							li: a(href='/staff/uploadarticle') Upload article
-							li: a(href='/staff/myarticles') My articles
-							if (admin)
-								li.dropdown
-									a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Admin
-										span.caret
-									ul.dropdown-menu(role="menu")
-										li: a(href='/admin/manageusers') Manage users
-										li: a(href='/admin/reviewarticles') Review articles
-							li: a(href='/staff/logout') Log out
+						button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#staff-nav")
+							span.sr-only Toggle navigation
+							span.icon-bar
+							span.icon-bar
+							span.icon-bar
+					a.navbar-brand(href="/staff")
+						img(alt="Brand" src="/images/logo-noback.png" height="100%")
+				if (loggedIn)
+					.collapse.navbar-collapse#staff-nav
+							ul.nav.navbar-nav.pull-right
+								li: a(href='/staff') Dashboard
+								li: a(href='/staff/uploadarticle') Upload article
+								li: a(href='/staff/myarticles') My articles
+								if (admin)
+									li.dropdown
+										a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Admin
+											span.caret
+										ul.dropdown-menu(role="menu")
+											li: a(href='/admin/manageusers') Manage users
+											li: a(href='/admin/reviewarticles') Review articles
+								li: a(href='/staff/logout') Log out

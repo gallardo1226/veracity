@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('public/index', { title: 'Veracity Home' });
+    res.render('public/index', { title: 'Home' });
 });
 
 router.get('/about', function(req, res) {

@@ -48,6 +48,7 @@ db.once('open', function() {
         section: String,
         status: String,
         title: String,
+        subtitle: String,
         body: String,
         tags: [String],
         img: { data: Buffer, contentType: String },

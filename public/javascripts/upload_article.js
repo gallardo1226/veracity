@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
-	$('#body').wysihtml5({ toolbar: { "fa": true, 'link': false, 'image': false }});
-
-	$('#submit').click(function() {
-		$('#content').val($('#body').html());
+	tinymce.init({
+		selector: "textarea",
+		menubar: false,
+		statusbar: false
 	});
 
 	exts = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];

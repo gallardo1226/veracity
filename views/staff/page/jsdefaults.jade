@@ -2,11 +2,12 @@
 script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
 script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-script(src="/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all.min.js")
-if loggedIn
-	if admin
-		script(src="/javascripts/manage_users.js")
+if title == 'Manage Users'
+	script(src="/javascripts/manage_users.js")
+if title == 'Upload Article'
 	script(src="/javascripts/upload_article.js")
+	script(src="//tinymce.cachefly.net/4.0/tinymce.min.js")
+if title == 'Dashboard'
 	script(src="/javascripts/dashboard.js")
-else
-	script(src="/javascripts/reset.js")
+if title == 'Reset Password'
+		script(src="/javascripts/reset.js")
