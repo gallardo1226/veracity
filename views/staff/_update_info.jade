@@ -1,0 +1,43 @@
+#infoModal.modal.fade
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button(type="button", class="close", data-dismiss="modal")
+					span(aria-hidden="true") &times;
+					span.sr-only Close
+				h4.modal-title Edit info
+			.modal-body
+				form.form-horizontal#infoForm(enctype="multipart/form-data", role="form", action="/staff/updateinfo", method="post", name="editInfo")
+					.form-group
+						label.control-label.col-sm-2(for='#firstName') First
+						.col-sm-3
+							input.form-control#firstName(type='text', value='#{user.name.first}', name='firstName')
+						label.control-label.col-sm-2(for='#lastName') Last
+						.col-sm-3
+							input.form-control#lastName(type='text', value='#{user.name.last}', name='lastName')
+					.form-group
+						label.control-label.col-sm-2(for='#email') Email
+						.col-sm-8
+							input.form-control#email(type='text', value='#{user.email}', name='email')
+					.form-group
+						label.control-label.col-sm-2(for='#twitter') Twitter
+						.col-sm-8
+							input.form-control#twitter(type='text', value='#{user.twitter}', name='twitter')
+					.form-group
+						label.control-label.col-sm-2(for='#role') Role
+						.col-sm-8
+							input.form-control#role(type='text', value='#{user.role}', name='role')
+					.form-group
+						label.control-label.col-sm-2(for='#bio') Bio
+						.col-sm-8
+							textarea.form-control#bio(name='bio', rows='6') #{user.bio}
+					.form-group
+						label.control-label.col-sm-2(for='#uploadPic') Photo
+						.col-sm-2
+							span.btn.btn-default.btn-file Browse
+								input#uploadPic(name='img', type='file')
+						.col-sm-6
+							p#imgName No file selected
+			.modal-footer
+				button.btn.btn-success#submitEdit(type="button", data-dismiss="modal") Save
+				button.btn.btn-danger(type="button", data-dismiss="modal") Cancel

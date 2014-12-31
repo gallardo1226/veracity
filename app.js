@@ -154,11 +154,11 @@ app.use(function(req,res,next) {
 });
 
 var route = require('./routes/index');
-var user = require('./routes/user');
+var staff = require('./routes/staff');
 var admin = require('./routes/admin');
 
 app.use('/', route);
-app.use('/user', user);
+app.use('/staff', staff);
 app.use('/admin', admin);
 
 var server = app.listen(process.env.PORT || 3000, function() {

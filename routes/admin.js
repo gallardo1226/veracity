@@ -2,12 +2,13 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var nodemailer = require('nodemailer');
+// var htmlToText = require('nodemailer-html-to-text').htmlToText;
 var async = require('async');
 var moment = require('moment');
 var generatePassword = require('password-generator');
 
 router.get('/', function(req, res) {
-  res.location('/user').redirect('/user');
+  res.location('/staff').redirect('/staff');
 });
 
 router.post('/adduser', function(req, res, next) {
@@ -75,14 +76,15 @@ router.post('/resetpassword', function(req, res, next) {
           pass: 'prayers4rain'
         }
       });
+      // smtpTransport.use('compile', htmlToText());
       var mailOptions = {
         to: user.email,
         from: 'noahconley2015@u.northwestern.edu',
         subject: 'Your password has been changed',
-        text: 'Hello,\n\n' +
-        'This is a notice that the password for your account ' + user.email + ' has just been changed to by administrator ' + name + '.\n\n' +
-        'Your new temporary password is: ' + password + '\n\n' +
-        'It is recommended that you log in and change your password on your dashboard.\n'
+        html: '<h2>Hello,</h2>' +
+        '<p>This is a notice that the password for your account ' + user.email + ' has just been changed to by administrator ' + name + '.</p>' +
+        '<p>Your new temporary password is: <b>' + password + '</b></p>' +
+        '<p>It is recommended that you <a href="http://' + req.headers.host + '/staff/login">log in</a> and change your password on your dashboard.</p>'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
         done(err);
@@ -125,7 +127,7 @@ router.get('/manageusers', function(req, res, next) {
         userMap[user._id] = user;
       });
 
-      res.render('user/admin/manage_users', {
+      res.render('staff/admin/manage_users', {
         title: 'Manage Users',
         "userlist": userMap,
         moment: moment,
@@ -135,7 +137,7 @@ router.get('/manageusers', function(req, res, next) {
       });
     });
   } else
-    res.location('/user').redirect('/user');
+    res.location('/staff').redirect('/staff');
 });
 
 module.exports = router;

@@ -41,7 +41,7 @@ $(document).ready(function() {
 		else {
 			$.ajax({
 				type: 'POST',
-				url: '/user/changepassword',
+				url: '/staff/changepassword',
 				data: $('#passwordForm').serialize(),
 				success: function(data) {
 					console.log(data);
