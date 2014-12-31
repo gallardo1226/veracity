@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var nodemailer = require('nodemailer');
-// var htmlToText = require('nodemailer-html-to-text').htmlToText;
 var async = require('async');
 var moment = require('moment');
 var generatePassword = require('password-generator');
@@ -76,13 +75,12 @@ router.post('/resetpassword', function(req, res, next) {
           pass: 'prayers4rain'
         }
       });
-      // smtpTransport.use('compile', htmlToText());
       var mailOptions = {
         to: user.email,
         from: 'noahconley2015@u.northwestern.edu',
         subject: 'Your password has been changed',
         html: '<h2>Hello,</h2>' +
-        '<p>This is a notice that the password for your account ' + user.email + ' has just been changed to by administrator ' + name + '.</p>' +
+        '<p>This is a notice that the password for your account <b>' + user.email + '</b> has just been changed to by administrator ' + name + '.</p>' +
         '<p>Your new temporary password is: <b>' + password + '</b></p>' +
         '<p>It is recommended that you <a href="http://' + req.headers.host + '/staff/login">log in</a> and change your password on your dashboard.</p>'
       };

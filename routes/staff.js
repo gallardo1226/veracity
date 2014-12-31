@@ -159,6 +159,7 @@ router.post('/changepassword', function(req, res, next) {
 
 router.get('/forgot', function(req, res) {
   res.render('staff/forgot', {
+    title: 'Request password reset',
     user: req.user
   });
 });
@@ -199,7 +200,7 @@ router.post('/forgot', function(req, res) {
       var mailOptions = {
         to: user.email,
         from: 'noahconley2015@.u.northwestern.edu',
-        subject: 'Veracity Staff Password Reset',
+        subject: 'Veracity staff password reset',
         html: '<h2>Hello,</h2>'+
         '<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>' +
         '<p>Please click <a href="http://' + req.headers.host + '/staff/reset/' + token + '">here</a> to complete the process.</p>' +
@@ -225,7 +226,8 @@ router.get('/reset/:token', function(req, res) {
       return res.location('forgot').redirect('forgot');
     }
     res.render('staff/reset', {
-      user: req.user
+      user: req.user,
+      title: 'Reset password'
     });
   });
 });
