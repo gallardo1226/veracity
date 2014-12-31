@@ -17,7 +17,6 @@
     "mongoose-relationship": "*",
     "async": "*",
     "nodemailer": "0.7.1",
-    "nodemailer-html-to-text": "*",
     "passport": "*",
     "passport-local": "*",
     "multer": "*",
