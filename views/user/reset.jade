@@ -3,18 +3,18 @@ extends layout
 block content
 	.row.text-center
 		h1.col-sm-4.col-sm-offset-4=title
-		.col-sm-4.col-sm-offset-4
+		#errormessage.alert.alert-danger.col-sm-10.col-sm-offset-1(style="display:none;")
 	.row
 		.col-sm-4.col-sm-offset-4.well
 			form.form-horizontal(enctype="multipart/form-data", role="form", method="post", name="reset")
 				.form-group
 					label.col-sm-5.control-label(for='password') New Password
 					.col-sm-6
-						input.form-control(type='password', name='password', autofocus=true)
+						input.form-control#newPassword(type='password', name='password', autofocus=true)
 				.form-group
 					label.col-sm-5.control-label(for='confirm') Confirm Password
 					.col-sm-6
-						input.form-control(type='password', name='confirm')
+						input.form-control#retypePassword(type='password', name='confirm')
 				.form-group
 					.col-sm-4.col-sm-offset-3
-						button.btn.btn-primary(type='submit') Update Password
+						button.btn.btn-primary#changePassSubmit(type='submit') Update Password

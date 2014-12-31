@@ -12,7 +12,6 @@ var multer = require('multer');
 var flash = require('express-flash');
 var mongo = require('mongodb');
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     relationship = require('mongoose-relationship');
@@ -39,7 +38,9 @@ db.once('open', function() {
         articles: [{type:Schema.ObjectId, ref: "Article"}],
         create_time: { type: Date, default: Date.now },
         update_time: { type: Date, default: Date.now },
-        archive_time: { type: Date, default: null }
+        archive_time: { type: Date, default: null },
+        resetPasswordToken: String,
+        resetPasswordExpires: Date
     });
 
     var articleSchema = mongoose.Schema({
@@ -49,6 +50,7 @@ db.once('open', function() {
         title: String,
         body: String,
         tags: [String],
+        img: { data: Buffer, contentType: String },
         create_time: { type: Date, default: Date.now },
         update_time: { type: Date, default: Date.now },
         archive_time: { type: Date, default: null }
@@ -131,7 +133,11 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'does rocks float on lava' }));
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: 'does rocks float on lava',
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());

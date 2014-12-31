@@ -3,13 +3,14 @@ var router = express.Router();
 var bcrypt = require('bcrypt');
 var passport = require('passport');
 var fs = require('fs');
+var nodemailer = require('nodemailer');
 var crypto = require('crypto');
 var async = require('async');
 
 router.get('/', function(req, res) {
-	if (req.user) {
+	if (req.user)
 		res.location("/user/dashboard").redirect("/user/dashboard");
-	} else
+	else
 		res.location("/user/login").redirect("/user/login");
 });
 
@@ -56,6 +57,11 @@ router.post('/uploadarticle', function(req, res) {
 		article.title = req.body.title.trim();
 		article.body = req.body.body.trim();
 		article.tags = req.body.tags.split(/\s*,\s*/);
+		if (req.files.img)
+			article.img = {
+				data: req.files.img.buffer,
+				contentType: req.files.img.mimetype
+			};
 		article.save(function(err, article) {
 			if (err)
 				return next(err);
@@ -166,10 +172,12 @@ router.post('/forgot', function(req, res) {
       });
     },
     function(token, done) {
+			db = req.db;
+			User = db.model('User');
       User.findOne({ email: req.body.email }, function(err, user) {
         if (!user) {
           req.flash('error', 'No account with that email address exists.');
-          return res.redirect('/forgot');
+          return res.redirect('forgot');
         }
 
         user.resetPasswordToken = token;
@@ -204,17 +212,19 @@ router.post('/forgot', function(req, res) {
     }
   ], function(err) {
     if (err) return next(err);
-    res.redirect('/forgot');
+    res.location('forgot').redirect('forgot');
   });
 });
 
 router.get('/reset/:token', function(req, res) {
+	db = req.db;
+	User = db.model('User');
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
     if (!user) {
       req.flash('error', 'Password reset token is invalid or has expired.');
-      return res.redirect('/forgot');
+      return res.location('forgot').redirect('forgot');
     }
-    res.render('reset', {
+    res.render('user/reset', {
       user: req.user
     });
   });
@@ -223,17 +233,19 @@ router.get('/reset/:token', function(req, res) {
 router.post('/reset/:token', function(req, res) {
   async.waterfall([
     function(done) {
+			db = req.db;
+			User = db.model('User');
       User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
           req.flash('error', 'Password reset token is invalid or has expired.');
-          return res.redirect('back');
+          return res.redirect('/user');
         }
 
         user.password = req.body.password;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
 
-        user.save(function(err) {
+        user.save(function(err, user) {
           req.logIn(user, function(err) {
             done(err, user);
           });
@@ -245,7 +257,7 @@ router.post('/reset/:token', function(req, res) {
         service: 'Gmail',
         auth: {
           user: 'noahconley2015@u.northwestern.edu',
-          pass: 'victory500'
+          pass: 'prayers4rain'
         }
       });
       var mailOptions = {
@@ -261,7 +273,7 @@ router.post('/reset/:token', function(req, res) {
       });
     }
   ], function(err) {
-    res.redirect('/');
+    res.redirect('/user');
   });
 });
 

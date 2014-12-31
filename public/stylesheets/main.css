@@ -17,7 +17,7 @@
 body {
   padding-top: 50px;
   font-size: 14px;
-  font-family: 'Verlag Book';
+  font-family: 'Verlag Book' !important;
 }
 a {
   color: gray;
@@ -56,6 +56,7 @@ header {
 }
 #topNav .navbar {
 	min-height: 32px !important;
+	background: #eee !important;
 }
 .navbar-default {
 	background-color: transparent !important;
@@ -77,13 +78,29 @@ html, body {height: 100%;}
 
 #wrap {min-height: 100%;}
 
-#main {overflow:auto;
-	padding-bottom: 30px;}  /* must be same height as the footer */
+#usermain {
+	overflow:auto;
+	padding-bottom: 30px;
+	}  /* must be same height as the footer */
 
-#footer {position: relative;
+#userfooter {
+	position: relative;
 	margin-top: -30px; /* negative value of footer height */
 	height: 30px;
-	clear:both;} 
+	clear:both;
+	background: #eee;
+} 
+
+#publicmain {overflow:auto;
+	padding-bottom: 90px;}  /* must be same height as the footer */
+
+#publicfooter {
+	position: relative;
+	margin-top: -90px; /* negative value of footer height */
+	height: 90px;
+	clear:both;
+	background: #eee;
+} 
 
 /*Opera Fix*/
 body:before {

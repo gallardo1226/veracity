@@ -57,7 +57,23 @@ $(document).ready(function() {
 	});
 
 	$('#users').on('click', '.reset', function() {
-		id = $(this).val();
+		$(this).after('<div class="temp-reset" style="display:none;"><div class="btn-group"><button class="btn btn-sm btn-success confirm" title="Confirm"><span class="glyphicon glyphicon-ok"</span></button><button class="btn btn-sm btn-danger cancel" title="Cancel"><span class="glyphicon glyphicon-remove"</span></button></div></div>');
+		$('.temp-reset button').css({opacity: 1.0});
+		$(this).slideUp(function() {
+			$('.temp-reset').slideDown();
+		});
+	});
+
+	$('#users').on('click', '.temp-reset .cancel', function() {
+		$('.temp-reset').slideUp(function() {
+			$(this).closest('td').find('.reset').slideDown();
+			$(this).remove();
+		});
+	});
+
+	$('#users').on('click', '.temp-reset .confirm', function() {
+		t = $(this);
+		var id = $(this).parent().parent().prev().val();
 		$.ajax({
 			type: 'POST',
 			url: '/admin/resetpassword',
@@ -66,9 +82,13 @@ $(document).ready(function() {
 				$('#message').append('<div class="alert alert-success" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
 					$('.alert').remove();
 				});
+				$('.temp-reset').slideUp(function() {
+					$(this).closest('td').find('.reset').slideDown();
+					$(this).remove();
+				});
 			},
 			error: function(data) {
-				$('#message').append('<div class="alert alert-danger" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
+				$('#message').append('<div class="alert alert-danger" role="alert">' + data.statusText).hide().slideDown().delay('3000').slideUp(function() {
 					$('.alert').remove();
 				});
 			}
@@ -76,23 +96,23 @@ $(document).ready(function() {
 	});
 
 	$('#users').on('click', '.remove', function() {
-		$(this).after('<div class="temp" style="display:none;"><div class="btn-group"><button class="btn btn-sm btn-success confirm" title="Confirm"><span class="glyphicon glyphicon-ok"</span></button><button class="btn btn-sm btn-danger cancel" title="Cancel"><span class="glyphicon glyphicon-remove"</span></button></div></div>');
-		$('.temp button').css({opacity: 1.0});
+		$(this).after('<div class="temp-remove" style="display:none;"><div class="btn-group"><button class="btn btn-sm btn-success confirm" title="Confirm"><span class="glyphicon glyphicon-ok"</span></button><button class="btn btn-sm btn-danger cancel" title="Cancel"><span class="glyphicon glyphicon-remove"</span></button></div></div>');
+		$('.temp-remove button').css({opacity: 1.0});
 		$(this).slideUp(function() {
-			$('.temp').slideDown();
+			$('.temp-remove').slideDown();
 		});
 	});
 
-	$('#users').on('click', '.temp .cancel', function() {
-		$('.temp').slideUp(function() {
-			$(this).closest('td').find('.remove').slideDown();
+	$('#users').on('click', '.temp-remove .cancel', function() {
+		$('.temp-remove').slideUp(function() {
+			$(this).closest('td').find('.remove-remove').slideDown();
 			$(this).remove();
 		});
 	});
 
 	$('.role')
 
-	$('#users').on('click', '.temp .confirm', function() {
+	$('#users').on('click', '.temp-remove .confirm', function() {
 		t = $(this);
 		var id = $(this).parent().parent().prev().val();
 		$.ajax({
