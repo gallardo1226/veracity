@@ -31,21 +31,23 @@ router.get('/campus', function(req, res) {
 });
 
 router.get('/journey', function(req, res) {
-//     var db = req.db;
-//     Article = db.model('Article');
-//     articlelist = Article.find({section: 'Journey'}).skip(1);
-//     featured = Article.findOne({section: 'Journey'});
-//     sidebar = Article.findOne({section: 'Bloom'});
-//     res.render('public/section', { 
-//         section_title: 'Journey',
-//         sub_section_title: 'Bloom',
-//         'articlelist': articlelist,
-//         'featured': featured,
-//         'sidebar': sidebar
-//     });
-// });
-	res.render('public/journey', { title: 'Journey' });
+    var db = req.db;
+    Article = db.model('Article');
+    // User = db.model('User');
+    articlelist = Article.find({ section: 'Journey', archive_time: null }, '_id title subtitle authors', { sort: { create_time: 1 }});
+    console.log(articlelist[0]);
+    // featured = articlelist.shift();
+    // sidebar = Article.findOne({ section: 'Bloom', archive_time: null }, '_id title subtitle authors', { sort: { create_time: 1 }});
+    res.end();
+    // res.render('public/section', {
+    //     title: 'Journey',
+    //     'articlelist': articlelist,
+        // 'featured': featured,
+      // 'sidebar': sidebar
+    // });
 });
+// 	res.render('public/journey', { title: 'Journey' });
+// });
 
 router.get('/lifeandculture', function(req, res) {
 	
@@ -77,6 +79,18 @@ router.get('/article', function(req, res) {
 //         }
 //     });
 	res.render('public/article', { title: 'Test Article' });
+});
+
+router.get('/image/:id', function(req, res) {
+  db = req.db;
+  Article = db.model('Article');
+  Article.findById(req.param('id'), 'img', function(err, article) {
+    if (err) return next(err);
+    if (user.img.contentType) {
+      res.send(user.img.data);
+    } else
+      res.send(fs.readFileSync('./public/images/logo.png'));
+  });
 });
 
 module.exports = router;

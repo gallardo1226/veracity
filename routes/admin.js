@@ -56,13 +56,14 @@ router.post('/resetpassword', function(req, res, next) {
       db = req.db;
       User = db.model('User');
       now = new Date().toISOString();
-      var password = generatePassword(8, false);
       User.findById(req.param('id'), function(err, user) {
         if (err) return next(err);
         user.password = password;
         user.update_time = now;
+        console.log(user.password);
         user.save(function(err, user) {
           if (err) return next(err);
+          console.log(user.password);
           done(err, user);
         });
       });
@@ -117,7 +118,7 @@ router.get('/manageusers', function(req, res, next) {
   if (req.user) {
     db = req.db;
     User = db.model('User');
-    User.find({archive_time: null}, '-img', {sort: {'name.last':1}}, function(err, users) {
+    User.find({archive_time: null}, '_id name role email admin', {sort: {'name.last':1}}, function(err, users) {
       if (err) return next(err);
       var userMap = {};
 

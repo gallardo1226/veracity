@@ -6,7 +6,7 @@
   },
   "private": true,
   "scripts": {
-    "start": "ENV=productio node app.js"
+    "start": "ENV=production node app.js"
   },
   "dependencies": {
     "express": "~4.2.0",
