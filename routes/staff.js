@@ -202,7 +202,7 @@ router.post('/forgot', function(req, res, next) {
 				from: 'noahconley2015@.u.northwestern.edu',
 				subject: 'Veracity staff password reset',
 				html: '<p><em>Please do not reply to this email</em></p>' +
-        '<h2>Hello,</h2>'+
+        '<h2>Hello ' + user.name.first + ',</h2>'+
 				'<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>' +
 				'<p>Please click <a href="http://' + req.headers.host + '/staff/reset/' + token + '">here</a> to complete the process.</p>' +
 				'<p>If you did <b>not</b> request this, please ignore this email and your password will remain unchanged.</p>'
@@ -268,7 +268,7 @@ router.post('/reset/:token', function(req, res) {
 				from: 'noahconley2015@u.northwestern.edu',
 				subject: 'Your password has been changed',
 				html: '<p><em>Please do not reply to this email</em></p>' +
-					'<h2>Hello,</h2>'+
+					'<h2>Hello' + user.name.first + ',</h2>'+
 					'<p>This is a confirmation that the password for your account <b>' + user.email + '</b> has just been changed.</p>'
 			};
 			smtpTransport.sendMail(mailOptions, function(err) {
