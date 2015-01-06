@@ -193,7 +193,7 @@ router.post('/forgot', function(req, res, next) {
 			var smtpTransport = nodemailer.createTransport('SMTP', {
 				service: 'Gmail',
 				auth: {
-					user: 'NUVeracity',
+					user: 'NUVeracity@gmail.com',
 					pass: 'bre10293'
 				}
 			});
@@ -259,7 +259,7 @@ router.post('/reset/:token', function(req, res) {
 			var smtpTransport = nodemailer.createTransport('SMTP', {
 				service: 'Gmail',
 				auth: {
-					user: 'NUVeracity',
+					user: 'NUVeracity@gmail.com',
 					pass: 'bre10293'
 				}
 			});
