@@ -14,10 +14,25 @@ router.get('/contact', function(req, res, next) {
 	res.render('public/contact', { title: 'Contact Us' });
 });
 
-router.get('/:section', function(req, res) {
+router.get('/mag/:section', function(req, res) {
 	var db = req.db;
 	Article = db.model('Article');
 	var section = req.param('section');
+	var subsection;
+	switch (section) {
+		case 'Journey':
+			subsection = 'Bloom';
+			break;
+		case 'Campus':
+			subsection = 'Gray Area';
+			break;
+		case 'Life & Culture':
+			subsection = 'Vera in the City';
+			break;
+		default:
+			return next();
+			break;
+	}
 	Article.find({ section: section }, '_id title subtitle', { sort: { create_time: 1 }}, function(err, articles) {
 		if (err) return next(err);
 
@@ -35,20 +50,6 @@ router.get('/:section', function(req, res) {
 				i++;
 			});
 		});
-		var subsection;
-		switch (section) {
-			case 'Journey':
-				subsection = 'Bloom';
-				break;
-			case 'Campus':
-				subsection = 'Gray Area';
-				break;
-			case 'Life & Culture':
-				subsection = 'Vera in the City';
-				break;
-			default:
-				break;
-		}
 
 		Article.findOne({ section: subsection }, '_id title subtitle', function(err, sidebar) {
 			sidebar.getAuthors().exec(function (err, authors) {
@@ -66,7 +67,7 @@ router.get('/:section', function(req, res) {
 	});
 });
 
-router.get('/:section/:id', function(req, res, next) {
+router.get('/mag/:section/:id', function(req, res, next) {
 	var db = req.db;
 	Article = db.model('Article');
 	Article.findById(req.param('id'), function(err, article) {

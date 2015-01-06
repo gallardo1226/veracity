@@ -77,7 +77,7 @@ router.post('/resetpassword', function(req, res, next) {
       var mailOptions = {
         to: user.email,
         from: '',
-        subject: 'Your password has been changed',
+        subject: 'Your password has been reset',
         html: '<p><em>Please do not reply to this email</em></p>' +
         '<h2>Hello,</h2>' +
         '<p>This is a notice that the password for your account <b>' + user.email + '</b> has just been changed to by administrator ' + name + '.</p>' +

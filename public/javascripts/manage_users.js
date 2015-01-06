@@ -105,7 +105,7 @@ $(document).ready(function() {
 
 	$('#users').on('click', '.temp-remove .cancel', function() {
 		$('.temp-remove').slideUp(function() {
-			$(this).closest('td').find('.remove-remove').slideDown();
+			$(this).closest('td').find('.remove').slideDown();
 			$(this).remove();
 		});
 	});
