@@ -39,12 +39,10 @@ router.post('/adduser', function(req, res, next) {
 router.post('/removeuser', function(req, res, next) {
   db = req.db;
   User = db.model('User');
-  now = new Date().toISOString();
-  User.findByIdAndUpdate(req.param('id'), {archive_time: now}, function(err, user) {
+  User.findByIdAndRemove(req.param('id'), function(err) {
     if (err)  return next(err);
-    else {
+    else
       res.send("User successfully removed");
-    }
   });
 });
 
@@ -72,15 +70,16 @@ router.post('/resetpassword', function(req, res, next) {
       var smtpTransport = nodemailer.createTransport('SMTP', {
         service: 'Gmail',
         auth: {
-          user: 'noahconley2015@u.northwestern.edu',
-          pass: 'prayers4rain'
+          user: 'NUVeracity',
+          pass: 'bre10293'
         }
       });
       var mailOptions = {
         to: user.email,
-        from: 'noahconley2015@u.northwestern.edu',
+        from: '',
         subject: 'Your password has been changed',
-        html: '<h2>Hello,</h2>' +
+        html: '<p><em>Please do not reply to this email</em></p>' +
+        '<h2>Hello,</h2>' +
         '<p>This is a notice that the password for your account <b>' + user.email + '</b> has just been changed to by administrator ' + name + '.</p>' +
         '<p>Your new temporary password is: <b>' + password + '</b></p>' +
         '<p>It is recommended that you <a href="http://' + req.headers.host + '/staff/login">log in</a> and change your password on your dashboard.</p>'
@@ -115,7 +114,7 @@ router.post('/updaterole', function(req, res, next) {
 });
 
 router.get('/manageusers', function(req, res, next) {
-  if (req.user) {
+  if (req.user && req.user.admin) {
     db = req.db;
     User = db.model('User');
     User.find({archive_time: null}, '_id name role email admin', {sort: {'name.last':1}}, function(err, users) {

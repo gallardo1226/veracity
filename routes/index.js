@@ -3,94 +3,97 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('public/index', { title: 'Home' });
+		res.render('public/index', { title: 'Home' });
 });
 
-router.get('/about', function(req, res) {
+router.get('/about', function(req, res, next) {
 	res.render('public/about', { title: 'About Us' });
 });
 
-router.get('/contact', function(req, res) {
+router.get('/contact', function(req, res, next) {
 	res.render('public/contact', { title: 'Contact Us' });
 });
 
-router.get('/campus', function(req, res) {
-//     var db = req.db;
-//     Article = db.model('Article');
-//     articlelist = Article.find({section: 'Campus'}).skip(1);
-//     featured = Article.findOne({section: 'Campus'});
-//     sidebar = Article.findOne({section: 'Gray Area'});
-// 	res.render('public/section', { 
-//         section_title: 'Campus',
-//         sub_section_title: 'Gray Area',
-//         'articlelist': articlelist,
-//         'featured': featured,
-//         'sidebar': sidebar
-//     });
-	res.render('public/campus', { title: 'Campus' });
+router.get('/:section', function(req, res) {
+	var db = req.db;
+	Article = db.model('Article');
+	var section = req.param('section');
+	Article.find({ section: section }, '_id title subtitle', { sort: { create_time: 1 }}, function(err, articles) {
+		if (err) return next(err);
+
+		var articlelist = [];
+		var i = 0;
+
+		articles.forEach(function(article) {
+			article.getAuthors().exec(function (err, authors) {
+				if (err) return next(err);
+				article.authors = authors;
+				if (i === 0)
+					featured = article;
+				else
+					articlelist[i] = article;
+				i++;
+			});
+		});
+		var subsection;
+		switch (section) {
+			case 'Journey':
+				subsection = 'Bloom';
+				break;
+			case 'Campus':
+				subsection = 'Gray Area';
+				break;
+			case 'Life & Culture':
+				subsection = 'Vera in the City';
+				break;
+			default:
+				break;
+		}
+
+		Article.findOne({ section: subsection }, '_id title subtitle', function(err, sidebar) {
+			sidebar.getAuthors().exec(function (err, authors) {
+				if (err) return next(err);
+				sidebar.authors = authors;
+			});
+
+			res.render('public/section', {
+				title: section,
+				'articlelist': articlelist,
+				'featured': featured,
+				'sidebar': sidebar
+			});
+		});
+	});
 });
 
-router.get('/journey', function(req, res) {
-    var db = req.db;
-    Article = db.model('Article');
-    // User = db.model('User');
-    articlelist = Article.find({ section: 'Journey', archive_time: null }, '_id title subtitle authors', { sort: { create_time: 1 }});
-    console.log(articlelist[0]);
-    // featured = articlelist.shift();
-    // sidebar = Article.findOne({ section: 'Bloom', archive_time: null }, '_id title subtitle authors', { sort: { create_time: 1 }});
-    res.end();
-    // res.render('public/section', {
-    //     title: 'Journey',
-    //     'articlelist': articlelist,
-        // 'featured': featured,
-      // 'sidebar': sidebar
-    // });
-});
-// 	res.render('public/journey', { title: 'Journey' });
-// });
+router.get('/:section/:id', function(req, res, next) {
+	var db = req.db;
+	Article = db.model('Article');
+	Article.findById(req.param('id'), function(err, article) {
+		var authorlist;
+		article.getAuthors().exec(function (err, authors) {
+			if (err) return err;
+			authorlist = authors;
+		});
 
-router.get('/lifeandculture', function(req, res) {
-	
-//     var db = req.db;
-//     Article = db.model('Article');
-//     articlelist = Article.find({section: 'Life &amp; Culture'}).skip(1);
-//     featured = Article.findOne({section: 'Life &amp; Culture'});
-//     sidebar = Article.findOne({section: 'Vera in the City'});
-//     res.render('public/section', { 
-//         section_title: 'Life &amp; Culture',
-//         sub_section_title: 'Vera in the City',
-//         'articlelist': articlelist,
-//         'featured': featured,
-//         'sidebar': sidebar
-//     });
-	res.render('public/life_and_culture', { title: 'Life &amp; Culture' });
-});
-
-router.get('/article', function(req, res) {
-//     var db = req.db;
-//     Article = db.model('Article');
-//     Article.find({_id: req.param('id')}, function(err, article) {
-//         if (err)
-//             res.send(500, 'Article could not be found');
-//         else {
-//             res.render('public/article', {
-//                 'article': article
-//             });
-//         }
-//     });
-	res.render('public/article', { title: 'Test Article' });
+		res.render('public/article', {
+			title: article.title,
+			'authorlist': authorlist,
+			'article': article
+		});
+	});
 });
 
 router.get('/image/:id', function(req, res) {
-  db = req.db;
-  Article = db.model('Article');
-  Article.findById(req.param('id'), 'img', function(err, article) {
-    if (err) return next(err);
-    if (user.img.contentType) {
-      res.send(user.img.data);
-    } else
-      res.send(fs.readFileSync('./public/images/logo.png'));
-  });
+	db = req.db;
+	Article = db.model('Article');
+	Article.findById(req.param('id'), 'img', function(err, article) {
+		if (err) return next(err);
+		if (user.img.contentType) {
+			res.send(user.img.data);
+		} else
+			res.send(fs.readFileSync('./public/images/logo.png'));
+	});
 });
 
 module.exports = router;

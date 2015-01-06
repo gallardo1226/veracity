@@ -15,6 +15,7 @@
     "mongodb": "*",
     "mongoose": "~3.8.17",
     "mongoose-relationship": "*",
+    "mongoose-archiver": "*",
     "async": "*",
     "nodemailer": "0.7.1",
     "passport": "*",

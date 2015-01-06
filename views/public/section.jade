@@ -8,11 +8,10 @@ block content
 					.col-md-12.featured
 						.thumbnail
 							a(href="article/#{featured._id}") 
-								img(src="#{featured.image}")
+								img(src="/index/image/#{featured._id}")
 							.caption
-								h6 by #{featured.author.name.full}
 								h4 #{featured.title}
-								p #{featured.preview}
+								p #{featured.subtitle}
 								p
 									a(href="article/#{featured._id}") read more
 				.row
@@ -20,20 +19,18 @@ block content
 						.col-md-6
 							.thumbnail
 								a(href="article/#{article._id}") 
-									img(src="#{article.image}")
+									img(src="/index/image/#{article._id}")
 								.caption
-									h6 by #{article.author.name.full}
 									h4 #{article.title}
-									p #{article.preview}
+									p #{article.subtitle}
 									p
 										a(href="article/#{article._id}") read more
 			.col-xs-12.col-md-4
 				h3=sub_section_title
 				.thumbnail
 					a(href="article/#{sidebar._id}") 
-						img(src="#{sidebar.image}")
+						img(src="/index/image/#{sidebar._id}")
 					.caption
-						h4  #{sidebar.author.name.full}
-						p #{sidebar.preview}
+						p #{sidebar.subtitle}
 						p
 							a(href="article/#{sidebar._id}") read more

@@ -44,7 +44,7 @@ router.post('/uploadarticle', function(req, res) {
 	db = req.db;
 	User = db.model('User');
 	Article = db.model('Article');
-	User.find({ _id: { $in:req.body.author }}, '_id', function(err, users) {
+	User.find({ _id: { $in: req.body.author }}, '_id', function(err, users) {
 		if (err) return next(err);
 		i = 0;
 		article = new Article();
@@ -88,8 +88,8 @@ router.post('/login',
 );
 
 router.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/staff');
+	req.logout();
+	res.redirect('/staff');
 });
 
 router.get('/dashboard', function(req, res) {
@@ -158,125 +158,127 @@ router.post('/changepassword', function(req, res, next) {
 });
 
 router.get('/forgot', function(req, res) {
-  res.render('staff/forgot', {
-    title: 'Request password reset',
-    user: req.user
-  });
+	res.render('staff/forgot', {
+		title: 'Request password reset',
+		user: req.user
+	});
 });
 
-router.post('/forgot', function(req, res) {
-  async.waterfall([
-    function(done) {
-      crypto.randomBytes(20, function(err, buf) {
-        var token = buf.toString('hex');
-        done(err, token);
-      });
-    },
-    function(token, done) {
+router.post('/forgot', function(req, res, next) {
+	async.waterfall([
+		function(done) {
+			crypto.randomBytes(20, function(err, buf) {
+				var token = buf.toString('hex');
+				done(err, token);
+			});
+		},
+		function(token, done) {
 			db = req.db;
 			User = db.model('User');
-      User.findOne({ email: req.body.email }, function(err, user) {
-        if (!user) {
-          req.flash('error', 'No account with that email address exists.');
-          return res.redirect('forgot');
-        }
+			User.findOne({ email: req.body.email }, function(err, user) {
+				if (!user) {
+					req.flash('error', 'No account with that email address exists.');
+					return res.redirect('forgot');
+				}
 
-        user.resetPasswordToken = token;
-        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+				user.resetPasswordToken = token;
+				user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
-        user.save(function(err) {
-          done(err, token, user);
-        });
-      });
-    },
-    function(token, user, done) {
-      var smtpTransport = nodemailer.createTransport('SMTP', {
-        service: 'Gmail',
-        auth: {
-          user: 'noahconley2015@u.northwestern.edu',
-          pass: 'prayers4rain'
-        }
-      });
-      var mailOptions = {
-        to: user.email,
-        from: 'noahconley2015@.u.northwestern.edu',
-        subject: 'Veracity staff password reset',
-        html: '<h2>Hello,</h2>'+
-        '<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>' +
-        '<p>Please click <a href="http://' + req.headers.host + '/staff/reset/' + token + '">here</a> to complete the process.</p>' +
-        '<p>If you did <b>not</b> request this, please ignore this email and your password will remain unchanged.</p>'
-      };
-      smtpTransport.sendMail(mailOptions, function(err) {
-        req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-        done(err, 'done');
-      });
-    }
-  ], function(err) {
-    if (err) return next(err);
-    res.location('forgot').redirect('forgot');
-  });
+				user.save(function(err) {
+					done(err, token, user);
+				});
+			});
+		},
+		function(token, user, done) {
+			var smtpTransport = nodemailer.createTransport('SMTP', {
+				service: 'Gmail',
+				auth: {
+					user: 'NUVeracity',
+					pass: 'bre10293'
+				}
+			});
+			var mailOptions = {
+				to: user.email,
+				from: 'noahconley2015@.u.northwestern.edu',
+				subject: 'Veracity staff password reset',
+				html: '<p><em>Please do not reply to this email</em></p>' +
+        '<h2>Hello,</h2>'+
+				'<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>' +
+				'<p>Please click <a href="http://' + req.headers.host + '/staff/reset/' + token + '">here</a> to complete the process.</p>' +
+				'<p>If you did <b>not</b> request this, please ignore this email and your password will remain unchanged.</p>'
+			};
+			smtpTransport.sendMail(mailOptions, function(err) {
+				req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+				done(err, 'done');
+			});
+		}
+	], function(err) {
+		if (err) return next(err);
+		res.location('forgot').redirect('forgot');
+	});
 });
 
 router.get('/reset/:token', function(req, res) {
 	db = req.db;
 	User = db.model('User');
-  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-    if (!user) {
-      req.flash('error', 'Password reset token is invalid or has expired.');
-      return res.location('forgot').redirect('forgot');
-    }
-    res.render('staff/reset', {
-      user: req.user,
-      title: 'Reset password'
-    });
-  });
+	User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+		if (!user) {
+			req.flash('error', 'Password reset token is invalid or has expired.');
+			return res.location('forgot').redirect('forgot');
+		}
+		res.render('staff/reset', {
+			user: req.user,
+			title: 'Reset password'
+		});
+	});
 });
 
 router.post('/reset/:token', function(req, res) {
-  async.waterfall([
-    function(done) {
+	async.waterfall([
+		function(done) {
 			db = req.db;
 			User = db.model('User');
-      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-        if (!user) {
-          req.flash('error', 'Password reset token is invalid or has expired.');
-          return res.redirect('/staff');
-        }
+			User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+				if (!user) {
+					req.flash('error', 'Password reset token is invalid or has expired.');
+					return res.redirect('/staff');
+				}
 
-        user.password = req.body.password;
-        user.resetPasswordToken = undefined;
-        user.resetPasswordExpires = undefined;
+				user.password = req.body.password;
+				user.resetPasswordToken = undefined;
+				user.resetPasswordExpires = undefined;
 
-        user.save(function(err, user) {
-          req.logIn(user, function(err) {
-            done(err, user);
-          });
-        });
-      });
-    },
-    function(user, done) {
-      var smtpTransport = nodemailer.createTransport('SMTP', {
-        service: 'Gmail',
-        auth: {
-          user: 'noahconley2015@u.northwestern.edu',
-          pass: 'prayers4rain'
-        }
-      });
-      var mailOptions = {
-        to: user.email,
-        from: 'noahconley2015@u.northwestern.edu',
-        subject: 'Your password has been changed',
-        html: '<h2>Hello,</h2>'+
-          '<p>This is a confirmation that the password for your account <b>' + user.email + '</b> has just been changed.</p>'
-      };
-      smtpTransport.sendMail(mailOptions, function(err) {
-        req.flash('success', 'Success! Your password has been changed.');
-        done(err);
-      });
-    }
-  ], function(err) {
-    res.redirect('/staff');
-  });
+				user.save(function(err, user) {
+					req.logIn(user, function(err) {
+						done(err, user);
+					});
+				});
+			});
+		},
+		function(user, done) {
+			var smtpTransport = nodemailer.createTransport('SMTP', {
+				service: 'Gmail',
+				auth: {
+					user: 'NUVeracity',
+					pass: 'bre10293'
+				}
+			});
+			var mailOptions = {
+				to: user.email,
+				from: 'noahconley2015@u.northwestern.edu',
+				subject: 'Your password has been changed',
+				html: '<p><em>Please do not reply to this email</em></p>' +
+					'<h2>Hello,</h2>'+
+					'<p>This is a confirmation that the password for your account <b>' + user.email + '</b> has just been changed.</p>'
+			};
+			smtpTransport.sendMail(mailOptions, function(err) {
+				req.flash('success', 'Success! Your password has been changed.');
+				done(err);
+			});
+		}
+	], function(err) {
+		res.redirect('/staff');
+	});
 });
 
 module.exports = router;

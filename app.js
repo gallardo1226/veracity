@@ -14,7 +14,8 @@ var mongo = require('mongodb');
 var session = require('express-session');
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    relationship = require('mongoose-relationship');
+    relationship = require('mongoose-relationship'),
+    archiver = require('mongoose-archiver');
 
 if (process.env.ENV === 'development')
     uri = 'mongodb://localhost:27017/veracity';
@@ -38,32 +39,17 @@ db.once('open', function() {
         articles: [{ type: Schema.ObjectId, ref: "Article" }],
         create_time: { type: Date, default: Date.now },
         update_time: { type: Date, default: Date.now },
-        archive_time: { type: Date, default: null },
         resetPasswordToken: String,
         resetPasswordExpires: Date
     });
 
-    var articleSchema = mongoose.Schema({
-        authors: [{ type: Schema.ObjectId, ref: 'User',  childPath: "articles" }],
-        section: String,
-        status: String,
-        title: String,
-        subtitle: String,
-        body: String,
-        tags: [String],
-        img: { data: Buffer, contentType: String },
-        create_time: { type: Date, default: Date.now },
-        update_time: { type: Date, default: Date.now },
-        archive_time: { type: Date, default: null }
-    });
-
-    articleSchema.plugin(relationship, { relationshipPathName:"authors" });
+    userSchema.plugin(archiver);
 
     userSchema.methods.getArticles = function() {
-        return mongoose.model('Article').find({author_id: this.id});
+        return mongoose.model('Article').find({ authors: this.id });
     };
 
-    userSchema.virtual('name.full').get(function () {
+    userSchema.virtual('name.full').get(function() {
       return this.name.first + ' ' + this.name.last;
     });
 
@@ -80,7 +66,7 @@ db.once('open', function() {
     userSchema.methods.comparePassword = function(candidatePassword, cb) {
         bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
             if (err) return cb(err);
-                cb(null, isMatch);
+            cb(null, isMatch);
         });
     };
 
@@ -91,6 +77,27 @@ db.once('open', function() {
     });
 
     var User = mongoose.model('User', userSchema);
+
+    var articleSchema = mongoose.Schema({
+        authors: [{ type: Schema.ObjectId, ref: 'User',  childPath: "articles" }],
+        section: String,
+        status: String,
+        title: String,
+        subtitle: String,
+        body: String,
+        tags: [String],
+        img: { data: Buffer, contentType: String },
+        create_time: { type: Date, default: Date.now },
+        update_time: { type: Date, default: Date.now }
+    });
+
+    articleSchema.plugin(relationship, { relationshipPathName:"authors" });
+    articleSchema.plugin(archiver);
+
+    articleSchema.methods.getAuthors = function() {
+        return mongoose.model('User').find({ _id: {$in: this.authors }}, '_id name img twitter');
+    };
+
     var Article = mongoose.model('Article', articleSchema);
 
     passport.use(new LocalStrategy(function(email, password, done) {
