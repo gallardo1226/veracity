@@ -199,7 +199,7 @@ router.post('/forgot', function(req, res, next) {
 			});
 			var mailOptions = {
 				to: user.email,
-				from: 'noahconley2015@.u.northwestern.edu',
+				from: 'NUVeracity@gmail.com',
 				subject: 'Veracity staff password reset',
 				html: '<p><em>Please do not reply to this email</em></p>' +
         '<h2>Hello ' + user.name.first + ',</h2>'+
@@ -265,7 +265,7 @@ router.post('/reset/:token', function(req, res) {
 			});
 			var mailOptions = {
 				to: user.email,
-				from: 'noahconley2015@u.northwestern.edu',
+				from: 'NUVeracity@gmail.com',
 				subject: 'Your password has been changed',
 				html: '<p><em>Please do not reply to this email</em></p>' +
 					'<h2>Hello' + user.name.first + ',</h2>'+
