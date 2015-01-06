@@ -68,15 +68,15 @@ router.post('/resetpassword', function(req, res, next) {
     },
     function(user, done) {
       var smtpTransport = nodemailer.createTransport('SMTP', {
-        service: 'Gmail',
+        host: '192.64.116.221',
         auth: {
-          user: 'NUVeracity@gmail.com',
-          pass: 'bre10293'
+          user: 'admin@nuveracity.com',
+          pass: ')j1[Bw:jP!7f0'
         }
       });
       var mailOptions = {
         to: user.email,
-        from: 'NUVeracity@gmail.com',
+        from: 'admin@nuveracity.com',
         subject: 'Your password has been reset',
         html: '<p><em>Please do not reply to this email</em></p>' +
         '<h2>Hello' + user.name.first + ',</h2>' +
