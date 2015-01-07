@@ -45,9 +45,12 @@ router.post('/uploadarticle', function(req, res, next) {
 	db = req.db;
 	User = db.model('User');
 	Article = db.model('Article');
-	console.log('\nBody:\n');
-	console.log(req.body);
-	User.find({ _id: { $in: req.body.author }}, '_id', function(err, users) {
+	var authors = [];
+	if (req.body.author.constructor === String)
+		authors.push(req.body.author);
+	else
+		authors = [];
+	User.find({ _id: { $in: authors }}, '_id', function(err, users) {
 		console.log('\nUsers:\n');
 		console.log(users);
 		if (err) {
