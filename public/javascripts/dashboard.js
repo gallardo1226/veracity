@@ -29,7 +29,7 @@ $(document).ready(function() {
 		$('#infoForm').submit();
 	});
 
-	$('#cancelChange').click(function() {
+	$('#cancelChange, #passwordForm .close').click(function() {
 		$('#passwordForm :password').each(function() {
 			$(this).val('');
 		});
