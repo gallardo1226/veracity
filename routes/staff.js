@@ -45,7 +45,11 @@ router.post('/uploadarticle', function(req, res, next) {
 	db = req.db;
 	User = db.model('User');
 	Article = db.model('Article');
+	console.log('\nBody:\n');
+	console.log(req.body);
 	User.find({ _id: { $in: req.body.author }}, '_id', function(err, users) {
+		console.log('\nUsers:\n');
+		console.log(users);
 		if (err) {
 			console.log(err);
 			return next(err);
@@ -66,9 +70,12 @@ router.post('/uploadarticle', function(req, res, next) {
 				data: req.files.img.buffer,
 				contentType: req.files.img.mimetype
 			};
+		console.log('\nArticle:\n');
+		console.log(article);
 		article.save(function(err, article) {
+			console.log('\nSaved!\n');
 			if (err) return next(err);
-			req.flash('success', 'Article uploaded and ready for review');
+			req.flash('success', 'Article uploaded');// and ready for review
 			res.location("dashboard").redirect("dashboard");
 		});
 	});

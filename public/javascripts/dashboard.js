@@ -29,6 +29,12 @@ $(document).ready(function() {
 		$('#infoForm').submit();
 	});
 
+	$('#cancelChange').click(function() {
+		$('#passwordForm :password').each(function() {
+			$(this).val('');
+		});
+	});
+
 	$('#submitChange').click(function() {
 		if ($('#newPass').val() != $('#retypePass').val())
 			$('#errormessage').text('The passwords do not match').slideDown().delay('5000').slideUp(function() {
