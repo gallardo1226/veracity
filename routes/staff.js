@@ -51,12 +51,7 @@ router.post('/uploadarticle', function(req, res, next) {
 	else
 		authors = [];
 	User.find({ _id: { $in: authors }}, '_id', function(err, users) {
-		console.log('\nUsers:\n');
-		console.log(users);
-		if (err) {
-			console.log(err);
-			return next(err);
-		}
+		if (err) return next(err);
 		i = 0;
 		article = new Article();
 		users.forEach(function(user) {
@@ -73,10 +68,7 @@ router.post('/uploadarticle', function(req, res, next) {
 				data: req.files.img.buffer,
 				contentType: req.files.img.mimetype
 			};
-		console.log('\nArticle:\n');
-		console.log(article);
 		article.save(function(err, article) {
-			console.log('\nSaved!\n');
 			if (err) return next(err);
 			req.flash('success', 'Article uploaded');// and ready for review
 			res.location("dashboard").redirect("dashboard");
