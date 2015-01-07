@@ -14,13 +14,14 @@ router.get('/', function(req, res) {
 		res.location("/staff/login").redirect("/staff/login");
 });
 
-router.get('/uploadarticle', function(req, res) {
+router.get('/uploadarticle', function(req, res, next {
 	if (req.user) {
 		user = req.user;
 		db = req.db;
 		var current;
 		User = db.model('User');
 		User.find({}, '_id name', {sort: {'name.last':1}}, function(err, users) {
+			if (err) return next(err);
 			var userMap = {};
 			i = 0;
 			users.forEach(function(u) {
@@ -45,7 +46,10 @@ router.post('/uploadarticle', function(req, res) {
 	User = db.model('User');
 	Article = db.model('Article');
 	User.find({ _id: { $in: req.body.author }}, '_id', function(err, users) {
-		if (err) return next(err);
+		if (err) {
+			console.log(err);
+			return next(err);
+		}
 		i = 0;
 		article = new Article();
 		users.forEach(function(user) {
