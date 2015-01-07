@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 		res.location("/staff/login").redirect("/staff/login");
 });
 
-router.get('/uploadarticle', function(req, res, next {
+router.get('/uploadarticle', function(req, res, next) {
 	if (req.user) {
 		user = req.user;
 		db = req.db;
@@ -41,7 +41,7 @@ router.get('/uploadarticle', function(req, res, next {
 		res.location("/staff").redirect("/staff");
 });
 
-router.post('/uploadarticle', function(req, res) {
+router.post('/uploadarticle', function(req, res, next) {
 	db = req.db;
 	User = db.model('User');
 	Article = db.model('Article');
