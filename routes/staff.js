@@ -100,12 +100,13 @@ router.get('/logout', function(req, res){
 
 router.get('/dashboard', function(req, res) {
 	if (req.user) {
-			res.render("staff/dashboard", {
-				title: "Dashboard",
-				user: req.user,
-				loggedIn: true,
-				admin: req.user.admin
-			});
+		console.log(req.user.name.full + 'is logged in');
+		res.render("staff/dashboard", {
+			title: "Dashboard",
+			user: req.user,
+			loggedIn: true,
+			admin: req.user.admin
+		});
 	} else
 		res.location("/staff").redirect("/staff");
 });
