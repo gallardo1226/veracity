@@ -2,7 +2,7 @@ $(document).ready(function() {
 	$('#btnSubmit').attr('disabled','disabled');
 
 	$('input').keyup(function() {
-		if ($('#inputFirst').val() != '' && $('#inputLast').val() != '' && $('#inputEmail').val() != '')
+		if ($('#inputFirst').val() !== '' && $('#inputLast').val() !== '' && $('#inputEmail').val() !== '')
 			$('#btnSubmit').attr('disabled', false);
 	});
 
@@ -28,7 +28,7 @@ $(document).ready(function() {
 		role = t.parent().prev().val();
 		$.ajax({
 			type: 'POST',
-			url: '/admin/updaterole',
+			url: '/util/updaterole',
 			data: {
 				id : id,
 				role : role,
@@ -56,66 +56,51 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#users').on('click', '.reset', function() {
+	$('.reset').click(function() {
 		$(this).slideUp(function() {
 			$(this).next().slideDown();
 		});
 	});
 
-	$('#users').on('click', '.temp-reset .cancel', function() {
-		$('.temp-reset').slideUp(function() {
-			$(this).closest('td').find('.reset').slideDown();
-			$(this).remove();
+	$('.reset-confirm').click(function() {
+		var id = $(this).val();
+		$(this).slideUp(function() {
+			$(this).prev().slideDown();
 		});
+		var html = $(this).prev().html();
+		$(this).prev().html('<img width="15" src="/images/loading.gif"/>');
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: '/util/resetpassword',
+		// 	data: {id:id},
+		// 	success: function(data) {
+		// 		$('#message').append('<div class="alert alert-success" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
+		// 			$('.alert').remove();
+		// 		});
+		// 		$('.temp-reset').slideUp(function() {
+		// 			$(this).closest('td').find('.reset').slideDown();
+		// 			$(this).remove();
+		// 		});
+		// 	},
+		// 	error: function(data) {
+		// 		$('#message').append('<div class="alert alert-danger" role="alert">' + data.statusText).hide().slideDown().delay('3000').slideUp(function() {
+		// 			$('.alert').remove();
+		// 		});
+		// 	}
+		// });
 	});
 
-	$('.reset-confirm').click(function() {
+	$('.remove').click(function() {
+		$(this).slideUp();
+		$(this).next().slideDown();
+	});
+
+	$('.remove-confirm').click(function() {
 		t = $(this);
 		var id = $(this).val();
 		$.ajax({
 			type: 'POST',
-			url: '/admin/resetpassword',
-			data: {id:id},
-			success: function(data) {
-				$('#message').append('<div class="alert alert-success" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
-					$('.alert').remove();
-				});
-				$('.temp-reset').slideUp(function() {
-					$(this).closest('td').find('.reset').slideDown();
-					$(this).remove();
-				});
-			},
-			error: function(data) {
-				$('#message').append('<div class="alert alert-danger" role="alert">' + data.statusText).hide().slideDown().delay('3000').slideUp(function() {
-					$('.alert').remove();
-				});
-			}
-		});
-	});
-
-	$('#users').on('click', '.remove', function() {
-		$(this).after('<div class="temp-remove" style="display:none;"><div class="btn-group"><button class="btn btn-sm btn-success confirm" title="Confirm"><span class="glyphicon glyphicon-ok"</span></button><button class="btn btn-sm btn-danger cancel" title="Cancel"><span class="glyphicon glyphicon-remove"</span></button></div></div>');
-		$('.temp-remove button').css({opacity: 1.0});
-		$(this).slideUp(function() {
-			$('.temp-remove').slideDown();
-		});
-	});
-
-	$('#users').on('click', '.temp-remove .cancel', function() {
-		$('.temp-remove').slideUp(function() {
-			$(this).closest('td').find('.remove').slideDown();
-			$(this).remove();
-		});
-	});
-
-	$('.role')
-
-	$('#users').on('click', '.temp-remove .confirm', function() {
-		t = $(this);
-		var id = $(this).parent().parent().prev().val();
-		$.ajax({
-			type: 'POST',
-			url: '/admin/removeuser',
+			url: '/util/removeuser',
 			data: {id:id},
 			success: function(data) {
 				t.closest('tr').slideUp(function() {
@@ -138,7 +123,7 @@ $(document).ready(function() {
 		var id = $(this).val();
 		$.ajax({
 			type: 'POST',
-			url: '/admin/updatestatus',
+			url: '/util/updatestatus',
 			data: {id:id, status:false},
 			success: function(data) {
 				t.attr('title', 'Promote').addClass('promote btn-info').removeClass('demote btn-primary').find('span').removeClass('glyphicon-arrow-down').addClass('glyphicon-arrow-up');
@@ -157,7 +142,7 @@ $(document).ready(function() {
 		var id = $(this).val();
 		$.ajax({
 			type: 'POST',
-			url: '/admin/updatestatus',
+			url: '/util/updatestatus',
 			data: {id:id, status:true},
 			success: function(data) {
 				console.log('success');

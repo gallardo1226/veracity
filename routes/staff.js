@@ -100,7 +100,7 @@ router.get('/logout', function(req, res){
 
 router.get('/dashboard', function(req, res) {
 	if (req.user) {
-		console.log(req.user.name.full + 'is logged in');
+		console.log('\n' + req.user.name.full + ' is logged in\n');
 		res.render("staff/dashboard", {
 			title: "Dashboard",
 			user: req.user,
@@ -109,59 +109,6 @@ router.get('/dashboard', function(req, res) {
 		});
 	} else
 		res.location("/staff").redirect("/staff");
-});
-
-router.get('/image/:id', function(req, res) {
-	db = req.db;
-	User = db.model('User');
-	User.findById(req.param('id'), 'img', function(err, user) {
-		if (err) return next(err);
-		if (user.img.contentType) {
-			res.send(user.img.data);
-		} else
-			res.send(fs.readFileSync('./public/images/blank-profile.png'));
-	});
-});
-
-router.post('/updateinfo', function(req, res) {
-	now = new Date().toISOString();
-	user = req.user;
-	user.name = {first: req.body.firstName, last: req.body.lastName };
-	user.email = req.body.email;
-	user.twitter = req.body.twitter;
-	user.bio = req.body.bio;
-	user.role = req.body.role;
-	user.update_time = now;
-
-	if (req.files.img)
-		user.img = {
-			data: req.files.img.buffer,
-			contentType: req.files.img.mimetype
-		};
-
-	user.save(function(err, user) {
-		if (err) return next(err);
-		else
-			res.location('dashboard').redirect('dashboard');
-	});
-});
-
-router.post('/changepassword', function(req, res, next) {
-	user = req.user;
-	user.comparePassword(req.body.current, function(err, isMatch) {
-		if (err)
-			res.send(500, 'Current password is incorrect');
-		if (isMatch) {
-			user.password = req.body.new;
-			user.update_time = new Date().toISOString();
-			user.save(function(err, user) {
-				if (err)
-					res.send(500, 'There was a problem changing your password');
-				res.send(200, 'Your password was successfully changed');
-			});
-		} else
-			res.send(500, 'There was a problem');
-	});
 });
 
 router.get('/forgot', function(req, res) {

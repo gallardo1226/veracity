@@ -1,10 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
-var nodemailer = require('nodemailer');
-var async = require('async');
-var moment = require('moment');
 var generatePassword = require('password-generator');
+var moment = require('moment');
 
 router.get('/', function(req, res) {
   res.location('/staff').redirect('/staff');
@@ -33,83 +30,6 @@ router.post('/adduser', function(req, res, next) {
       res.location("manageusers");
       res.redirect("manageusers");
     }
-  });
-});
-
-router.post('/removeuser', function(req, res, next) {
-  db = req.db;
-  User = db.model('User');
-  User.findByIdAndRemove(req.param('id'), function(err) {
-    if (err)  return next(err);
-    else
-      res.send("User successfully removed");
-  });
-});
-
-router.post('/resetpassword', function(req, res, next) {
-  var name = req.user.name.full;
-  var password = generatePassword(8, false);
-  async.waterfall([
-    function(done) {
-      db = req.db;
-      User = db.model('User');
-      now = new Date().toISOString();
-      User.findById(req.param('id'), function(err, user) {
-        if (err) return next(err);
-        user.password = password;
-        user.update_time = now;
-        console.log(user.password);
-        user.save(function(err, user) {
-          if (err) return next(err);
-          console.log(user.password);
-          done(err, user);
-        });
-      });
-    },
-    function(user, done) {
-      var smtpTransport = nodemailer.createTransport('SMTP', {
-        host: '192.64.116.221',
-        auth: {
-          user: 'admin@nuveracity.com',
-          pass: ')j1[Bw:jP!7f0'
-        }
-      });
-      var mailOptions = {
-        to: user.email,
-        from: 'admin@nuveracity.com',
-        subject: 'Your password has been reset',
-        html: '<p><em>Please do not reply to this email</em></p>' +
-        '<h2>Hello' + user.name.first + ',</h2>' +
-        '<p>This is a notice that the password for your account <b>' + user.email + '</b> has just been changed to by administrator ' + name + '.</p>' +
-        '<p>Your new temporary password is: <b>' + password + '</b></p>' +
-        '<p>It is recommended that you <a href="http://' + req.headers.host + '/staff/login">log in</a> and change your password on your dashboard.</p>'
-      };
-      smtpTransport.sendMail(mailOptions, function(err) {
-        done(err);
-      });
-    }
-  ], function(err) {
-    res.send('Password reset successfully');
-  });
-});
-
-router.post('/updatestatus', function(req, res, next) {
-  db = req.db;
-  User = db.model('User');
-  now = new Date().toISOString();
-  User.findByIdAndUpdate(req.param('id'), {admin: req.param('status'), update_time: now}, function(err) {
-    if (err) return next(err);
-    else res.send('Updated successfully');
-  });
-});
-
-router.post('/updaterole', function(req, res, next) {
-  db = req.db;
-  User = db.model('User');
-  now = new Date().toISOString();
-  User.findByIdAndUpdate(req.param('id'), {role: req.param('role'), update_time: now}, function(err) {
-    if (err) return next(err);
-    else res.send('Updated successfully');
   });
 });
 

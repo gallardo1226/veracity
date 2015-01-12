@@ -164,10 +164,12 @@ app.use(function(req,res,next) {
 var route = require('./routes/index');
 var staff = require('./routes/staff');
 var admin = require('./routes/admin');
+var util = require('./routes/util');
 
 app.use('/', route);
 app.use('/staff', staff);
 app.use('/admin', admin);
+app.use('/util', util);
 
 var server = app.listen(process.env.PORT || 3000, function() {
     console.log('Listening on port %d', server.address().port);
