@@ -9,11 +9,11 @@
 			.modal-body
 				form.form-horizontal#infoForm(enctype="multipart/form-data", role="form", action="/staff/updateinfo", method="post", name="editInfo")
 					.form-group
-						label.control-label.col-sm-2(for='#firstName') First
-						.col-sm-3
+						label.control-label.col-sm-2.col-xs-1(for='#firstName') First
+						.col-sm-3.col-xs-5
 							input.form-control#firstName(type='text', value='#{user.name.first}', name='firstName')
-						label.control-label.col-sm-2(for='#lastName') Last
-						.col-sm-3
+						label.control-label.col-sm-2.col-xs-1(for='#lastName') Last
+						.col-sm-3.col-xs-5
 							input.form-control#lastName(type='text', value='#{user.name.last}', name='lastName')
 					.form-group
 						label.control-label.col-sm-2(for='#email') Email
@@ -32,11 +32,11 @@
 						.col-sm-8
 							textarea.form-control#bio(name='bio', rows='6') #{user.bio}
 					.form-group
-						label.control-label.col-sm-2(for='#uploadPic') Photo
-						.col-sm-2
+						label.control-label.col-sm-2.col-xs-2(for='#uploadPic') Photo
+						.col-sm-2.col-xs-2
 							span.btn.btn-default.btn-file Browse
 								input#uploadPic(name='img', type='file')
-						.col-sm-6
+						.col-sm-6.col-xs-5
 							p#imgName No file selected
 			.modal-footer
 				button.btn.btn-success#submitEdit(type="button", data-dismiss="modal") Save

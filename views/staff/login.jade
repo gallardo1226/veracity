@@ -2,9 +2,9 @@ extends layout
 
 block content
 	.row.text-center
-		h1.col-sm-4.col-sm-offset-4=title
+		h1.col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3=title
 	.row
-		.col-sm-4.col-sm-offset-4.well
+		.col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3.col-xs-10.col-xs-offset-1.well
 			form.form-horizontal(enctype="multipart/form-data", role="form", action="/staff/login", method="post", name="login")
 				.form-group
 					label.col-sm-4.control-label(for="email") Email:
@@ -21,7 +21,7 @@ block content
 						else
 							input.form-control#password(type="password", name="password")
 				.form-group
-					.col-sm-2.col-sm-offset-4
+					.col-xs-2.col-xs-offset-3.col-sm-offset-4
 						button.btn.btn-default(type="submit") Sign In
-					.col-sm-2
+					.col-xs-2
 						a.btn.btn-link(href="/staff/forgot") Forgot Password

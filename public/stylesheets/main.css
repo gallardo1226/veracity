@@ -21,7 +21,7 @@ body {
 }
 a {
   color: gray;
-  /*color: #00b7ff;*/
+  color: #00b7ff;
 }
 header {
 	position: absolute;
@@ -42,7 +42,7 @@ header {
 #stories .thumbnail {
 	padding-top: 10px;
 	border: hidden;
-	background-collapselor: transparent !important;
+	background-collapse: transparent !important;
 }
 #topNav ul li {
 	font-size: 16px;
@@ -53,11 +53,13 @@ header {
 #topNav .navbar,
 .modal-header,
 .modal-footer {
+	border:none !important;
 	/*min-height: 32px !important;*/
-	background: #eee !important;
+	/*background: #eee !important;*/
 }
-.navbar-default {
-	background-color: transparent !important;
+#mainNav .navbar-default {
+	background: transparent !important;
+	border: none !important;
 }
 #mainNav .navbar-default .navbar-nav {
 	display: inline-block;
@@ -89,7 +91,6 @@ html, body {height: 100%;}
 	margin-top: -30px; /* negative value of footer height */
 	height: 30px;
 	clear:both;
-	background: #eee;
 } 
 
 #publicmain {overflow:auto;
@@ -100,7 +101,7 @@ html, body {height: 100%;}
 	margin-top: -90px; /* negative value of footer height */
 	height: 90px;
 	clear:both;
-	background: #eee;
+	/*background: #eee;*/
 } 
 
 /*Opera Fix*/
@@ -109,5 +110,37 @@ body:before {
 	height:100%;
 	float:left;
 	width:0;
-	margin-top:-32767px;/
+	margin-top:-32767px;
+}
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+.check .btn span.glyphicon {    			
+	opacity: 0;				
+}
+.check .btn.active span.glyphicon {				
+	opacity: 1;				
 }

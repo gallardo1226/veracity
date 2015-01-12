@@ -62,7 +62,7 @@ router.post('/uploadarticle', function(req, res, next) {
 		article.subtitle = req.body.subtitle.trim();
 		article.body = req.body.body.trim();
 		article.tags = req.body.tags.split(/\s*,\s*/);
-		article.status = 'staged';
+		article.status = 'published';
 		if (req.files.img)
 			article.img = {
 				data: req.files.img.buffer,

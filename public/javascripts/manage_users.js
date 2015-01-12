@@ -6,13 +6,13 @@ $(document).ready(function() {
 			$('#btnSubmit').attr('disabled', false);
 	});
 
-	$('#users').on('mouseenter', 'tr', function() {
-		$(this).find('.promote,.demote,.reset,.remove').animate({opacity: 1.0}, 'fast');
-	});
+	// $('#users').on('mouseenter', 'tr', function() {
+	// 	$(this).find('.promote,.demote,.reset,.remove').animate({opacity: 1.0}, 'fast');
+	// });
 
-	$('#users').on('mouseleave', 'tr', function() {
-		$(this).find('.promote,.demote,.reset,.remove').animate({opacity: 0.0}, 'fast');
-	});
+	// $('#users').on('mouseleave', 'tr', function() {
+	// 	$(this).find('.promote,.demote,.reset,.remove').animate({opacity: 0.0}, 'fast');
+	// });
 
 	$('.role a').click(function() {
 		$(this).addClass('hidden').next().removeClass('hidden').val($(this).text());
@@ -57,10 +57,8 @@ $(document).ready(function() {
 	});
 
 	$('#users').on('click', '.reset', function() {
-		$(this).after('<div class="temp-reset" style="display:none;"><div class="btn-group"><button class="btn btn-sm btn-success confirm" title="Confirm"><span class="glyphicon glyphicon-ok"</span></button><button class="btn btn-sm btn-danger cancel" title="Cancel"><span class="glyphicon glyphicon-remove"</span></button></div></div>');
-		$('.temp-reset button').css({opacity: 1.0});
 		$(this).slideUp(function() {
-			$('.temp-reset').slideDown();
+			$(this).next().slideDown();
 		});
 	});
 
@@ -71,9 +69,9 @@ $(document).ready(function() {
 		});
 	});
 
-	$('#users').on('click', '.temp-reset .confirm', function() {
+	$('.reset-confirm').click(function() {
 		t = $(this);
-		var id = $(this).parent().parent().prev().val();
+		var id = $(this).val();
 		$.ajax({
 			type: 'POST',
 			url: '/admin/resetpassword',

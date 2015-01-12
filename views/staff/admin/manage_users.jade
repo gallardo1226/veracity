@@ -5,20 +5,23 @@ block content
 		#message.col-sm-10.col-sm-offset-1
 	.row
 		include ./_add_user
+		.visible-xs
+			br
 	.row
 		.col-sm-10.col-sm-offset-1#users
-			table.table.table-hover
+			table.table.table-hover.table-responsive
 				thead
 					tr
-						th(colspan=2) Name
+						th.hidden-xs(colspan=2) Name
+						th.visible-xs Name
 						th Email
 						th Role
 						th.text-center Admin
-						th(colspan=4)
+						th(colspan=2)
 				tbody
 					each user, i in userlist
 						tr
-							td
+							td.hidden-xs
 								img.img-circle(src="/staff/image/#{user._id}", width="28px")
 							td=user.name.full
 							td=user.email
@@ -31,25 +34,31 @@ block content
 											span.glyphicon.glyphicon-ok
 										button.btn.btn-sm.btn-danger.cancel(title="Cancel")
 											span.glyphicon.glyphicon-remove
-
-							if user.admin
-								td.text-center
-									span.glyphicon.glyphicon-ok
-								td
-									unless current._id.toString() == user._id.toString()
-										button.btn.btn-primary.btn-sm.demote(value=user._id, title='Demote')
-											span.glyphicon.glyphicon-arrow-down
-							else
-								td.text-center
-								td
-									unless current._id.toString() == user._id.toString()
-										button.btn.btn-info.btn-sm.promote(value=user._id, title='Promote')
-											span.glyphicon.glyphicon-arrow-up
-							td
+							td.text-center
+								.btn-group.check(data-toggle="buttons")
+									if current._id.toString() == user._id.toString()
+										if user.admin
+											span.glyphicon.glyphicon-ok
+									else
+										if user.admin
+											label.btn.btn-default.btn-sm.active
+												input.demote(type="checkbox", autocomplete="off",  checked)
+												span.glyphicon.glyphicon-ok
+										else
+											label.btn.btn-default.btn-sm
+												input.promote(type="checkbox", autocomplete="off")
+												span.glyphicon.glyphicon-ok
+							td.text-center
 								unless current._id.toString() == user._id.toString()
-									button.btn.btn-warning.btn-sm.reset(value=user._id, title='Reset password')
+									button.btn.btn-warning.btn-sm.reset.has-spinner(title='Reset password')
+										span.spinner
+											i.icon-spin.icon-refresh
 										span.glyphicon.glyphicon-lock
-							td
+									button.btn.btn-success.btn-sm.reset-confirm(style='display:none', value=user._id, title="Confirm")
+										span.glyphicon.glyphicon-ok
+							td.text-center
 								unless current._id.toString() == user._id.toString()
-									button.btn.btn-danger.btn-sm.remove(value=user._id, title='Delete user')
+									button.btn.btn-danger.btn-sm.remove(title='Delete user')
 										span.glyphicon.glyphicon-trash
+									button.btn.btn-success.btn-sm.remove-confirm(style='display:none', value=user._id, title="Confirm")
+										span.glyphicon.glyphicon-ok

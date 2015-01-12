@@ -2,19 +2,19 @@ extends layout
 
 block content
 	.row.text-center
-		h1.col-sm-4.col-sm-offset-4=title
+		h1.col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3=title
 		#errormessage.alert.alert-danger.col-sm-10.col-sm-offset-1(style="display:none;")
 	.row
-		.col-sm-4.col-sm-offset-4.well
+		.col-sm-6.col-sm-offset-3.col-xs-10.col-xs-offset-1.well
 			form.form-horizontal(enctype="multipart/form-data", role="form", method="post", name="reset")
 				.form-group
-					label.col-sm-5.control-label(for='password') New Password
-					.col-sm-6
+					label.col-sm-5.col-md-4.control-label(for='password') New Password
+					.col-sm-7.col-md-8.col-lg-6
 						input.form-control#newPassword(type='password', name='password', autofocus=true)
 				.form-group
-					label.col-sm-5.control-label(for='confirm') Confirm Password
-					.col-sm-6
+					label.col-sm-5.col-md-4.control-label(for='confirm') Confirm Password
+					.col-sm-7.col-md-8.col-lg-6
 						input.form-control#retypePassword(type='password', name='confirm')
 				.form-group
-					.col-sm-4.col-sm-offset-3
+					.col-xs-2.col-xs-offset-4
 						button.btn.btn-primary#changePassSubmit(type='submit') Update Password

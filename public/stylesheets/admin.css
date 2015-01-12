@@ -1,25 +1,10 @@
-#formAddUser .form-control {
+#formAddUser .form-control,
+#formUploadArticle [type='submit'] {
 	margin: 5px;
-}
-
-#formAddUser #inputEmail {
-	width: 300px;
-}
-
-#formAddUser #inputRole {
-	width: 170px;
 }
 
 .role .input-group {
 	width: 150px;
-}
-
-#users .demote,
-#users .promote,
-#users .reset,
-#users .remove {
-	visibility: visible;
-	opacity: 0.0;
 }
 
 #message {
