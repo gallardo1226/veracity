@@ -17,7 +17,7 @@ block content
 			.form-group
 				label.control-label.col-sm-2(for="#myID") Author
 				.col-sm-2.text-center
-					input#myID(required, type="hidden", name="author", value=current._id)
+					input#myID(type="hidden", name="author", value=current._id)
 					p#myname=current.name.full
 				.col-sm-2
 					button#add.btn.btn-success(type="button", title="Add author")
@@ -45,7 +45,7 @@ block content
 			.form-group
 				label.control-label.col-sm-2(for="#body") Body
 				.col-sm-8
-					textarea#body.form-control(required, name="body")
+					textarea#body.form-control(name="body")
 			.form-group
 				label.control-label.col-sm-2(for="#tags") Tags
 				.col-sm-4
