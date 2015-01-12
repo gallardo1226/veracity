@@ -80,7 +80,7 @@ html, body {height: 100%;}
 #wrap {min-height: 100%;}
 
 #usermain {
-	overflow:auto;
+	overflow: visible;
 	padding-bottom: 30px;
 	}  /* must be same height as the footer */
 
@@ -92,7 +92,7 @@ html, body {height: 100%;}
 	background: #eee;
 } 
 
-#publicmain {overflow:auto;
+#publicmain {overflow:visible;
 	padding-bottom: 90px;}  /* must be same height as the footer */
 
 #publicfooter {
