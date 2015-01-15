@@ -46,7 +46,7 @@ db.once('open', function() {
     userSchema.plugin(archiver);
 
     userSchema.methods.getArticles = function() {
-        return mongoose.model('Article').find({ authors: this.id });
+        return mongoose.model('Article').find({ _id: {$in: this.articles }}, '_id title subtitle section update_time');
     };
 
     userSchema.virtual('name.full').get(function() {

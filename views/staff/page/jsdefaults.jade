@@ -2,12 +2,17 @@
 script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
 script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-if title == 'Manage Users'
-	script(src="/javascripts/manage_users.js")
-if title == 'Upload Article'
-	script(src="/javascripts/upload_article.js")
-	script(src="//tinymce.cachefly.net/4.0/tinymce.min.js")
-if title == 'Dashboard'
-	script(src="/javascripts/dashboard.js")
-if title == 'Reset Password'
+script(src="/javascripts/timeago.js")
+case title
+	when 'Manage Users'
+		script(src="/javascripts/manage_users.js")
+	when 'Upload Article'
+	when 'Edit Article'
+		script(src="/javascripts/article_form.js")
+		script(src="//tinymce.cachefly.net/4.0/tinymce.min.js")
+	when 'Dashboard'
+		script(src="/javascripts/dashboard.js")
+	when 'My Articles'
+		script(src="/javascripts/my_articles.js")
+	when 'Reset Password'
 		script(src="/javascripts/reset.js")

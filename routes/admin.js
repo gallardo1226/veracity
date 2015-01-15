@@ -3,7 +3,6 @@ var router = express.Router();
 var fs = require('fs');
 var nodemailer = require('nodemailer');
 var async = require('async');
-var moment = require('moment');
 var generatePassword = require('password-generator');
 
 router.get('/', function(req, res) {
@@ -128,7 +127,6 @@ router.get('/manageusers', function(req, res, next) {
       res.render('staff/admin/manage_users', {
         title: 'Manage Users',
         "userlist": userMap,
-        moment: moment,
         loggedIn: true,
         current: req.user,
         admin: true

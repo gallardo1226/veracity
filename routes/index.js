@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -90,10 +91,10 @@ router.get('/image/:id', function(req, res) {
 	Article = db.model('Article');
 	Article.findById(req.param('id'), 'img', function(err, article) {
 		if (err) return next(err);
-		if (user.img.contentType) {
-			res.send(user.img.data);
+		if (article.img.contentType) {
+			res.send(article.img.data);
 		} else
-			res.send(fs.readFileSync('./public/images/logo.png'));
+			res.send(fs.readFileSync('./public/images/blank-article.jpg'));
 	});
 });
 

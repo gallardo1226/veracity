@@ -110,8 +110,6 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.role')
-
 	$('#users').on('click', '.temp-remove .confirm', function() {
 		t = $(this);
 		var id = $(this).parent().parent().prev().val();
