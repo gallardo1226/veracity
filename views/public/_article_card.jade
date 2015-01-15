@@ -3,7 +3,9 @@ a(href="mag/#{article.section}/#{article._id}")
 		img.img-responsive.img-rounded(src="/image/#{article._id}", alt="#{article.title}")
 .caption
 	h6=article.section
-	h4=article.title
+	h4 #{article.title} 
+		if (article.status == 'draft')
+			small  (#{article.status})
 	p=article.subtitle
 	- var date = new Date(article.update_time)
 	time.timeago(datetime=date.toISOString())
