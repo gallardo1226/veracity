@@ -139,7 +139,7 @@ router.post('/submitarticle', function(req, res, next) {
 				article.save(function(err, article) {
 					if (err) return next(err);
 					req.flash('success', response);
-					res.location("dashboard").redirect("dashboard");
+					res.location("myarticles").redirect("myarticles");
 				});
 			});
 		} else {
@@ -169,7 +169,7 @@ router.post('/submitarticle', function(req, res, next) {
 			article.save(function(err, article) {
 				if (err) return next(err);
 				req.flash('success', response);
-				res.location("dashboard").redirect("dashboard");
+				res.location("myarticles").redirect("myarticles");
 			});
 		}
 	});
