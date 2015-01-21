@@ -131,8 +131,17 @@ body:before {
 	bottom: 0;
 }
 
-.full-width a,
-.full-width button {
+.full-width.options a,
+.full-width.options button {
+	width: 33%;
+	margin: 0;
+	background: #fff;
+	border: none;
+	border-radius: none;
+}
+
+.full-width.secondary a,
+.full-width.secondary button {
 	width: 50%;
 	margin: 0;
 	background: #fff;

@@ -38,10 +38,17 @@ router.post('/adduser', function(req, res, next) {
 router.post('/removeuser', function(req, res, next) {
   db = req.db;
   User = db.model('User');
-  User.findByIdAndRemove(req.param('id'), function(err) {
+  User.findById(req.param('id'), function(err, user) {
     if (err)  return next(err);
-    else
+    user.getArticles().exec(function (err, articles) {
+      articles.forEach(function(article) {
+        article.authors.splice(article.authors.indexOf(req.param('id')), 1);
+      });
+    });
+    user.remove(function(err, user) {
+      if (err) return next(err);
       res.send("User successfully removed");
+    });
   });
 });
 

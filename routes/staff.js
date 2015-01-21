@@ -111,6 +111,12 @@ router.post('/submitarticle', function(req, res, next) {
 		if (req.body.edit) {
 			Article.findById(req.body.edit, function(err, article) {
 				if (err) return next(err);
+				article.getAuthors().exec(function (err, authors) {
+					authors.forEach(function(author) {
+						author.articles.splice(author.articles.indexOf(req.param('id')), 1);
+					});
+				});
+				article.authors = [];
 				users.forEach(function(user) {
 					article.authors.push(user._id);
 				});
@@ -178,10 +184,17 @@ router.post('/submitarticle', function(req, res, next) {
 router.post('/deletearticle', function(req, res, next) {
   db = req.db;
   Article = db.model('Article');
-  Article.findByIdAndRemove(req.param('id'), function(err) {
+  Article.findById(req.param('id'), function(err, article) {
     if (err)  return next(err);
-    else
-      res.send("Article successfully deleted");
+		article.getAuthors().exec(function (err, authors) {
+			authors.forEach(function(author) {
+				author.articles.splice(author.articles.indexOf(req.param('id')), 1);
+			});
+		});
+		article.remove(function(err, article) {
+			if (err) return next(err);
+			res.send("Article successfully deleted");
+		});
   });
 });
 
