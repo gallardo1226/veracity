@@ -46,7 +46,7 @@ db.once('open', function() {
     userSchema.plugin(archiver);
 
     userSchema.methods.getArticles = function() {
-        return mongoose.model('Article').find({ _id: {$in: this.articles }}, '_id title subtitle section update_time status');
+        return mongoose.model('Article').find({ _id: {$in: this.articles }}, '_id title subtitle section update_time status authors');
     };
 
     userSchema.virtual('name.full').get(function() {
@@ -95,7 +95,7 @@ db.once('open', function() {
     articleSchema.plugin(archiver);
 
     articleSchema.methods.getAuthors = function() {
-        return mongoose.model('User').find({ _id: {$in: this.authors }}, '_id name img twitter');
+        return mongoose.model('User').find({ _id: {$in: this.authors }}, '_id name img twitter articles');
     };
 
     var Article = mongoose.model('Article', articleSchema);
@@ -164,10 +164,12 @@ app.use(function(req,res,next) {
 var route = require('./routes/index');
 var staff = require('./routes/staff');
 var admin = require('./routes/admin');
+var util = require('./routes/util');
 
 app.use('/', route);
 app.use('/staff', staff);
 app.use('/admin', admin);
+app.use('/util', util);
 
 var server = app.listen(process.env.PORT || 3000, function() {
     console.log('Listening on port %d', server.address().port);

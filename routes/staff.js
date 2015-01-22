@@ -186,6 +186,7 @@ router.post('/deletearticle', function(req, res, next) {
   Article.findById(req.param('id'), function(err, article) {
     if (err)  return next(err);
 		article.getAuthors().exec(function (err, authors) {
+			console.log(authors);
 			authors.forEach(function(author) {
 				author.articles.splice(author.articles.indexOf(req.param('id')), 1);
 			});
