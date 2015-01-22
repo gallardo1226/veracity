@@ -3,7 +3,8 @@ $(document).ready(function() {
 	tinymce.init({
 		selector: "textarea",
 		menubar: false,
-		statusbar: false
+		statusbar: false,
+		height: 400
 	});
 
 	exts = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];

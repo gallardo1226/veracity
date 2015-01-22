@@ -13,15 +13,19 @@ header
 						img(alt="Brand" src="/images/logo-noback.png" height="100%")
 				if (loggedIn)
 					.collapse.navbar-collapse#staff-nav
-							ul.nav.navbar-nav.pull-right
-								li: a(href='/staff') Dashboard
-								li: a(href='/staff/uploadarticle') Upload article
-								li: a(href='/staff/myarticles') My articles
-								if (admin)
-									li.dropdown
-										a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Admin
-											span.caret
-										ul.dropdown-menu(role="menu")
-											li: a(href='/admin/manageusers') Manage users
-											//- li: a(href='/admin/reviewarticles') Review articles
-								li: a(href='/staff/logout') Log out
+						ul.nav.navbar-nav.navbar-default.text-center.visible-xs
+							li: a(href='/staff') Dashboard
+							li: a(href='/staff/uploadarticle') Upload article
+							li: a(href='/staff/myarticles') My articles
+							if (admin)
+								li: a(href='/admin/manageusers') Manage users
+								li: a(href='/admin/reviewarticles') Review articles
+							li: a(href='/staff/logout') Log out
+						ul.nav.navbar-nav.pull-right.hidden-xs
+							li: a(href='/staff') Dashboard
+							li: a(href='/staff/uploadarticle') Upload article
+							li: a(href='/staff/myarticles') My articles
+							if (admin)
+								li: a(href='/admin/manageusers') Manage users
+								li: a(href='/admin/reviewarticles') Review articles
+							li: a(href='/staff/logout') Log out
