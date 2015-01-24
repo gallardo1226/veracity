@@ -102,7 +102,7 @@ router.post('/submitarticle', function(req, res, next) {
 	if (req.body.author.constructor === String)
 		authors.push(req.body.author);
 	else
-		authors = [];
+		authors = req.body.author;
 	User.find({ _id: { $in: authors }}, '_id', function(err, users) {
 		if (err) return next(err);
 		if (req.body.edit) {
