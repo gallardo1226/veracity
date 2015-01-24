@@ -33,21 +33,13 @@ $(document).ready(function() {
 		}
 	});
 
-	var numAuthors = 1;
-	$('#add').click(function() {
-		numAuthors++;
-		var div = $(this).closest('.form-group').next();
-		if (div.hasClass('hidden'))
-			div.removeClass('hidden');
-		else
+	$('.add').click(function() {
+		var div = $(this).closest('.form-group');
 			div.after('<div class="form-group">' + div.html() + '</div>');
+			div.next().find('.add').addClass('remove btn-danger').removeClass('add btn-success').find('span').addClass('glyphicon-minus').removeClass('glyphicon-plus');
 	});
 
 	$('#formUploadArticle').on('click', '.remove', function() {
-		numAuthors--;
-		if ($('select[name="author"]').length > 1)
-			$(this).closest('.form-group').remove();
-		else
-			$(this).closest('.form-group').addClass('hidden');
+		$(this).closest('.form-group').remove();
 	});
 });

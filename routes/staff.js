@@ -47,8 +47,7 @@ router.get('/uploadarticle', function(req, res, next) {
 			var userMap = {};
 			i = 0;
 			users.forEach(function(u) {
-				if (u._id.toString() != user._id.toString())
-					userMap[i++] = u;
+				userMap[i++] = u;
 			});
 
 			res.render('staff/article_form', {
@@ -76,8 +75,7 @@ router.get('/editarticle/:id', function(req, res, next) {
 			var userMap = {};
 			i = 0;
 			users.forEach(function(u) {
-				if (u._id.toString() != user._id.toString())
-					userMap[i++] = u;
+				userMap[i++] = u;
 			});
 
 			Article.findById(req.param('id'), '-create_time -update_time', function(err, article) {

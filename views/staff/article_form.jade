@@ -15,39 +15,29 @@ block content
 			.form-group
 				label.control-label.col-sm-2(for="#subtitle") Subtitle
 				.col-sm-8
-					input#subtitle.form-control(required, value=article.subtitle, type="text", name="subtitle")
+					input#subtitle.form-control(value=article.subtitle, type="text", name="subtitle")
 			.form-group
-				label.control-label.col-sm-2(for="#myID") Author
-				.col-sm-2.text-center
-					input#myID(type="hidden", name="author", value=current._id)
-					p#myname=current.name.full
-				.col-sm-2
-					button#add.btn.btn-success(type="button", title="Add author")
-						span.glyphicon.glyphicon-plus
-			if (article.authors)
-				each author in article.authors
-					.form-group.hidden
-						.col-sm-2.col-sm-offset-2
+				label.control-label.col-sm-2(for="#author") Author
+				if (article.authors)
+					each author in article.authors
+						.col-sm-2
 							select.form-control(name="author")
-								option(disabled)
 								each user, i in userlist
 									if (author == user._id)
 										option(selected, value=user._id)=user.name.full
 									else
 										option(value=user._id)=user.name.full
-						.col-sm-2
-							button.remove.btn.btn-danger(type="button", title="Remove author")
-								span.glyphicon.glyphicon-minus
-			else
-				.form-group.hidden
-					.col-sm-2.col-sm-offset-2
-						select.form-control(name="author")
-							option(selected, disabled)
-							each user, i in userlist
-								option(value=user._id)=user.name.full
+				else
 					.col-sm-2
-						button.remove.btn.btn-danger(type="button", title="Remove author")
-							span.glyphicon.glyphicon-minus
+						select.form-control(name="author")
+							each user, i in userlist
+								if (current._id.toString() == user._id.toString())
+									option(selected, value=user._id)=user.name.full
+								else
+									option(value=user._id)=user.name.full
+				.col-sm-2
+					button.add.btn.btn-success(type="button", title="Add author")
+						span.glyphicon.glyphicon-plus
 			.form-group
 				label.control-label.col-sm-2(for="#section") Section
 				.col-sm-3
