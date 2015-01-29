@@ -119,7 +119,8 @@ router.post('/submitarticle', function(req, res, next) {
 				});
 				article.section = req.body.section;
 				article.title = req.body.title.trim();
-				article.subtitle = req.body.subtitle.trim();
+				if (req.body.subtitle)
+					article.subtitle = req.body.subtitle.trim();
 				article.body = req.body.body.trim();
 				article.tags = req.body.tags.split(/\s*,\s*/);
 				var response;
@@ -152,7 +153,8 @@ router.post('/submitarticle', function(req, res, next) {
 			});
 			article.section = req.body.section;
 			article.title = req.body.title.trim();
-			article.subtitle = req.body.subtitle.trim();
+			if (req.body.subtitle)
+				article.subtitle = req.body.subtitle.trim();
 			article.body = req.body.body.trim();
 			article.tags = req.body.tags.split(/\s*,\s*/);
 			var response;
