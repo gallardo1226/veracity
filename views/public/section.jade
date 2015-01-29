@@ -14,7 +14,7 @@ block content
 								.caption.col-lg-4
 									h4 #{featured.title}
 									p #{featured.subtitle}
-									p.byline By
+									p.byline By 
 										case featuredauthors.length
 											when 1
 												| #{featuredauthors[0]}
@@ -25,21 +25,21 @@ block content
 				hr
 				.row
 					each article, i in articlelist
-						.col-md-6
+						.col-md-6.article-thumbnail
 							a(href="#{urlsection}/#{article._id}")
 								.thumbnail 
 									img.img-responsive.img-rounded(src="/util/articleimage/#{article._id}")
 									.caption.col-xs-12
 										h4 #{article.title}
 										p #{article.subtitle}
-										p.byline By
+										p.byline By 
 											case articleauthors[i].length
 												when 1
 													| #{articleauthors[i][0]}
 												default
 													| #{articleauthors[i].split(', ')}
 										- var date = new Date(article.update_time)
-										time.timeago(datetime=date.toISOString())
+										p=date.toDateString()
 			.col-xs-12.col-md-4
 				case title
 					when 'Journey'
@@ -51,13 +51,16 @@ block content
 				a(href="#{urlsection}/#{sidebar._id}") 
 					.thumbnail
 						.caption.col-xs-12
-							p #{sidebar.title}
-							p #{sidebar.subtitle}
-							p.byline By
+							p=sidebar.title
+							p=sidebar.subtitle
+							p.byline By 
 								case sidebarauthors.length
 									when 1
 										| #{sidebarauthors[0]}
 									default
 										| #{sidebarauthors.split(', ')}
 							- var date = new Date(sidebar.update_time)
-							time.timeago(datetime=date.toISOString())
+							p=date.toDateString()
+							.sidebar-blurb!=sidebar.body
+							br
+							p.text-primary Click to read more

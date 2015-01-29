@@ -207,3 +207,10 @@ body:before {
 .article-thumbnail {
 	min-height: 440px;
 }
+
+.sidebar-blurb {
+	max-height: 300px;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+ }

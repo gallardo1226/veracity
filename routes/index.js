@@ -86,7 +86,7 @@ router.get('/mag/:section', function(req, res, next) {
 			});
 		});
 
-		Article.findOne({ section: subsection }, '_id title subtitle authors update_time', function(err, sidebar) {
+		Article.findOne({ section: subsection }, '_id title subtitle authors update_time body', function(err, sidebar) {
 			sidebar.getAuthors().exec(function (err, authors) {
 				if (err) return next(err);
 				var authorlist = [];
