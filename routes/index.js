@@ -15,54 +15,66 @@ router.get('/contact', function(req, res, next) {
 	res.render('public/contact', { title: 'Contact Us' });
 });
 
-router.get('/mag/:section', function(req, res) {
+router.get('/mag/:section', function(req, res, next) {
 	var db = req.db;
 	Article = db.model('Article');
-	var section = req.param('section');
+	var urlsection = req.param('section');
+	var section;
 	var subsection;
-	switch (section) {
-		case 'Journey':
+	switch (urlsection) {
+		case 'journey':
+			section = 'Journey';
 			subsection = 'Bloom';
 			break;
-		case 'Campus':
-			subsection = 'Gray Area';
+		case 'campus':
+			section = 'Campus';
+			subsection = 'Gray Areas';
 			break;
-		case 'Life & Culture':
+		case 'lifeandculture':
+			section = 'Life & Culture';
 			subsection = 'Vera in the City';
 			break;
 		default:
 			return next();
-			break;
 	}
-	Article.find({ section: section }, '_id title subtitle', { sort: { create_time: 1 }}, function(err, articles) {
+	Article.find({ section: section }, '_id title subtitle authors update_time', { sort: { create_time: 1 }}, function(err, articles) {
 		if (err) return next(err);
 
 		var articlelist = [];
+		var articleauthors = [];
 		var i = 0;
 
 		articles.forEach(function(article) {
 			article.getAuthors().exec(function (err, authors) {
 				if (err) return next(err);
-				article.authors = authors;
-				if (i === 0)
-					featured = article;
-				else
-					articlelist[i] = article;
+				var authorlist = [];
+				authors.forEach(function(author) {
+					authorlist.push(author.name.full);
+				});
+				articleauthors[i] = authorlist;
+				articlelist[i] = article;
 				i++;
 			});
 		});
 
-		Article.findOne({ section: subsection }, '_id title subtitle', function(err, sidebar) {
+		Article.findOne({ section: subsection }, '_id title subtitle authors update_time', function(err, sidebar) {
 			sidebar.getAuthors().exec(function (err, authors) {
 				if (err) return next(err);
-				sidebar.authors = authors;
-			});
-
-			res.render('public/section', {
-				title: section,
-				'articlelist': articlelist,
-				'featured': featured,
-				'sidebar': sidebar
+				var authorlist = [];
+				authors.forEach(function(author) {
+					authorlist.push(author.name.full);
+				});
+				var sidebarauthors = authorlist;
+				res.render('public/section', {
+					title: section,
+					urlsection: urlsection,
+					'articlelist': articlelist.slice(1),
+					'articleauthors': articleauthors.slice(1),
+					'featured': articlelist[0],
+					'featuredauthors': articleauthors[0],
+					'sidebar': sidebar,
+					'sidebarauthors': sidebarauthors
+				});
 			});
 		});
 	});
@@ -72,29 +84,20 @@ router.get('/mag/:section/:id', function(req, res, next) {
 	var db = req.db;
 	Article = db.model('Article');
 	Article.findById(req.param('id'), function(err, article) {
-		var authorlist;
 		article.getAuthors().exec(function (err, authors) {
 			if (err) return err;
-			authorlist = authors;
+			var authorlist = [];
+			authors.forEach(function(author) {
+				authorlist.push(author.name.full);
+			});
+			authorlist;
+			res.render('public/article', {
+				title: article.title,
+				'authorlist': authorlist,
+				'article': article,
+				img : article.img.contentType
+			});
 		});
-
-		res.render('public/article', {
-			title: article.title,
-			'authorlist': authorlist,
-			'article': article
-		});
-	});
-});
-
-router.get('/image/:id', function(req, res) {
-	db = req.db;
-	Article = db.model('Article');
-	Article.findById(req.param('id'), 'img', function(err, article) {
-		if (err) return next(err);
-		if (article.img.contentType) {
-			res.send(article.img.data);
-		} else
-			res.send(fs.readFileSync('./public/images/blank-article.jpg'));
 	});
 });
 

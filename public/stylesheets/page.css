@@ -11,9 +11,6 @@ h1 {
 #journey h1 {
 	color: #fac411;
 }*/
-#article h1 {
-	text-align: center;
-}
 .section-header h1 {
 	background-image: url("/images/section-header.png");
 	background-repeat: repeat-x;
@@ -24,14 +21,13 @@ h1 {
 	padding-right: 10px;
 }
 .storyTitle {
-	margin: 0 auto;
+	margin-bottom: 0;
 }
 .subhead {
 	font-family: 'Verlag Book Italic';
 }
 .byline {
 	font-family: 'Bebas Neue'; 
-	margin: 0 auto;
 }
 .story {
 	font-family: 'Minion Pro';

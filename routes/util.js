@@ -99,6 +99,18 @@ router.get('/image/:id', function(req, res) {
 	});
 });
 
+router.get('/articleimage/:id', function(req, res) {
+  db = req.db;
+  Article = db.model('Article');
+  Article.findById(req.param('id'), 'img', function(err, article) {
+    if (err) return next(err);
+    if (article.img.contentType) {
+      res.send(article.img.data);
+    } else
+      res.send(fs.readFileSync('./public/images/blank-article.jpg'));
+  });
+});
+
 router.post('/updateinfo', function(req, res) {
 	now = new Date().toISOString();
 	user = req.user;
