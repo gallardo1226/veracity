@@ -8,4 +8,4 @@ a(href="mag/#{article.section}/#{article._id}")
 			small  (#{article.status})
 	p=article.subtitle
 	- var date = new Date(article.update_time)
-	time.timeago(datetime=date.toISOString())
+	p=date.toDateString()

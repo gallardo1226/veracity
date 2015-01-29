@@ -40,7 +40,7 @@ router.get('/manageusers', function(req, res, next) {
   if (req.user && req.user.admin) {
     db = req.db;
     User = db.model('User');
-    User.find({archive_time: null}, '_id name role email admin', {sort: {'name.last':1}}, function(err, users) {
+    User.find({}, '_id name role email admin', {sort: {'name.last':1}}, function(err, users) {
       if (err) return next(err);
       var userMap = {};
 

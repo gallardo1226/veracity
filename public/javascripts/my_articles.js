@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	$('body').timeago();
-
 	$('.delete').click(function() {
 		$(this).parent().slideUp(function() {
 			$(this).next().slideDown();

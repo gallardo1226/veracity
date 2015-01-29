@@ -199,3 +199,11 @@ body:before {
 .full-width .cancel {
 	border-bottom-right-radius: 5px;
 }
+
+.article-thumbnail img {
+	max-height: 220px;
+}
+
+.article-thumbnail {
+	min-height: 440px;
+}

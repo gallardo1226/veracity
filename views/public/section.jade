@@ -14,8 +14,14 @@ block content
 								.caption.col-lg-4
 									h4 #{featured.title}
 									p #{featured.subtitle}
+									p.byline By
+										case featuredauthors.length
+											when 1
+												| #{featuredauthors[0]}
+											default
+												| #{featuredauthors.split(', ')}
 									- var date = new Date(featured.update_time)
-									time.timeago(datetime=date.toISOString())
+									p=date.toDateString()
 				hr
 				.row
 					each article, i in articlelist
@@ -26,6 +32,12 @@ block content
 									.caption.col-xs-12
 										h4 #{article.title}
 										p #{article.subtitle}
+										p.byline By
+											case articleauthors[i].length
+												when 1
+													| #{articleauthors[i][0]}
+												default
+													| #{articleauthors[i].split(', ')}
 										- var date = new Date(article.update_time)
 										time.timeago(datetime=date.toISOString())
 			.col-xs-12.col-md-4
@@ -41,5 +53,11 @@ block content
 						.caption.col-xs-12
 							p #{sidebar.title}
 							p #{sidebar.subtitle}
+							p.byline By
+								case sidebarauthors.length
+									when 1
+										| #{sidebarauthors[0]}
+									default
+										| #{sidebarauthors.split(', ')}
 							- var date = new Date(sidebar.update_time)
 							time.timeago(datetime=date.toISOString())

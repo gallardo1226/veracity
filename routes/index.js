@@ -4,7 +4,36 @@ var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-		res.render('public/index', { title: 'Home' });
+	var db = req.db;
+	Article = db.model('Article');
+	Article.find({}, '_id section title subtitle authors update_time', { sort: { create_time: 1 } }, function(err, articles) {
+		if (err) return next(err);
+		var articlelist = [];
+		var articleauthors = [];
+		var i = 0;
+		var length = articles.length;
+
+		articles.forEach(function(article) {
+			article.getAuthors().exec(function (err, authors) {
+				if (err) return next(err);
+				var authorlist = [];
+				authors.forEach(function(author) {
+					authorlist.push(author.name.full);
+				});
+				articleauthors[i] = authorlist;
+				articlelist[i] = article;
+				i++;
+				if (i == length) {
+					res.render('public/index', {
+						title: 'Home',
+						'articlelist': articlelist.slice(3),
+						'articleauthors': articleauthors.slice(3),
+						'carousel': articlelist.slice(0, 3)
+					});
+				}
+			});
+		});
+	});
 });
 
 router.get('/about', function(req, res, next) {

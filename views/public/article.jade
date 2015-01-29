@@ -8,9 +8,9 @@ block content
 		p.col-sm-2.col-sm-offset-1.byline By
 			case authorlist.length
 				when 1
-					span=authorlist[0]
-				when 2
-					span=authorlist.split(', ')
+					| #{authorlist[0]}
+				default
+					| #{authorlist.split(', ')}
 	if img
 		.row
 			.col-sm-4.col-sm-offset-1
