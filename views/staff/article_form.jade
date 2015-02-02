@@ -23,7 +23,7 @@ block content
 						.col-sm-2
 							select.form-control(name="author")
 								each user, i in userlist
-									if (author == user._id)
+									if (author.toString() == user._id.toString())
 										option(selected, value=user._id)=user.name.full
 									else
 										option(value=user._id)=user.name.full

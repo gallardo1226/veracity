@@ -211,10 +211,46 @@ router.get('/dashboard', function(req, res, next) {
 		res.location("/staff").redirect("/staff");
 });
 
-router.get('/myarticles', function(req, res) {
+router.get('/allarticles', function(req, res, next) {
+	if (req.user) {
+		var db = req.db;
+		Article = db.model('Article');
+		Article.find({}, '_id section title subtitle authors update_time', { sort: { create_time: 1 } }, function(err, articles) {
+			if (err) return next(err);
+			var articlelist = [];
+			var articleauthors = [];
+			var i = 0;
+			var length = articles.length;
+
+			articles.forEach(function(article) {
+				article.getAuthors().exec(function (err, authors) {
+					if (err) return next(err);
+					var authorlist = [];
+					authors.forEach(function(author) {
+						authorlist.push(author.name.full);
+					});
+					articleauthors[i] = authorlist;
+					articlelist[i] = article;
+					i++;
+					if (i == length)
+						res.render('staff/all_articles', {
+							title: 'All Articles',
+							user: req.user,
+							loggedIn: true,
+							admin: req.user.admin,
+							'articlelist': articlelist,
+							'articleauthors': articleauthors
+						});
+				});
+			});
+		});
+	}
+});
+
+router.get('/myarticles', function(req, res, next) {
 	if (req.user) {
 		req.user.getArticles().exec(function (err, articles) {
-			if (err) return err;
+			if (err) return next(err);
 
 			res.render("staff/my_articles", {
 				title: "My Articles",

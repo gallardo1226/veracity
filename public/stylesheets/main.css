@@ -154,7 +154,7 @@ body:before {
 }
 
 .article-tile {
-	min-height: 385px;
+	min-height: 420px;
 	position: relative;
 }
 
@@ -213,4 +213,14 @@ body:before {
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
- }
+}
+
+.switch-view {
+	margin-left: 15px;
+	font-size: 30px !important;
+	text-decoration: none !important;
+}
+
+.switch-view:hover {
+	text-decoration: none !important;
+}

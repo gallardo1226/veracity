@@ -2,11 +2,12 @@ extends ./layout
 
 block content
 	.row
-		h1.col-sm-8.col-sm-offset-1=title
+		h1.col-sm-6.col-sm-offset-1=title
+			a.switch-view.btn-link(href='allarticles') View all articles
 		#message
 	.row
 		if (articlelist.length)
-			each article in articlelist
+			each article, i in articlelist
 				.col-md-4.col-sm-6
 					.thumbnail.article-tile
 						include ../public/_article_card
