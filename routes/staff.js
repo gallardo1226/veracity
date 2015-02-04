@@ -263,6 +263,33 @@ router.get('/myarticles', function(req, res, next) {
 	} else
 		res.location("/staff").redirect("/staff");
 });
+
+router.get('/preview/:id', function(req, res, next) {
+	if (req.user) {
+		var db = req.db;
+		Article = db.model('Article');
+		Article.findById(req.param('id'), function(err, article) {
+			article.getAuthors().exec(function (err, authors) {
+				if (err) return err;
+				var authorlist = [];
+				authors.forEach(function(author) {
+					authorlist.push(author.name.full);
+				});
+				res.render('staff/preview', {
+					user: req.user,
+					loggedIn: true,
+					admin: req.user.admin,
+					title: 'Preview: ' + article.title,
+					'authorlist': authorlist,
+					'article': article,
+					img : article.img.contentType
+				});
+			});
+		});
+	} else
+		res.location("/staff").redirect("/staff");
+});
+
 router.get('/forgot', function(req, res) {
 	res.render('staff/forgot', {
 		title: 'Request password reset',

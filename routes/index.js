@@ -119,7 +119,6 @@ router.get('/mag/:section/:id', function(req, res, next) {
 			authors.forEach(function(author) {
 				authorlist.push(author.name.full);
 			});
-			authorlist;
 			res.render('public/article', {
 				title: article.title,
 				'authorlist': authorlist,

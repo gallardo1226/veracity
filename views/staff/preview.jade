@@ -1,0 +1,25 @@
+extends ./layout
+
+block content
+	.row
+		h1.col-sm-8.col-sm-offset-1.storyTitle=title
+		.col-sm-2.pull-right
+			a.btn.btn-primary.btn-circle.btn-lg(href="/staff/editarticle/#{article._id}", title="Edit")
+				span.glyphicon.glyphicon-pencil
+		if article.subtitle
+			h2.col-sm-8.col-sm-offset-1.subhead
+				small=article.subtitle
+	.row
+		p.col-sm-2.col-sm-offset-1.byline By 
+			case authorlist.length
+				when 1
+					| #{authorlist[0]}
+				default
+					| #{authorlist.split(', ')}
+	if img
+		.row
+			.col-sm-4.col-sm-offset-1
+				img.img-responsive(src="/util/articleimage/#{article._id}")
+	br
+	.row
+		.col-sm-8.col-sm-offset-1.story!=article.body
