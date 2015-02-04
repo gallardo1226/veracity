@@ -1,0 +1,22 @@
+extends ./layout
+
+block content
+	.row
+		h1.col-sm-6.col-sm-offset-1=title
+			a.switch-view.btn-link(href='myarticles') View my articles
+		#message
+	.row
+		if (articlelist.length)
+			each article, i in articlelist
+				.col-md-4.col-sm-6
+					.thumbnail.article-tile
+						include ../public/_article_card
+						.btn-group.full-width.options(role="group")
+							a.btn.text-primary.edit(href="editarticle/#{article._id}") Edit
+							a.btn.text-warning.preview(href="preview/#{article._id}") Preview
+							button.btn.text-danger.delete(type="button") Delete
+						.btn-group.full-width.secondary(style="display:none", role="group")
+							button.btn.text-success.confirm(type="button", value=article._id) Confirm
+							button.btn.text-danger.cancel(type="button") Cancel
+		else
+			h2.col-sm-10.col-sm-offset-1 You have not uploaded any articles yet
