@@ -2,8 +2,10 @@ $(document).ready(function() {
 
 	tinymce.init({
 		selector: "textarea",
-		menubar: false,
+		plugins: "link image",
+		toolbar: "undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
 		statusbar: false,
+		menubar: false,
 		height: 400
 	});
 
