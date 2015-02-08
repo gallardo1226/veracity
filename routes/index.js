@@ -44,6 +44,10 @@ router.get('/contact', function(req, res, next) {
 	res.render('public/contact', { title: 'Contact Us' });
 });
 
+router.get('/author', function(req, res, next) {
+	res.render('public/author', { title: 'Author Page' });
+});
+
 router.get('/mag/:section', function(req, res, next) {
 	var db = req.db;
 	Article = db.model('Article');

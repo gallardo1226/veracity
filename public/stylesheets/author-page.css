@@ -1,0 +1,19 @@
+#author {
+	padding-top: 30px;
+	padding-bottom: 15px;
+	padding-left: 30px;
+}
+#author-articles h3 {
+	padding-left: 17px;
+}
+#author-articles {
+	padding-top: 10px;
+}
+#author-articles h3 {
+	padding-bottom: 10px;
+}
+#author-articles .article-thumbnail {
+	float: left;
+	min-height: 300px !important;
+	padding-bottom: 20px;
+}
