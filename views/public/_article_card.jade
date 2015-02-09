@@ -14,6 +14,7 @@ a(href=link)
 				when 1
 					| #{articleauthors[i][0]}
 				default
-					| #{articleauthors[i].split(', ')}
+					- var last = authorlist.pop()
+					| #{authorlist.split(', ')} &amp; #{last}
 	- var date = new Date(article.update_time)
 	p=date.toDateString()

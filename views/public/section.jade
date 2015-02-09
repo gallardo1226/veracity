@@ -8,10 +8,9 @@ block content
 			.col-xs-12.col-md-8
 				.row
 					.col-md-12.featured
-						a(href="#{urlsection}/#{featured._id}") 
-							.thumbnail
-								img.img-responsive.img-rounded(src="/util/articleimage/#{featured._id}")
-								.caption
+						a(href="#{urlsection}/#{featured._id}")
+							img.col-lg-8.img-responsive.img-rounded(src="/util/articleimage/#{featured._id}")
+							.caption.col-lg-4.text-muted
 									h4 #{featured.title}
 									p #{featured.subtitle}
 									p.byline By 
@@ -28,8 +27,8 @@ block content
 						.col-xs-6.col-sm-6.col-md-6.article-thumbnail
 							a(href="#{urlsection}/#{article._id}")
 								.thumbnail 
-									img.img-responsive.img-rounded(src="/util/articleimage/#{article._id}")
-									.caption
+									img.col-sm-12.img-responsive.img-rounded(src="/util/articleimage/#{article._id}")
+									.caption.col-sm-12.text-muted
 										h4 #{article.title}
 										p #{article.subtitle}
 										p.byline By 
@@ -41,26 +40,26 @@ block content
 										- var date = new Date(article.update_time)
 										p=date.toDateString()
 			.col-xs-12.col-md-4
-				case title
-					when 'Journey'
-						img.img-responsive.img-rounded(src="/images/bloom.png", alt="Bloom")
-					when 'Campus'
-						img.img-responsive.img-rounded(src="/images/grayareas.png", alt="Gray Areas")
-					when 'Life & Culture'
-						img.img-responsive.img-rounded(src="/images/verainthecity.png", alt="Vera in the City")
-				a(href="#{urlsection}/#{sidebar._id}") 
-					.thumbnail
-						.caption.col-xs-12
-							p=sidebar.title
-							p=sidebar.subtitle
-							p.byline By 
-								case sidebarauthors.length
-									when 1
-										| #{sidebarauthors[0]}
-									default
-										| #{sidebarauthors.split(', ')}
-							- var date = new Date(sidebar.update_time)
-							p=date.toDateString()
-							.sidebar-blurb!=sidebar.body
-							br
-							p.text-primary Click to read more
+				a(href="#{urlsection}/#{sidebar._id}")
+					case title
+						when 'Journey'
+							img.img-responsive.img-rounded(src="/images/bloom.png", alt="Bloom")
+						when 'Campus'
+							img.img-responsive.img-rounded(src="/images/grayareas.png", alt="Gray Areas")
+						when 'Life & Culture'
+							img.img-responsive.img-rounded(src="/images/verainthecity.png", alt="Vera in the City") 
+				.thumbnail
+					.caption.col-xs-12
+						p=sidebar.title
+						p=sidebar.subtitle
+						p.byline By 
+							case sidebarauthors.length
+								when 1
+									| #{sidebarauthors[0]}
+								default
+									| #{sidebarauthors.split(', ')}
+						- var date = new Date(sidebar.update_time)
+						p=date.toDateString()
+						.sidebar-blurb!=sidebar.body
+						br
+						a.btn-link(href="#{urlsection}/#{sidebar._id}") Click to read more

@@ -20,6 +20,7 @@ block content
 				when 1
 					| #{authorlist[0]}
 				default
-					| #{authorlist.split(', ')}
+					- var last = authorlist.pop()
+					| #{authorlist.split(', ')} &amp; #{last}
 	.row
 		.col-sm-8.col-sm-offset-1.story!=article.body
