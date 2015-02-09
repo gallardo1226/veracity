@@ -74,6 +74,18 @@ header {
 	padding-right: 30px;
 	padding-left: 30px;  
 }
+.navbar-default .navbar-nav > li > a:hover {
+	color: #5fc2b0;
+}
+.navbar-default .navbar-nav > li:first-child > a:hover {
+	color: #fac411 !important;
+}
+.navbar-default .navbar-nav > li:last-child > a:hover {
+	color: #A086C5 !important;
+}
+#topNav .navbar-default .navbar-right > li > a:hover{
+	color: #3399f3 !important;
+}
 
 .navbar-brand {padding:0 !important;}
 
