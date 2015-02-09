@@ -8,43 +8,9 @@ block content
 	h2 Staff
 	br
 	#staff-thumbnails
-		.col-xs-6.col-sm-4.col-md-3
-			img.staff-pic(src="/images/NoahConley.png", alt="...")
-			p
-				b Staff Name | Position
-			p.staff-bio brief bio blah blah blah 
-		.col-xs-6.col-sm-4.col-md-3
-			img.staff-pic(src="/images/NoahConley.png", alt="...")
-			p
-				b Staff Name | Position
-			p.staff-bio brief bio blah blah blah 
-		.col-xs-6.col-sm-4.col-md-3
-			img.staff-pic(src="/images/NoahConley.png", alt="...")
-			p
-				b Staff Name | Position
-			p.staff-bio brief bio blah blah blah 
-		.col-xs-6.col-sm-4.col-md-3
-			img.staff-pic(src="/images/NoahConley.png", alt="...")
-			p
-				b Staff Name | Position
-			p.staff-bio brief bio blah blah blah
-		.col-xs-6.col-sm-4.col-md-3
-			img.staff-pic(src="/images/NoahConley.png", alt="...")
-			p
-				b Staff Name | Position
-			p.staff-bio brief bio blah blah blah
-		.col-xs-6.col-sm-4.col-md-3
-			img.staff-pic(src="/images/NoahConley.png", alt="...")
-			p
-				b Staff Name | Position
-			p.staff-bio brief bio blah blah blah
-		.col-xs-6.col-sm-4.col-md-3
-			img.staff-pic(src="/images/NoahConley.png", alt="...")
-			p
-				b Staff Name | Position
-			p.staff-bio brief bio blah blah blah
-		.col-xs-6.col-sm-4.col-md-3
-			img.staff-pic(src="/images/NoahConley.png", alt="...")
-			p
-				b Staff Name | Position
-			p.staff-bio brief bio blah blah blah
+		each user in userlist
+			.col-xs-6.col-sm-4.col-md-3.text-center
+				a(href="author/#{user._id}")
+					img.staff-pic.img-circle(src="/util/image/#{user._id}", alt=user.name.full)
+					p.text-muted
+						b #{user.name.full.toUpperCase()} | #{user.role.toUpperCase()}

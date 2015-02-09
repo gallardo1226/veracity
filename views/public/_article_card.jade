@@ -1,4 +1,5 @@
-a(href="/mag/#{article.section}/#{article._id}") 
+- var link = loggedIn ? "preview/" + article._id : "/mag/" + article.section + "/" + article._id
+a(href=link)
 	.article-img.text-center
 		img.img-responsive.img-rounded(src="/util/articleimage/#{article._id}", alt="#{article.title}")
 .caption
