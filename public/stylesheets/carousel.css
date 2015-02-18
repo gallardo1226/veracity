@@ -7,6 +7,11 @@
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
   z-index: 10;
+  background-color: black; 
+  height: auto;
+  background-color:rgba(192,192,192, 0.6);
+  width: 100% !important;
+  margin-left: -188px;
 }
 /* Declare heights because of positioning of img element */
 .carousel .item {
@@ -21,6 +26,8 @@
   height: 500px;
 }
 .carousel-inner p {
-  background: #555;
-  border-radius: 10px;
+ /* background: #555;
+  border-radius: 10px;*/
+  font-size: 20px;
+  color: black;
 }
