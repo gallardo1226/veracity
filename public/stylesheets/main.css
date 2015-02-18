@@ -161,11 +161,11 @@ body:before {
 	width:100%;
 	height:200px;
 	max-height:200px;
-  overflow:hidden;
-  border-radius:5px;
+  	overflow:hidden;
+  	border-radius:5px;
 }
 
-.article-tile {
+.article-title {
 	min-height: 420px;
 	position: relative;
 }
@@ -207,13 +207,13 @@ body:before {
 	border-bottom-left-radius: 5px;
 }
 
-.full-width .delete,m
+.full-width .delete,
 .full-width .cancel {
 	border-bottom-right-radius: 5px;
 }
 
 .article-thumbnail img {
-	max-height: 220px;
+	height: 200px !important;
 }
 
 .article-thumbnail {
