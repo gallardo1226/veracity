@@ -1,34 +1,25 @@
 extends ./index.jade
 block content
-	link(rel='stylesheet', href='/stylesheets/author-page.css')
 	#author.col-xs-12.col-sm-4.col-md-4
-		img.author-pic.img-rounded.img-responsive(src="/images/NoahConley.png", alt="...")
-		h3 Staff Name | Position
-		p.author-bio bio blah blah blah 
+		.col-sm-10.col-sm-offset-1.text-center
+			img.author-pic.img-rounded.img-responsive(src="/util/image/#{author.id}", alt=author.name.full)
+		.col-sm-8
+			h3 #{author.name.full}
+				br
+				| #{author.role}
+		if author.twitter
+			.col-sm-2
+				a.btn.btn-info.btn-circle#twitter(target='_blank', href='http://twitter.com/#{author.twitter.slice(1)}')
+					i.fa.fa-twitter
+		.col-sm-12
+			p.author-bio=author.bio 
 	#author-articles
 		.col-xs-12.col-sm-8.col-md-8
 			h3 Articles
-			.col-xs-12.col-sm-6.col-md-6.article-thumbnail
-				img.img-responsive.img-rounded(src="/images/300x200.jpg", alt="...")
-				.caption
-					h4 Article title
-					p Article subttle 
-					p.byline By You
-			.col-xs-12.col-sm-6.col-md-6.article-thumbnail
-				img.img-responsive.img-rounded(src="/images/300x200.jpg", alt="...")
-				.caption
-					h4 Article title
-					p Article subttle 
-					p.byline By You
-			.col-xs-12.col-sm-6.col-md-6.article-thumbnail
-				img.img-responsive.img-rounded(src="/images/300x200.jpg", alt="...")
-				.caption
-					h4 Article title
-					p Article subttle 
-					p.byline By You
-			.col-xs-12.col-sm-6.col-md-6.article-thumbnail
-				img.img-responsive.img-rounded(src="/images/300x200.jpg", alt="...")
-				.caption
-					h4 Article title
-					p Article subttle 
-					p.byline By You
+			if articlelist.length
+				each article in articlelist
+					.col-xs-12.col-sm-6.col-md-6
+						.thumbnail.article-tile
+							include ../public/_article_card
+			else
+				p #{author.name.first} has not published any articles

@@ -28,6 +28,10 @@ footer {
 	padding-top: 7px;
 }
 
+.preview-btns a {
+    margin: auto 2px;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;

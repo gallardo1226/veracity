@@ -1,4 +1,5 @@
-a(href="/mag/#{article.section}/#{article._id}") 
+- var link = loggedIn ? "preview/" + article._id : "/mag/" + article.section + "/" + article._id
+a(href=link)
 	.article-img.text-center
 		img.img-responsive.img-rounded(src="/util/articleimage/#{article._id}", alt="#{article.title}")
 .caption
@@ -13,6 +14,7 @@ a(href="/mag/#{article.section}/#{article._id}")
 				when 1
 					| #{articleauthors[i][0]}
 				default
-					| #{articleauthors[i].split(', ')}
+					- var last = authorlist.pop()
+					| #{authorlist.split(', ')} &amp; #{last}
 	- var date = new Date(article.update_time)
 	p=date.toDateString()

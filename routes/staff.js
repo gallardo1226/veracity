@@ -244,7 +244,8 @@ router.get('/allarticles', function(req, res, next) {
 				});
 			});
 		});
-	}
+	} else
+		res.location("/staff").redirect("/staff");
 });
 
 router.get('/myarticles', function(req, res, next) {

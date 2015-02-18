@@ -130,7 +130,7 @@ router.post('/updateinfo', function(req, res) {
 	user.save(function(err, user) {
 		if (err) return next(err);
 		else
-			res.location('dashboard').redirect('dashboard');
+			res.location('/staff/dashboard').redirect('/staff/dashboard');
 	});
 });
 

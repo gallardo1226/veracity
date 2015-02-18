@@ -1,5 +1,6 @@
 extends index.jade
 block content
+	br
 	if img
 		.row
 			.col-sm-4.col-sm-offset-1
@@ -14,7 +15,7 @@ block content
 				when 1
 					| #{authorlist[0]}
 				default
-					| #{authorlist.split(', ')}
-	br
+					- var last = authorlist.pop()
+					| #{authorlist.split(', ')} &amp; #{last}
 	.row
 		.col-sm-8.col-sm-offset-1.story!=article.body

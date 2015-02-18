@@ -37,15 +37,43 @@ router.get('/', function(req, res) {
 });
 
 router.get('/about', function(req, res, next) {
-	res.render('public/about', { title: 'About Us' });
+	var db = req.db;
+	User = db.model('User');
+	User.find({}, '_id name role', {sort: {'name.last':1}}, function(err, users) {
+    if (err) return next(err);
+    var userMap = {};
+
+    users.forEach(function(user) {
+      userMap[user._id] = user;
+    });
+
+		res.render('public/about', {
+			title: 'About Us',
+			'userlist': userMap
+		});
+	});
+});
+
+router.get('/author/:id', function(req, res, next) {
+	var db = req.db;
+	User = db.model('User');
+	User.findById(req.param('id'), '-img', function(err, user) {
+		if (err) next(err);
+
+		user.getArticles().exec(function (err, articles) {
+			if (err) return next(err);
+
+			res.render('public/author', {
+				title: user.name.full,
+				author: user,
+				'articlelist': articles
+			});
+		});
+	});
 });
 
 router.get('/contact', function(req, res, next) {
 	res.render('public/contact', { title: 'Contact Us' });
-});
-
-router.get('/author', function(req, res, next) {
-	res.render('public/author', { title: 'Author Page' });
 });
 
 router.get('/mag/:section', function(req, res, next) {
@@ -89,7 +117,6 @@ router.get('/mag/:section', function(req, res, next) {
 				i++;
 			});
 		});
-		console.log(subsection);
 		Article.findOne({ section: subsection }, '_id title subtitle authors update_time body', function(err, sidebar) {
 			if (err) next(err);
 			sidebar.getAuthors().exec(function (err, authors) {
