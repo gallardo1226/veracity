@@ -1,7 +1,9 @@
 #author {
 	padding-top: 30px;
-	padding-bottom: 15px;
-	padding-left: 30px;
+	padding-bottom: 15px;	
+}
+#author img {
+	margin-left: -25px;
 }
 #author-articles h3 {
 	padding-left: 17px;
