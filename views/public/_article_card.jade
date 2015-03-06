@@ -2,7 +2,15 @@
 a(href=link)
 	.article-img.text-center
 		img.img-responsive.img-rounded(src="/util/articleimage/#{article._id}", alt="#{article.title}")
-.caption
+- var sect = article.section.toLowerCase().replace(' & ', 'and');
+case article.section
+	when 'Bloom'
+		- sect = 'journey'
+	when 'Gray Areas'
+		- sect = 'lifeandculture'
+	when 'Vera in the City'
+		- sect = 'campus'
+.caption(class=sect)
 	h6=article.section
 	h4 #{article.title} 
 		if (article.status == 'draft')

@@ -6,7 +6,7 @@ var fs = require('fs');
 router.get('/', function(req, res) {
 	var db = req.db;
 	Article = db.model('Article');
-	Article.find({status: 'publish'}, '_id section title subtitle authors update_time', { sort: { create_time: 1 } }, function(err, articles) {
+	Article.find({status: 'publish'}, '-body -tags -img -create_time', { sort: { create_time: 1 } }, function(err, articles) {
 		if (err) return next(err);
 		var articlelist = [];
 		var articleauthors = [];
@@ -145,8 +145,9 @@ router.get('/mag/:section/:id', function(req, res, next) {
 	var db = req.db;
 	Article = db.model('Article');
 	Article.findById(req.param('id'), function(err, article) {
+		if (err) next(err);
 		article.getAuthors().exec(function (err, authors) {
-			if (err) return err;
+			if (err) next(err);
 			var authorlist = [];
 			authors.forEach(function(author) {
 				authorlist.push(author.name.full);
