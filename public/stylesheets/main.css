@@ -157,12 +157,26 @@ body:before {
 	opacity: 1;				
 }
 
+.img-articlepage {
+	height: 400px !important;
+	min-width: 600px !important;
+}
+
 .article-img {
 	width:100%;
 	height:200px;
 	max-height:200px;
   	overflow:hidden;
   	border-radius:5px;
+}
+
+.article-thumbnail img {
+	height: 230px !important;
+	width: 350px !important;
+}
+
+.article-thumbnail {
+	min-height: 440px;
 }
 
 .article-title {
@@ -210,14 +224,6 @@ body:before {
 .full-width .delete,
 .full-width .cancel {
 	border-bottom-right-radius: 5px;
-}
-
-.article-thumbnail img {
-	height: 200px !important;
-}
-
-.article-thumbnail {
-	min-height: 440px;
 }
 
 .sidebar-blurb {
