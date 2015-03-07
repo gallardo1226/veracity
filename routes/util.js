@@ -152,4 +152,25 @@ router.post('/changepassword', function(req, res, next) {
 	});
 });
 
+router.get('/featuredarticles', function(req, res, next) {
+  var db = req.db;
+  Article = db.model('Article');
+  Article.find({status: 'publish'}, 'title section update_time', { sort: { update_time: 1 }, limit: 3 }, function(err, articles) {
+    if (err) next(err);
+    res.render('public/_featured', { articles : articles });
+  });
+});
+
+router.get('/relatedarticles/:id', function(req, res, next) {
+  var db = req.db;
+  Article = db.model('Article');
+  Article.findById(req.param('id'), function(err, article) {
+    if (err) next(err);
+    Article.find({status: 'publish', tags: { $in: article.tags }, _id: { $ne: article._id }}, 'title section', { limit: 3 }, function(err, articles) {
+      if (err) next(err);
+      res.render('public/_related', { articles : articles });
+    });
+  });
+});
+
 module.exports = router;

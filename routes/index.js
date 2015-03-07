@@ -6,7 +6,7 @@ var fs = require('fs');
 router.get('/', function(req, res) {
 	var db = req.db;
 	Article = db.model('Article');
-	Article.find({}, '_id section title subtitle authors update_time', { sort: { create_time: 1 } }, function(err, articles) {
+	Article.find({status: 'publish'}, '-body -tags -img -create_time', { sort: { create_time: 1 } }, function(err, articles) {
 		if (err) return next(err);
 		var articlelist = [];
 		var articleauthors = [];
@@ -60,7 +60,7 @@ router.get('/author/:id', function(req, res, next) {
 	User.findById(req.param('id'), '-img', function(err, user) {
 		if (err) next(err);
 
-		user.getArticles().exec(function (err, articles) {
+		user.getArticles(false).exec(function (err, articles) {
 			if (err) return next(err);
 
 			res.render('public/author', {
@@ -98,7 +98,7 @@ router.get('/mag/:section', function(req, res, next) {
 		default:
 			return next();
 	}
-	Article.find({ section: section }, '_id title subtitle authors update_time', { sort: { create_time: 1 }}, function(err, articles) {
+	Article.find({ section: section, status: 'publish' }, '_id title subtitle authors update_time', { sort: { create_time: 1 }}, function(err, articles) {
 		if (err) return next(err);
 
 		var articlelist = [];
@@ -117,7 +117,7 @@ router.get('/mag/:section', function(req, res, next) {
 				i++;
 			});
 		});
-		Article.findOne({ section: subsection }, '_id title subtitle authors update_time body', function(err, sidebar) {
+		Article.findOne({ section: subsection, status: 'publish' }, '_id title subtitle authors update_time body', function(err, sidebar) {
 			if (err) next(err);
 			sidebar.getAuthors().exec(function (err, authors) {
 				if (err) return next(err);
@@ -145,8 +145,9 @@ router.get('/mag/:section/:id', function(req, res, next) {
 	var db = req.db;
 	Article = db.model('Article');
 	Article.findById(req.param('id'), function(err, article) {
+		if (err) next(err);
 		article.getAuthors().exec(function (err, authors) {
-			if (err) return err;
+			if (err) next(err);
 			var authorlist = [];
 			authors.forEach(function(author) {
 				authorlist.push(author.name.full);

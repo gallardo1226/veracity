@@ -22,8 +22,8 @@ $(document).ready(function() {
 			type: 'POST',
 			url: '/util/updaterole',
 			data: {
-				id : id,
-				role : role,
+				id: id,
+				role: role,
 			},
 			success: function(data) {
 				$('#message').append('<div class="alert alert-success" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
@@ -68,7 +68,7 @@ $(document).ready(function() {
 		$.ajax({
 			type: 'POST',
 			url: '/util/resetpassword',
-			data: {id:id},
+			data: { id: id },
 			success: function(data) {
 				$('#message').append('<div class="alert alert-success" role="alert">' + data).hide().slideDown().delay('3000').slideUp(function() {
 					$('.alert').remove();

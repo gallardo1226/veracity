@@ -1,21 +1,32 @@
 extends index.jade
 block content
 	br
+<<<<<<< HEAD
 	if img
 		.row
 			.col-sm-4.col-sm-offset-1
 				img.img-articlepage.img-responsive(src="/util/articleimage/#{article._id}")
+=======
+>>>>>>> cd8c4596df11b38387ebd21d0c662db824ae4591
 	.row
-		h1.col-sm-8.col-sm-offset-1.storyTitle=title
-		h2.col-sm-8.col-sm-offset-1.subhead
-			small=article.subtitle
-	.row
-		p.col-sm-2.col-sm-offset-1.byline By 
-			case authorlist.length
-				when 1
-					| #{authorlist[0]}
-				default
-					- var last = authorlist.pop()
-					| #{authorlist.split(', ')} &amp; #{last}
-	.row
-		.col-sm-8.col-sm-offset-1.story!=article.body
+		.col-md-9
+			if img
+				.row
+					.col-sm-8.col-sm-offset-1
+						img.img-responsive(src="/util/articleimage/#{article._id}")
+			.row
+				h1.col-sm-11.col-sm-offset-1.storyTitle=title
+				h2.col-sm-11.col-sm-offset-1.subhead
+					small=article.subtitle
+				p.hidden#id=article._id
+			.row
+				p.col-sm-4.col-sm-offset-1.byline By 
+					case authorlist.length
+						when 1
+							| #{authorlist[0]}
+						default
+							- var last = authorlist.pop()
+							| #{authorlist.join(', ')} &amp; #{last}
+			.row
+				.col-sm-11.col-sm-offset-1.story!=article.body
+		.col-md-3#right

@@ -45,8 +45,11 @@ db.once('open', function() {
 
     userSchema.plugin(archiver);
 
-    userSchema.methods.getArticles = function() {
-        return mongoose.model('Article').find({ _id: {$in: this.articles }}, '_id title subtitle section update_time status authors');
+    userSchema.methods.getArticles = function(pub) {
+        if (typeof pub == 'undefined') pub = true;
+        if (pub)
+            return mongoose.model('Article').find({ _id: {$in: this.articles }}, '_id title subtitle section update_time status authors');
+        return mongoose.model('Article').find({ _id: {$in: this.articles }, status: 'publish'}, '_id title subtitle section update_time status authors');
     };
 
     userSchema.virtual('name.full').get(function() {
