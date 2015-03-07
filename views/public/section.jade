@@ -9,7 +9,7 @@ block content
 				.row
 					.col-md-12.featured
 						a(href="#{urlsection}/#{featured._id}")
-							img.col-lg-8.img-responsive.img-rounded(src="/util/articleimage/#{featured._id}")
+							img.col-lg-8.img-responsive(src="/util/articleimage/#{featured._id}")
 							.caption.col-lg-4.text-muted
 									h4 #{featured.title}
 									p #{featured.subtitle}
@@ -24,10 +24,10 @@ block content
 				hr
 				.row
 					each article, i in articlelist
-						.col-xs-6.col-sm-6.col-md-6.article-thumbnail
+						.col-xs-12.col-sm-6.col-md-6.article-thumbnail
 							a(href="#{urlsection}/#{article._id}")
 								.thumbnail 
-									img.col-sm-12.img-responsive.img-rounded(src="/util/articleimage/#{article._id}")
+									img.col-sm-12.img-responsive(src="/util/articleimage/#{article._id}")
 									.caption.col-sm-12.text-muted
 										h4 #{article.title}
 										p #{article.subtitle}
@@ -43,11 +43,11 @@ block content
 				a(href="#{urlsection}/#{sidebar._id}")
 					case title
 						when 'Journey'
-							img.img-responsive.img-rounded(src="/images/bloom.png", alt="Bloom")
+							img.img-responsive(src="/images/bloom.png", alt="Bloom")
 						when 'Campus'
-							img.img-responsive.img-rounded(src="/images/grayareas.png", alt="Gray Areas")
+							img.img-responsive(src="/images/grayareas.png", alt="Gray Areas")
 						when 'Life & Culture'
-							img.img-responsive.img-rounded(src="/images/verainthecity.png", alt="Vera in the City") 
+							img.img-responsive(src="/images/verainthecity.png", alt="Vera in the City") 
 				.thumbnail
 					.caption.col-xs-12
 						p=sidebar.title

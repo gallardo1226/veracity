@@ -5,11 +5,15 @@ block content
 	h1 About Us
 	p Veracity Magazine strives to be a relevant publication that represents the college generation of Christian viewpoints, challenging them to rethink faith in life and culture, build campus-wide community, and serve as a resource for those seeking to learn more about the Christian faith. Above all, we recognize that a personal relationship with Jesus Christ is the foremost motivating foundation for all dialogue.
 	hr
+	h1 Contact Us
+	p To get involved with Veracity, share your thoughts, or otherwise reach out to our staff, please email 
+		a(href="mailto:nuveracity@gmail.com") us!
+	hr
 	h2 Staff
 	br
 	#staff-thumbnails
 		each user in userlist
-			.col-xs-6.col-sm-4.col-md-3.text-center
+			.col-xs-6.col-sm-4.col-md-3.text-center.staff-thumbnail
 				a(href="author/#{user._id}")
 					img.staff-pic.img-circle(src="/util/image/#{user._id}", alt=user.name.full)
 					p.text-muted

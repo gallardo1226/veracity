@@ -40,9 +40,21 @@ header {
 }
 
 #stories .thumbnail {
-	padding-top: 10px;
 	border: hidden;
 	background-collapse: transparent !important;
+	margin: 0 auto;
+	min-height: 440px;
+	width: 320px !important;
+}
+#stories .thumbnail img {
+	height: 180px !important;
+	width: 300px !important;
+	padding: 0px;
+	margin: 0px;
+}
+#stories .thumbnail .caption {
+	padding: 3px;
+	margin: 0px;
 }
 
 #topNav ul li {
@@ -78,14 +90,23 @@ header {
 .journey:hover {
 	color: #fac411 !important;
 	text-decoration: none !important;
+	-webkit-transition: color ease-in-out 0.2s;
+	-o-transition: color ease-in-out 0.2s;
+	transition: color ease-in-out 0.2s;
 }
 .lifeandculture:hover {
 	color: #5fc2b0 !important;
 	text-decoration: none !important;
+	-webkit-transition: color ease-in-out 0.2s;
+	-o-transition: color ease-in-out 0.2s;
+	transition: color ease-in-out 0.2s;
 }
 .campus:hover {
 	color: #A086C5 !important;
 	text-decoration: none !important;
+	-webkit-transition: color ease-in-out 0.2s;
+	-o-transition: color ease-in-out 0.2s;
+	transition: color ease-in-out 0.2s;
 }
 
 .navbar-brand {padding:0 !important;}
@@ -161,7 +182,7 @@ body:before {
 
 .img-articlepage {
 	height: 400px !important;
-	min-width: 600px !important;
+	min-width: 640px !important;
 }
 
 .article-img {
@@ -173,12 +194,13 @@ body:before {
 }
 
 .article-thumbnail img {
-	height: 230px !important;
-	width: 350px !important;
+	height: 200px !important;
+	width: 320px !important;
 }
 
 .article-thumbnail {
 	min-height: 440px;
+	width: 320px !important;
 }
 
 .article-title {
@@ -229,7 +251,7 @@ body:before {
 }
 
 .sidebar-blurb {
-	max-height: 300px;
+  max-height: 300px;
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -244,4 +266,8 @@ body:before {
 .switch-view:hover,
 #staff-thumbnails a:hover {
 	text-decoration: none !important;
+}
+.staff-thumbnail {
+	height: 250px !important;
+	padding: 10px 0px; 
 }

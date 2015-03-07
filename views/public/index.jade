@@ -35,7 +35,7 @@ block content
 	#stories
 		.row
 			each article, i in articlelist 
-				.col-xs-6.col-sm-6.col-md-4
+				.col-xs-12.col-sm-6.col-md-4
 					.thumbnail.article-thumbnail
 						a(href="/mag/#{article.section}/#{article._id}") 
 							img.img-responsive.img-rounded(src="/util/articleimage/#{article._id}", alt=article.title)

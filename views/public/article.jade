@@ -1,19 +1,12 @@
 extends index.jade
 block content
 	br
-<<<<<<< HEAD
-	if img
-		.row
-			.col-sm-4.col-sm-offset-1
-				img.img-articlepage.img-responsive(src="/util/articleimage/#{article._id}")
-=======
->>>>>>> cd8c4596df11b38387ebd21d0c662db824ae4591
 	.row
 		.col-md-9
 			if img
 				.row
 					.col-sm-8.col-sm-offset-1
-						img.img-responsive(src="/util/articleimage/#{article._id}")
+						img.img-responsive.img-articlepage(src="/util/articleimage/#{article._id}")
 			.row
 				h1.col-sm-11.col-sm-offset-1.storyTitle=title
 				h2.col-sm-11.col-sm-offset-1.subhead
