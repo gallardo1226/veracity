@@ -13,7 +13,7 @@ function loadLatest() {
 }
 
 function loadRelated() {
-	var id = $('#id').text();
+	id = $('#id').text();
 	$.ajax({
 		url: '/util/relatedarticles/' + id,
 		success: function(data) {

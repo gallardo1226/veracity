@@ -44,8 +44,8 @@ Thumbs.db
 
 # Node Specific #
 #################
-node_modules/
-
+node_modules
+grunt
 pids
 logs
 results
